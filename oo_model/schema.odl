@@ -1,0 +1,73 @@
+// ============================================================================
+// FILE: oo_model/schema.odl
+// MỤC ĐÍCH: Lược đồ CSDL Hướng đối tượng viết bằng Ngôn ngữ định nghĩa đối tượng
+//           (Object Definition Language - ODL) chuẩn ODMG 3.0.
+//           Bao gồm 6 lớp, quan hệ nghịch đảo (inverse), tập hợp (set, list)
+//           và khai báo phương thức.
+// PHỤ TRÁCH: TV2 (Review: TV1).
+// ============================================================================
+
+module SocialLearningNetwork {
+
+    interface NguoiDung (extent dsNguoiDung key user_id) {
+        attribute integer user_id;
+        attribute string  full_name;
+        attribute string  email;
+
+        // Quan hệ đối xứng kết bạn và quan hệ nghịch đảo
+        relationship set<NguoiDung> dsBanBe inverse NguoiDung::dsBanBe;
+        relationship set<BaiDang>   dsBaiDaDang inverse BaiDang::tacGia;
+        relationship set<BinhLuan>  dsBinhLuan inverse BinhLuan::tacGia;
+
+        // Phương thức đối tượng
+        integer soBanChung(in NguoiDung other);
+    };
+
+    interface NhomHocTap (extent dsNhomHocTap key group_id) {
+        attribute integer group_id;
+        attribute string  name;
+        attribute string  topic;
+        attribute boolean is_private;
+
+        relationship NguoiDung chuNhom;
+        relationship set<BaiDang> dsBaiDang inverse BaiDang::thuocNhom;
+    };
+
+    // Lớp cha Bài Đăng
+    interface BaiDang (extent dsBaiDang key post_id) {
+        attribute integer   post_id;
+        attribute string    title;
+        attribute string    content;
+        attribute timestamp created_at;
+
+        relationship NhomHocTap     thuocNhom inverse NhomHocTap::dsBaiDang;
+        relationship NguoiDung      tacGia inverse NguoiDung::dsBaiDaDang;
+        relationship list<BinhLuan> dsBinhLuan inverse BinhLuan::thuocBaiDang;
+
+        integer soBinhLuan();
+    };
+
+    // Hai lớp con kế thừa từ BaiDang (Chuyên biệt hóa)
+    interface BaiThaoLuan : BaiDang {
+        attribute string poll_question;
+    };
+
+    interface BaiTaiLieu : BaiDang {
+        attribute string file_format;
+        attribute integer file_size_kb;
+    };
+
+    // Lớp Bình Luận (Cấu trúc cây đệ quy)
+    interface BinhLuan (extent dsBinhLuan key comment_id) {
+        attribute integer   comment_id;
+        attribute string    content;
+        attribute timestamp created_at;
+
+        relationship BaiDang       thuocBaiDang inverse BaiDang::dsBinhLuan;
+        relationship NguoiDung      tacGia inverse NguoiDung::dsBinhLuan;
+        relationship BinhLuan       binhLuanCha inverse BinhLuan::dsBinhLuanCon;
+        relationship list<BinhLuan> dsBinhLuanCon inverse BinhLuan::binhLuanCha;
+
+        integer doSau();
+    };
+};

@@ -1,0 +1,29 @@
+<mxfile host="app.diagrams.net" modified="2026-10-06T00:00:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="EER_De_Tai_17" name="EER Diagram - Mạng xã hội học tập">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- 
+          TODO: TV1 sử dụng draw.io để thiết kế mô hình EER hoàn chỉnh:
+          1. Thực thể NGUOI_DUNG (user_id, full_name, email, friend_count)
+          2. Quan hệ đệ quy vô hướng: KET_BAN (user_a, user_b, since)
+          3. Quan hệ đệ quy có hướng: THEO_DOI (follower, followee)
+          4. Thực thể NHOM_HOC_TAP (group_id, name, topic, is_private)
+          5. Mối kết hợp THAM_GIA (role: owner/mod/member)
+          6. Chuyên biệt hóa BAI_DANG -> BAI_THAO_LUAN, BAI_TAI_LIEU (Disjoint, Total)
+          7. Thực thể BINH_LUAN với quan hệ đệ quy PHAN_CAP_BINH_LUAN (parent_id)
+        -->
+        <mxCell id="ent_user" value="NGUOI_DUNG" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="120" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ent_post" value="BAI_DANG" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="440" y="160" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_comment" value="BINH_LUAN&#xa;(Đệ quy)" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="450" y="290" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

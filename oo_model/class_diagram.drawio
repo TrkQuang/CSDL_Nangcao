@@ -1,0 +1,26 @@
+<mxfile host="app.diagrams.net" modified="2026-10-06T00:00:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="OO_Class_Diagram" name="6 Lớp Đối Tượng - Đề Tài 17">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <!-- 
+          Sơ đồ 6 lớp đối tượng:
+          1. NguoiDung
+          2. NhomHocTap
+          3. BaiDang (Lớp cha)
+          4. BaiThaoLuan (Kế thừa BaiDang)
+          5. BaiTaiLieu (Kế thừa BaiDang)
+          6. BinhLuan
+          Kèm OID, thuộc tính tập hợp (set, list), quan hệ nghịch đảo (inverse) và phương thức (methods).
+        -->
+        <mxCell id="cls_user" value="NguoiDung&#xa;+ user_id: int&#xa;+ full_name: string&#xa;+ email: string&#xa;+ dsBanBe: set&lt;NguoiDung&gt;&#xa;+ soBanChung(other): int" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="200" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="cls_post" value="BaiDang (Abstract)&#xa;+ post_id: int&#xa;+ title: string&#xa;+ content: string&#xa;+ tacGia: NguoiDung&#xa;+ dsBinhLuan: list&lt;BinhLuan&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="200" height="130" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,5 @@
+experiment_id,target_model,query_code,dataset_size,has_index,execution_time_ms,planning_time_ms,shared_hit_blocks,shared_read_blocks,notes
+EXP-001,Adjacency List,Q2_Subtree,1000,true,1.25,0.12,120,0,WITH RECURSIVE CTE Scan
+EXP-002,Path Enumeration,Q2_Subtree,1000,true,0.45,0.08,25,0,ltree <@ GiST Index Scan
+EXP-003,Nested Set,Q2_Subtree,1000,true,0.35,0.06,15,0,BETWEEN Index Only Scan
+EXP-004,Closure Table,Q2_Subtree,1000,true,0.30,0.05,12,0,Single JOIN Index Scan
