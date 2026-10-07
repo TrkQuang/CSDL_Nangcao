@@ -130,13 +130,15 @@ CSDL_NC/
 
 ## 3. Phân Công Trách Nhiệm Nhóm (5 Thành Viên)
 
+> Xem chi tiết danh sách file, công việc cụ thể và ví dụ mẫu cho từng người tại: 👉 [Phutrach.md](file:///c:/Users/shuut/Documents/CSDL_NC/Phutrach.md)
+
 | Thành viên | Vai trò | Phụ trách chính & Đầu ra bắt buộc | Hạng mục hỗ trợ / Review |
 | :--- | :--- | :--- | :--- |
-| **TV1** | Nhóm trưởng; Phân tích & Chuẩn hóa | - Quy tắc nghiệp vụ BR1–BR10<br>- Sơ đồ EER Diagram<br>- FD, bao đóng, khóa, phủ tối tiểu, 3NF/BCNF, 4NF<br>- Tổng hợp báo cáo, slide và điều phối chung | Hỗ trợ: TV2, TV3<br>Review: Toàn bộ |
-| **TV2** | Dữ liệu phân cấp; Mô hình đối tượng | - 4 mô hình cây (Adjacency List, ltree, Nested Set, Closure Table)<br>- CRUD và bộ 10 truy vấn chuẩn Q1–Q10<br>- Thiết kế 6 lớp đối tượng, lược đồ ODL, truy vấn OQL và ánh xạ JPQL | Hỗ trợ: TV5<br>Review: TV3 |
-| **TV3** | SQL nâng cao, Đệ quy & Giao dịch | - DDL schema.sql và ràng buộc<br>- SQL nâng cao Q1–Q12 (Trigger, Procedure, Function, Dynamic SQL, Embedded)<br>- WITH RECURSIVE (R1–R4)<br>- Kịch bản giao dịch T1–T3 | Hỗ trợ: TV4<br>Review: TV1 |
-| **TV4** | Neo4j/Cypher; Thử tải đồng thời | - Khởi tạo Neo4j, nạp dữ liệu đồ thị<br>- Viết câu truy vấn Cypher đối chiếu với PostgreSQL<br>- Chạy thử tải đồng thời bằng pgbench, đo lường Deadlock và thông lượng | Hỗ trợ: TV3, TV5<br>Review: TV2 |
-| **TV5** | Dữ liệu, Chỉ mục & Benchmark | - Bộ dữ liệu kiểm chứng và kịch bản sinh dữ liệu lớn (seed_bench, SNAP)<br>- Kế hoạch chỉ mục (B-tree, GiST, Composite)<br>- Thực thi benchmark bằng EXPLAIN ANALYZE BUFFERS<br>- Tự động hóa đo lường và nhật ký thực nghiệm | Hỗ trợ: Cả nhóm<br>Review: TV4 |
+| **Trần Quang** *(Leader)* | Nhóm trưởng; Phân tích & Chuẩn hóa | - Quy tắc nghiệp vụ BR1–BR10<br>- Sơ đồ EER Diagram<br>- FD, bao đóng, khóa, phủ tối tiểu, 3NF/BCNF, 4NF<br>- Tổng hợp báo cáo, slide và điều phối chung | Hỗ trợ: Hưng, Hữu<br>Review: Toàn bộ |
+| **Hưng** | Dữ liệu phân cấp; Mô hình đối tượng | - 4 mô hình cây (Adjacency List, ltree, Nested Set, Closure Table)<br>- CRUD và bộ 10 truy vấn chuẩn Q1–Q10<br>- Thiết kế 6 lớp đối tượng, lược đồ ODL, truy vấn OQL và ánh xạ JPQL | Hỗ trợ: Quỳnh<br>Review: Hữu |
+| **Hữu** | SQL nâng cao, Đệ quy & Giao dịch | - DDL schema.sql và ràng buộc<br>- SQL nâng cao Q1–Q12 (Trigger, Procedure, Function, Dynamic SQL, Embedded)<br>- WITH RECURSIVE (R1–R4)<br>- Kịch bản giao dịch T1–T3 | Hỗ trợ: Chương<br>Review: Trần Quang |
+| **Chương** | Neo4j/Cypher; Thử tải đồng thời | - Khởi tạo Neo4j, nạp dữ liệu đồ thị<br>- Viết câu truy vấn Cypher đối chiếu với PostgreSQL<br>- Chạy thử tải đồng thời bằng pgbench, đo lường Deadlock và thông lượng | Hỗ trợ: Hữu, Quỳnh<br>Review: Hưng |
+| **Quỳnh** | Dữ liệu, Chỉ mục & Benchmark | - Bộ dữ liệu kiểm chứng và kịch bản sinh dữ liệu lớn (seed_bench, SNAP)<br>- Kế hoạch chỉ mục (B-tree, GiST, Composite)<br>- Thực thi benchmark bằng EXPLAIN ANALYZE BUFFERS<br>- Tự động hóa đo lường và nhật ký thực nghiệm | Hỗ trợ: Cả nhóm<br>Review: Chương |
 
 ---
 
