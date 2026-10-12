@@ -90,3 +90,61 @@ WHERE comment_id IN (1, 2, 3, 4)
 ORDER BY comment_id;
 
 ROLLBACK;
+
+
+-- Thử chuyển comment_id = 2 xuống dưới hậu duệ comment_id = 3.
+-- Thao tác phải bị từ chối vì tạo chu trình; dữ liệu vẫn nguyên vẹn.
+BEGIN;
+
+DO $$
+DECLARE
+    v_node_id INT := 2;
+    v_new_parent_id INT := 3;
+    v_error_message TEXT;
+    v_rejected BOOLEAN := false;
+BEGIN
+    BEGIN
+        IF EXISTS (
+            WITH RECURSIVE subtree(comment_id) AS (
+                SELECT v_node_id
+
+                UNION
+
+                SELECT c.comment_id
+                FROM comment c
+                JOIN subtree s ON c.parent_id = s.comment_id
+            )
+            SELECT 1
+            FROM subtree
+            WHERE comment_id = v_new_parent_id
+        ) THEN
+            RAISE EXCEPTION USING
+                ERRCODE = 'P0001',
+                MESSAGE = 'Move rejected: new parent is inside the subtree';
+        END IF;
+
+        UPDATE comment
+        SET parent_id = v_new_parent_id
+        WHERE comment_id = v_node_id;
+    EXCEPTION
+        WHEN SQLSTATE 'P0001' THEN
+            GET STACKED DIAGNOSTICS v_error_message = MESSAGE_TEXT;
+            IF v_error_message <> 'Move rejected: new parent is inside the subtree' THEN
+                RAISE;
+            END IF;
+            v_rejected := true;
+            RAISE NOTICE 'PASS: move into a descendant was rejected';
+    END;
+
+    IF NOT v_rejected THEN
+        RAISE EXCEPTION 'FAIL: move into a descendant was not rejected';
+    END IF;
+END;
+$$;
+
+SELECT comment_id, parent_id
+FROM comment
+WHERE comment_id IN (1, 2, 3)
+ORDER BY comment_id;
+
+ROLLBACK;
