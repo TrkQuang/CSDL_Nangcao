@@ -118,10 +118,137 @@ ROLLBACK;
 
 
 -- ----------------------------------------------------------------------------
+-- Q6: Thử xóa comment_id = 2 và các hậu duệ
+-- ON DELETE CASCADE xóa comment_id = 3; ROLLBACK khôi phục seed_test.
+-- ----------------------------------------------------------------------------
+BEGIN;
+
+DELETE FROM comment
+WHERE comment_id = 2
+RETURNING comment_id, parent_id, content;
+
+SELECT comment_id, parent_id, content
+FROM comment
+WHERE comment_id IN (2, 3)
+ORDER BY comment_id;
+
+ROLLBACK;
+
+
+-- ----------------------------------------------------------------------------
+-- Q7: Thử chuyển nhánh comment_id = 2 sang làm con của comment_id = 4
+-- Chặn chính nó/hậu duệ làm cha mới và yêu cầu cả hai nút cùng bài viết.
+-- ROLLBACK khôi phục quan hệ cha ban đầu sau khi kiểm tra.
+-- ----------------------------------------------------------------------------
+BEGIN;
+
+DO $$
+DECLARE
+    v_node_id INT := 2;
+    v_new_parent_id INT := 4;
+    v_node_post_id INT;
+    v_parent_post_id INT;
+    v_would_create_cycle BOOLEAN;
+BEGIN
+    SELECT post_id
+    INTO v_node_post_id
+    FROM comment
+    WHERE comment_id = v_node_id;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Không tìm thấy bình luận cần di chuyển: %', v_node_id;
+    END IF;
+
+    SELECT post_id
+    INTO v_parent_post_id
+    FROM comment
+    WHERE comment_id = v_new_parent_id;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Không tìm thấy cha mới: %', v_new_parent_id;
+    END IF;
+
+    IF v_node_post_id <> v_parent_post_id THEN
+        RAISE EXCEPTION 'Bình luận cha và con phải thuộc cùng một bài viết';
+    END IF;
+
+    WITH RECURSIVE subtree AS (
+        SELECT comment_id
+        FROM comment
+        WHERE comment_id = v_node_id
+
+        UNION
+
+        SELECT c.comment_id
+        FROM comment c
+        JOIN subtree s ON c.parent_id = s.comment_id
+    )
+    SELECT EXISTS (
+        SELECT 1
+        FROM subtree
+        WHERE comment_id = v_new_parent_id
+    )
+    INTO v_would_create_cycle;
+
+    IF v_would_create_cycle THEN
+        RAISE EXCEPTION
+            'Không thể chuyển nhánh: cha mới % nằm trong cây con của nút %',
+            v_new_parent_id, v_node_id;
+    END IF;
+
+    UPDATE comment
+    SET parent_id = v_new_parent_id
+    WHERE comment_id = v_node_id;
+END;
+$$;
+
+SELECT comment_id, parent_id, content
+FROM comment
+WHERE comment_id IN (1, 2, 3, 4)
+ORDER BY comment_id;
+
+-- Với nhánh bắt đầu ở 2, chuyển xuống 3 sẽ tạo chu trình nên phải bị từ chối.
+WITH RECURSIVE subtree AS (
+    SELECT comment_id
+    FROM comment
+    WHERE comment_id = 2
+
+    UNION
+
+    SELECT c.comment_id
+    FROM comment c
+    JOIN subtree s ON c.parent_id = s.comment_id
+)
+SELECT EXISTS (
+    SELECT 1
+    FROM subtree
+    WHERE comment_id = 3
+) AS moving_under_3_would_create_cycle;
+
+ROLLBACK;
+
+
+-- ----------------------------------------------------------------------------
+-- Q8: Đếm số nút trong cây con của comment_id = 1 (tính cả chính nút 1)
+-- Kỳ vọng trên seed_test: 3 (các nút 1, 2, 3)
+-- ----------------------------------------------------------------------------
+WITH RECURSIVE subtree AS (
+    SELECT comment_id
+    FROM comment
+    WHERE comment_id = 1
+
+    UNION
+
+    SELECT c.comment_id
+    FROM comment c
+    JOIN subtree s ON c.parent_id = s.comment_id
+)
+SELECT COUNT(*) AS subtree_node_count
+FROM subtree;
+
+
+-- ----------------------------------------------------------------------------
 -- [TODO: TV2 triển khai tiếp các câu còn lại]
--- Q6: Xóa nút và subtree
--- Q7: Di chuyển nhánh (chặn chu trình)
--- Q8: Đếm số nút trong cây con của comment_id = 1 (Kỳ vọng: 3)
 -- Q9: Lấy đường đi từ nút về root (Breadcrumb)
 -- Q10: Kiểm tra nhanh xem nút A có phải là tổ tiên của nút B không
 -- ----------------------------------------------------------------------------
