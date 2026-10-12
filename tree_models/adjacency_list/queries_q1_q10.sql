@@ -54,9 +54,58 @@ SELECT * FROM subtree;
 
 
 -- ----------------------------------------------------------------------------
+-- Q3: Lấy toàn bộ tổ tiên của nút comment_id = 3 (từ gốc xuống cha trực tiếp)
+-- Kỳ vọng trên seed_test: c1, c2
+-- ----------------------------------------------------------------------------
+WITH RECURSIVE ancestors AS (
+    -- Bắt đầu từ cha trực tiếp của nút cần tìm; không tính chính nút đó
+    SELECT p.comment_id, p.parent_id, p.content, 1 AS distance
+    FROM comment target
+    JOIN comment p ON p.comment_id = target.parent_id
+    WHERE target.comment_id = 3
+
+    UNION ALL
+
+    -- Tiếp tục đi ngược lên cha của mỗi tổ tiên
+    SELECT p.comment_id, p.parent_id, p.content, a.distance + 1
+    FROM comment p
+    JOIN ancestors a ON p.comment_id = a.parent_id
+)
+SELECT comment_id, parent_id, content
+FROM ancestors
+ORDER BY distance DESC;
+
+
+-- ----------------------------------------------------------------------------
+-- Q4: Lấy các nút ở độ sâu 2 của bài viết 1 (nút gốc có depth = 1)
+-- Kỳ vọng trên seed_test: c2
+-- ----------------------------------------------------------------------------
+WITH RECURSIVE comment_tree AS (
+    SELECT comment_id, post_id, parent_id, content, 1 AS depth,
+           ARRAY[comment_id] AS visited
+    FROM comment
+    WHERE post_id = 1
+      AND parent_id IS NULL
+
+    UNION ALL
+
+    SELECT c.comment_id, c.post_id, c.parent_id, c.content,
+           tree.depth + 1,
+           tree.visited || c.comment_id
+    FROM comment c
+    JOIN comment_tree tree
+      ON c.parent_id = tree.comment_id
+     AND c.post_id = tree.post_id
+    WHERE NOT c.comment_id = ANY(tree.visited)
+)
+SELECT comment_id, parent_id, content, depth
+FROM comment_tree
+WHERE depth = 2
+ORDER BY comment_id;
+
+
+-- ----------------------------------------------------------------------------
 -- [TODO: TV2 triển khai tiếp các câu còn lại]
--- Q3: Lấy toàn bộ tổ tiên của nút comment_id = 3 (Kỳ vọng: c2, c1)
--- Q4: Lấy các nút ở độ sâu k
 -- Q5: Thêm nút
 -- Q6: Xóa nút và subtree
 -- Q7: Di chuyển nhánh (chặn chu trình)
