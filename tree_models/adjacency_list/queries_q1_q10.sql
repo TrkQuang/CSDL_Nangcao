@@ -248,7 +248,64 @@ FROM subtree;
 
 
 -- ----------------------------------------------------------------------------
--- [TODO: TV2 triển khai tiếp các câu còn lại]
--- Q9: Lấy đường đi từ nút về root (Breadcrumb)
--- Q10: Kiểm tra nhanh xem nút A có phải là tổ tiên của nút B không
+-- Q9: Lấy đường đi từ gốc đến comment_id = 3 (Breadcrumb)
+-- Kỳ vọng trên seed_test: 1 -> 2 -> 3
+-- ----------------------------------------------------------------------------
+WITH RECURSIVE breadcrumb AS (
+    SELECT comment_id, parent_id, content, 0 AS distance,
+           ARRAY[comment_id] AS visited
+    FROM comment
+    WHERE comment_id = 3
+
+    UNION ALL
+
+    SELECT parent.comment_id, parent.parent_id, parent.content,
+           breadcrumb.distance + 1,
+           breadcrumb.visited || parent.comment_id
+    FROM comment parent
+    JOIN breadcrumb ON parent.comment_id = breadcrumb.parent_id
+    WHERE NOT parent.comment_id = ANY(breadcrumb.visited)
+)
+SELECT comment_id, content
+FROM breadcrumb
+ORDER BY distance DESC;
+
+
+-- ----------------------------------------------------------------------------
+-- Q10: Kiểm tra tổ tiên nghiêm ngặt cho hai cặp nút
+-- Kỳ vọng: 1 là tổ tiên của 3 (true); 4 không là tổ tiên của 3 (false).
+-- ----------------------------------------------------------------------------
+WITH RECURSIVE cases(ancestor_id, descendant_id) AS (
+    VALUES (1, 3), (4, 3)
+),
+ancestors(ancestor_id, descendant_id, current_ancestor_id) AS (
+    SELECT cases.ancestor_id, cases.descendant_id, child.parent_id
+    FROM cases
+    JOIN comment child ON child.comment_id = cases.descendant_id
+    WHERE child.parent_id IS NOT NULL
+
+    UNION
+
+    SELECT ancestors.ancestor_id,
+           ancestors.descendant_id,
+           parent.parent_id
+    FROM ancestors
+    JOIN comment parent ON parent.comment_id = ancestors.current_ancestor_id
+    WHERE parent.parent_id IS NOT NULL
+)
+SELECT cases.ancestor_id,
+       cases.descendant_id,
+       EXISTS (
+           SELECT 1
+           FROM ancestors
+           WHERE ancestors.ancestor_id = cases.ancestor_id
+             AND ancestors.descendant_id = cases.descendant_id
+             AND ancestors.current_ancestor_id = cases.ancestor_id
+       ) AS is_ancestor
+FROM cases
+ORDER BY cases.ancestor_id;
+
+
+-- ----------------------------------------------------------------------------
+-- Các câu truy vấn Q1-Q10 cho Adjacency List đã được triển khai.
 -- ----------------------------------------------------------------------------
