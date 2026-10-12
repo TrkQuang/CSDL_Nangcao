@@ -105,8 +105,20 @@ ORDER BY comment_id;
 
 
 -- ----------------------------------------------------------------------------
+-- Q5: Thử thêm một bình luận con cho comment_id = 2
+-- RETURNING hiển thị dòng vừa thêm; ROLLBACK giữ nguyên seed_test sau khi thử.
+-- ----------------------------------------------------------------------------
+BEGIN;
+
+INSERT INTO comment (post_id, parent_id, author_id, content)
+VALUES (1, 2, 2, 'Q5 test - reply to comment 2')
+RETURNING comment_id, post_id, parent_id, author_id, content;
+
+ROLLBACK;
+
+
+-- ----------------------------------------------------------------------------
 -- [TODO: TV2 triển khai tiếp các câu còn lại]
--- Q5: Thêm nút
 -- Q6: Xóa nút và subtree
 -- Q7: Di chuyển nhánh (chặn chu trình)
 -- Q8: Đếm số nút trong cây con của comment_id = 1 (Kỳ vọng: 3)
