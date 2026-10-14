@@ -16,3 +16,7 @@ desktop.ini
 # IDE
 .vscode/
 .idea/
+
+# Generated benchmark CSVs (keep only data/.gitkeep)
+benchmark/data/*
+!benchmark/data/.gitkeep
