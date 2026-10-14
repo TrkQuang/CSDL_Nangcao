@@ -47,14 +47,19 @@ module SocialLearningNetwork {
         integer soBinhLuan();
     };
 
-    // Hai lớp con kế thừa từ BaiDang (Chuyên biệt hóa)
-    interface BaiThaoLuan : BaiDang {
+    // Hai lớp con kế thừa từ BaiDang (Chuyên biệt hóa / ISA).
+    // Mỗi lớp con có extent riêng để OQL có thể duyệt trực tiếp dsBaiThaoLuan/dsBaiTaiLieu.
+    interface BaiThaoLuan : BaiDang (extent dsBaiThaoLuan) {
         attribute string poll_question;
+
+        integer ketQuaBinhChon();
     };
 
-    interface BaiTaiLieu : BaiDang {
-        attribute string file_format;
+    interface BaiTaiLieu : BaiDang (extent dsBaiTaiLieu) {
+        attribute string  file_format;
         attribute integer file_size_kb;
+
+        boolean laTaiLieuLon();
     };
 
     // Lớp Bình Luận (Cấu trúc cây đệ quy)
