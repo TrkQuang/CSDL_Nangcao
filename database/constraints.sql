@@ -39,7 +39,88 @@ CREATE ASSERTION assert_author_must_be_member CHECK (
 -- (Được hiện thực chi tiết trong sql_advanced/q09_trigger.sql)
 
 -- ----------------------------------------------------------------------------
--- [TODO: TV3 bổ sung các ràng buộc khác]
--- - Ràng buộc kiểm tra không tự kết bạn với chính mình
--- - Ràng buộc kiểm tra loại bài viết post_type hợp lệ
+-- Ràng buộc liên bảng: tác giả bài viết phải là thành viên của nhóm
 -- ----------------------------------------------------------------------------
+CREATE OR REPLACE FUNCTION fn_check_post_author_membership()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM group_member gm
+        WHERE gm.group_id = NEW.group_id
+          AND gm.user_id = NEW.author_id
+    ) THEN
+        RAISE EXCEPTION
+            'Tác giả % chưa là thành viên của nhóm %',
+            NEW.author_id, NEW.group_id;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_check_post_author_membership ON post;
+
+CREATE TRIGGER trg_check_post_author_membership
+BEFORE INSERT OR UPDATE OF group_id, author_id ON post
+FOR EACH ROW
+EXECUTE FUNCTION fn_check_post_author_membership();
+
+-- Không cho phép xóa hoặc đổi vai trò owner khiến nhóm mất chủ.
+CREATE OR REPLACE FUNCTION fn_protect_group_owner()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    IF TG_OP = 'DELETE' AND OLD.role = 'owner' THEN
+        -- Cho phép ON DELETE CASCADE khi nhóm cha đã bị xóa.
+        IF EXISTS (
+            SELECT 1
+            FROM study_group sg
+            WHERE sg.group_id = OLD.group_id
+        ) THEN
+            RAISE EXCEPTION
+                'Không thể xóa owner của nhóm %; chuyển quyền trước',
+                OLD.group_id;
+        END IF;
+    END IF;
+
+    IF TG_OP = 'UPDATE'
+       AND OLD.role = 'owner'
+       AND (NEW.role <> 'owner'
+            OR NEW.user_id <> OLD.user_id
+            OR NEW.group_id <> OLD.group_id) THEN
+        RAISE EXCEPTION
+            'Không thể thay đổi thành viên owner của nhóm %; chuyển quyền trước',
+            OLD.group_id;
+    END IF;
+
+    IF TG_OP IN ('INSERT', 'UPDATE')
+       AND NEW.role = 'owner'
+       AND NOT EXISTS (
+           SELECT 1
+           FROM study_group sg
+           WHERE sg.group_id = NEW.group_id
+             AND sg.owner_id = NEW.user_id
+       ) THEN
+        RAISE EXCEPTION
+            'Thành viên owner phải trùng owner_id của nhóm %',
+            NEW.group_id;
+    END IF;
+
+    IF TG_OP = 'DELETE' THEN
+        RETURN OLD;
+    END IF;
+
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_protect_group_owner ON group_member;
+
+CREATE TRIGGER trg_protect_group_owner
+BEFORE INSERT OR UPDATE OR DELETE ON group_member
+FOR EACH ROW
+EXECUTE FUNCTION fn_protect_group_owner();

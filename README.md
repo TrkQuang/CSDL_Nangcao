@@ -181,6 +181,19 @@ psql -U postgres -d detai17_db -f recursive_sql/shortest_path.sql
 psql -U postgres -d detai17_db -f tree_models/adjacency_list/queries_q1_q10.sql
 ```
 
+### Kiểm thử hồi quy Task 3
+
+Sau khi nạp `schema.sql`, `constraints.sql`, `seed_test.sql` và các định nghĩa
+Q9–Q12, chạy:
+
+```powershell
+psql -X -U postgres -d detai17_db -v ON_ERROR_STOP=1 -f sql_advanced/validate_task3.sql
+```
+
+Script kiểm tra seed, bộ đếm bạn bè, Q2/Q3/Q6, trigger Q9, procedure Q10,
+chống chu trình Q11 và chống SQL injection ở Q12. Mọi thay đổi kiểm thử được
+đặt trong transaction và kết thúc bằng `ROLLBACK`.
+
 ### Bước 4: Chạy đối chiếu trên Neo4j
 ```bash
 # Khởi động Neo4j container

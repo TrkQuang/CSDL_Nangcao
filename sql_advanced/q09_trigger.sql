@@ -18,6 +18,11 @@ BEGIN
         RETURN NEW;
     END IF;
 
+    IF NEW.parent_id = NEW.comment_id THEN
+        RAISE EXCEPTION
+            'Bình luận % không thể là cha của chính nó!', NEW.comment_id;
+    END IF;
+
     -- Lấy post_id của bình luận cha
     SELECT post_id INTO v_parent_post_id
     FROM comment
