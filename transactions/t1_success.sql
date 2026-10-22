@@ -11,7 +11,8 @@ BEGIN;
 
 -- 1. Thêm quan hệ kết bạn giữa User 1 và User 6
 INSERT INTO friendship (user_a, user_b, since)
-VALUES (1, 6, now());
+VALUES (1, 6, now())
+ON CONFLICT (user_a, user_b) DO NOTHING;
 
 -- 2. Cập nhật bộ đếm bạn bè của User 1
 UPDATE users 

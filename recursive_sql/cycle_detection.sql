@@ -35,7 +35,10 @@ WITH RECURSIVE graph_cycle AS (
     WHERE gc.path_length < 5
       AND (
           -- Trường hợp đóng vòng: quay về start_node khi độ dài >= 3
-          (fe.b = gc.start_node AND gc.path_length >= 2)
+          -- Chỉ giữ một chiều của mỗi chu trình: node đầu tiên < node cuối.
+          (fe.b = gc.start_node
+           AND gc.path_length >= 2
+           AND gc.path[2] < gc.current_node)
           -- Hoặc nút chưa từng xuất hiện trên đường đi
           OR (NOT fe.b = ANY(gc.path) AND fe.b > gc.start_node)
       )
@@ -45,4 +48,4 @@ SELECT
     path_length
 FROM graph_cycle
 WHERE current_node = start_node
-ORDER BY path_length;
+ORDER BY path_length, path;

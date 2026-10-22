@@ -41,7 +41,7 @@ CREATE OR REPLACE VIEW friend_edge AS
     SELECT user_b, user_a FROM friendship;
 
 -- ----------------------------------------------------------------------------
--- [TODO: TV3 triển khai khung các bảng tiếp theo]
+-- Các bảng nghiệp vụ chính
 -- ----------------------------------------------------------------------------
 
 -- 1. Bảng theo dõi có hướng (follow: follower_id, followee_id)

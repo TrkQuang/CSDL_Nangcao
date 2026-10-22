@@ -40,11 +40,16 @@ VALUES (100, 1, 1, 'thaoluan', 'Bài viết được giữ lại', 'Nội dung h
 -- Đặt điểm lưu
 SAVEPOINT sp_after_post;
 
--- Thao tác lỗi sau điểm lưu:
--- INSERT INTO friendship (user_a, user_b) VALUES (5, 2); -- Gây lỗi
+-- Thao tác lỗi sau điểm lưu. Chạy file này với psql mặc định
+-- (không bật ON_ERROR_STOP) để lệnh tiếp theo được thực thi.
+INSERT INTO friendship (user_a, user_b) VALUES (5, 2);
 
--- Quay lui về điểm lưu:
--- ROLLBACK TO SAVEPOINT sp_after_post;
+-- Lỗi CHECK làm transaction tạm thời ở trạng thái aborted; SAVEPOINT
+-- cho phép khôi phục cục bộ thay vì rollback toàn bộ transaction.
+ROLLBACK TO SAVEPOINT sp_after_post;
 
 -- Kết thúc và commit phần hợp lệ phía trước:
 COMMIT;
+
+-- Kiểm chứng: bài viết id 100 vẫn được giữ lại.
+SELECT * FROM post WHERE post_id = 100;

@@ -25,21 +25,22 @@ AS $$
 DECLARE
     v_sql TEXT := 'SELECT post_id, title, post_type, author_id FROM post WHERE 1=1';
 BEGIN
-    -- Nối điều kiện an toàn: Dùng tham số $1, $2, $3 thay vì cộng chuỗi trực tiếp
+    -- Giá trị luôn đi qua USING; không nối dữ liệu người dùng vào câu SQL.
     IF p_keyword IS NOT NULL THEN
-        v_sql := v_sql || ' AND title ILIKE ' || quote_literal('%' || p_keyword || '%');
+        v_sql := v_sql || ' AND title ILIKE $1';
     END IF;
 
     IF p_group_id IS NOT NULL THEN
-        v_sql := v_sql || ' AND group_id = ' || p_group_id;
+        v_sql := v_sql || ' AND group_id = $2';
     END IF;
 
     IF p_post_type IS NOT NULL THEN
-        v_sql := v_sql || ' AND post_type = ' || quote_literal(p_post_type);
+        v_sql := v_sql || ' AND post_type = $3';
     END IF;
 
     RAISE NOTICE 'Executing Dynamic Query: %', v_sql;
-    RETURN QUERY EXECUTE v_sql;
+    RETURN QUERY EXECUTE v_sql
+        USING '%' || p_keyword || '%', p_group_id, p_post_type;
 END;
 $$;
 
@@ -48,6 +49,6 @@ $$;
 -- Nguy cơ: Nếu lập trình viên dùng: v_sql := v_sql || ' AND title = ''' || p_keyword || ''''
 -- Kẻ tấn công có thể truyền: p_keyword = 'x'' OR 1=1 --'
 -- -> Làm lộ toàn bộ bài viết trong các nhóm riêng tư!
--- Giải pháp: Luôn dùng quote_literal(), format('%I', col), format('%L', val) 
--- hoặc mệnh đề USING $1, $2 của EXECUTE.
+-- Giải pháp: Luôn dùng format('%I', col) cho identifier và mệnh đề USING
+-- cho dữ liệu đầu vào của EXECUTE.
 -- ----------------------------------------------------------------------------

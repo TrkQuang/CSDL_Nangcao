@@ -39,4 +39,5 @@ JOIN users u ON fof.friend_id = u.user_id
 WHERE fof.depth = 2 
   AND fof.friend_id <> 1
   -- Loại trừ những người ĐÃ LÀ BẠN TRỰC TIẾP của An
-  AND fof.friend_id NOT IN (SELECT b FROM friend_edge WHERE a = 1);
+  AND fof.friend_id NOT IN (SELECT b FROM friend_edge WHERE a = 1)
+ORDER BY u.user_id;

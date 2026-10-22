@@ -14,11 +14,38 @@ LANGUAGE plpgsql
 AS $$
 DECLARE
     v_is_descendant BOOLEAN;
+    v_node_post_id INT;
+    v_parent_post_id INT;
 BEGIN
+    SELECT post_id
+    INTO v_node_post_id
+    FROM comment
+    WHERE comment_id = p_node_id
+    FOR UPDATE;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Không tìm thấy nút bình luận %!', p_node_id;
+    END IF;
+
     -- 1. Nếu chuyển thành nút gốc (parent = NULL) thì luôn hợp lệ
     IF p_new_parent_id IS NULL THEN
         UPDATE comment SET parent_id = NULL WHERE comment_id = p_node_id;
         RETURN;
+    END IF;
+
+    SELECT post_id
+    INTO v_parent_post_id
+    FROM comment
+    WHERE comment_id = p_new_parent_id;
+
+    IF NOT FOUND THEN
+        RAISE EXCEPTION 'Không tìm thấy cha mới %!', p_new_parent_id;
+    END IF;
+
+    IF v_node_post_id <> v_parent_post_id THEN
+        RAISE EXCEPTION
+            'Không thể chuyển giữa hai bài viết khác nhau (% và %)!',
+            v_node_post_id, v_parent_post_id;
     END IF;
 
     -- 2. Không thể tự làm con của chính mình

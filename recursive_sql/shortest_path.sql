@@ -36,5 +36,5 @@ SELECT
     path_length
 FROM bfs_path
 WHERE current_node = target_node
-ORDER BY path_length ASC
+ORDER BY path_length ASC, path_nodes
 LIMIT 1;
