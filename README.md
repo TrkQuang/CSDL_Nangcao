@@ -207,11 +207,18 @@ docker run -d --name neo4j-detai17 -p 7474:7474 -p 7687:7687 -e NEO4J_AUTH=neo4j
 ### Bước 5: Chạy Benchmark và Đo lường
 ```bash
 # Cài đặt thư viện Python
-pip install -r sql_advanced/embedded/requirements.txt
+pip install -r benchmark/requirements.txt
 
 # Chạy sinh dữ liệu cây mẫu
-python benchmark/scripts/gen_tree_data.py 1000
+psql -U postgres -d detai17_db -v bench_size=1000 -f database/seed_bench.sql
+$env:DATABASE_URL = 'postgresql://postgres:password@localhost:5432/detai17_db'
 
 # Chạy khung đo hiệu năng tự động
-python benchmark/scripts/run_benchmark.py
+python benchmark/scripts/run_benchmark.py --dataset-size 1000 --repeats 5 --mode both
+python benchmark/scripts/plot_results.py
 ```
+
+`run_benchmark.py` ghi metrics `EXPLAIN (ANALYZE, BUFFERS)` vao
+`benchmark/results/benchmark_results.csv`; `plot_results.py` tao PNG trong
+`benchmark/results/charts/`. Xem `benchmark/README.md` de co lenh day du cho
+ba kich thuoc du lieu va mau nhat ky thi nghiem.

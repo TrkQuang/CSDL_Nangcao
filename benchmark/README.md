@@ -59,6 +59,28 @@ Ket qua them vao `benchmark/results/benchmark_results.csv`. Cac chi so:
 
 Khong dien so lieu mau vao CSV. Chi ghi so do tu lan chay that va chep ma thi nghiem vao `docs/experiment_log/`.
 
+## Ve bieu do tu so do that
+
+Sau khi CSV co ket qua Q2, tao PNG cho bao cao va slide:
+
+```powershell
+python benchmark/scripts/plot_results.py
+```
+
+Script tao `benchmark/results/charts/q2_subtree_1000.png`, `q2_subtree_10000.png`
+va `q2_subtree_100000.png` neu CSV co du lieu tuong ung. Script dung trung vi
+cua cac lan lap, khong tu dien gia tri mau khi CSV rong.
+
+## Tong hop bao cao va dung luong
+
+```powershell
+psql -d social_learning -f benchmark/storage_sizes.sql
+python benchmark/scripts/summarize_results.py
+```
+
+`storage_sizes.sql` tra ve dung luong bang/index de ghi vao nhat ky. Script
+summary tao `benchmark/results/benchmark_summary.md` tu trung vi so do Q2.
+
 ## Sinh CSV ngoai DB
 
 Hai script nay phuc vu `COPY`/Neo4j import va kiem tra du lieu doc lap:
