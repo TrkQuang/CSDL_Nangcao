@@ -1,0 +1,7 @@
+﻿
+=== VALIDATION TV2 tree_models  2026-10-14 23:12:05 ===
+adjacency_list  queries=OK  crud=OK
+closure_table  queries=OK  crud=OK
+nested_set  queries=OK  crud=OK
+path_enumeration  queries=OK  crud=OK
+=== DONE ===

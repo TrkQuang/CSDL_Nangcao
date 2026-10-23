@@ -1,0 +1,22 @@
+=== [THỰC NGHIỆM DEADLOCK T3] - Thời gian: 2026-10-23 10:12:13 ===
+Hệ quản trị CSDL: PostgreSQL 16.15 (Windows x64) | Database: detai17_db
+[Session A] B1: BEGIN; (READ COMMITTED)
+[Session A] B2: SELECT user_id, full_name FROM users WHERE user_id = 1 FOR UPDATE;
+[Session A] Đã giữ ExclusiveLock trên User 1
+[Session B] B1: BEGIN; (READ COMMITTED)
+[Session B] B2: SELECT user_id, full_name FROM users WHERE user_id = 2 FOR UPDATE;
+[Session B] Đã giữ ExclusiveLock trên User 2
+[Session A] B3: SELECT user_id, full_name FROM users WHERE user_id = 2 FOR UPDATE; (Chờ Session B...)
+[Session B] B3: SELECT user_id, full_name FROM users WHERE user_id = 1 FOR UPDATE; (Gây bế tắc chu trình...)
+
+--------------------------------------------------
+[Session A] >>> BỊ POSTGRESQL HỦY VỚI LỖI DEADLOCK! <<<
+SQLSTATE: 40P01
+Nội dung lỗi nguyên văn: ERROR:  deadlock detected
+DETAIL:  Process 16484 waits for ShareLock on transaction 14459; blocked by process 13804.
+Process 13804 waits for ShareLock on transaction 14458; blocked by process 16484.
+HINT:  See server log for query details.
+CONTEXT:  while locking tuple (3,1) in relation "users"
+--------------------------------------------------
+
+[Session B] >>> SESSION B SỐNG SÓT VÀ COMMIT THÀNH CÔNG! <<<

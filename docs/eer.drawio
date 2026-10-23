@@ -1,0 +1,406 @@
+<mxfile host="app.diagrams.net" modified="2026-10-14T13:30:00.000Z" agent="Antigravity" version="21.0.0" type="device">
+  <diagram id="EER_De_Tai_17" name="EER Diagram - Mạng Xã Hội Học Tập">
+    <mxGraphModel dx="1800" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ==================== ENTITY: NGUOI_DUNG (USER) ==================== -->
+        <mxCell id="ent_user" value="NGUOI_DUNG&#xa;(users)" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="450" y="220" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Attributes of NGUOI_DUNG -->
+        <mxCell id="att_user_id" value="&lt;u&gt;user_id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="400" y="90" width="90" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_id" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_user_email" value="email (U)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="510" y="90" width="90" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_email" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_email">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Composite attribute: ho_ten -->
+        <mxCell id="att_user_hoten" value="ho_ten" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="630" y="110" width="90" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_hoten" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_hoten">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_user_ho" value="ho" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="630" y="30" width="60" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_ho" style="endArrow=none;html=1;" edge="1" parent="1" source="att_user_hoten" target="att_user_ho">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_user_tendem" value="ten_dem" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="65" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_tendem" style="endArrow=none;html=1;" edge="1" parent="1" source="att_user_hoten" target="att_user_tendem">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_user_ten" value="ten" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="750" y="90" width="60" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_ten" style="endArrow=none;html=1;" edge="1" parent="1" source="att_user_hoten" target="att_user_ten">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Derived attribute: friend_count (dashed) -->
+        <mxCell id="att_user_friend_count" value="/friend_count" style="ellipse;whiteSpace=wrap;html=1;dashed=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="320" y="140" width="100" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_fc" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_friend_count">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Multivalued attributes: so_thich, mon_quan_tam (double ellipse) -->
+        <mxCell id="att_user_interests" value="so_thich&#xa;{interests}" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="300" y="210" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_interests" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_interests">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_user_subjects" value="mon_hoc&#xa;{subjects}" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="300" y="280" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_user_subjects" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_user" target="att_user_subjects">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== RECURSIVE RELATIONSHIPS ON NGUOI_DUNG ==================== -->
+        <!-- 1. KET_BAN (Friendship - Undirected, M:N) -->
+        <mxCell id="rel_friendship" value="KET_BAN&#xa;(M:N, Đệ quy)&#xa;user_a &lt; user_b" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="160" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="att_friend_since" value="since" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="172" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_since" style="endArrow=none;html=1;" edge="1" parent="1" source="rel_friendship" target="att_friend_since">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_friend_u1" style="endArrow=none;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_friendship" target="ent_user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_friend_u2" style="endArrow=none;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.4;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_friendship" target="ent_user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 2. THEO_DOI (Follow - Directed, M:N) -->
+        <mxCell id="rel_follow" value="THEO_DOI&#xa;(M:N, Có hướng)&#xa;follower/followee" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="270" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_follow_1" value="follower" style="endArrow=classic;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.6;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_follow" target="ent_user">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_follow_2" value="followee" style="endArrow=classic;html=1;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_follow">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== ENTITY: NHOM_HOC_TAP (STUDY_GROUP) ==================== -->
+        <mxCell id="ent_group" value="NHOM_HOC_TAP&#xa;(study_group)" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="220" width="160" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Attributes of NHOM_HOC_TAP -->
+        <mxCell id="att_group_id" value="&lt;u&gt;group_id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="110" width="85" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_gid" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_group" target="att_group_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_group_name" value="name" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="110" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_gname" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_group" target="att_group_name">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_group_topic" value="topic" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="140" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_gtopic" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_group" target="att_group_topic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_group_is_private" value="is_private" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="210" width="85" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_att_gpriv" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_group" target="att_group_is_private">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== RELATIONSHIPS BETWEEN USER & GROUP ==================== -->
+        <!-- 1. THAM_GIA (GroupMember: M:N) -->
+        <mxCell id="rel_group_member" value="THAM_GIA&#xa;(M:N)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="180" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="att_gm_role" value="role&#xa;('owner'/'mod'/'member')" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="720" y="90" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_gm_role" style="endArrow=none;html=1;" edge="1" parent="1" source="rel_group_member" target="att_gm_role">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_gm_joined" value="joined_at" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="830" y="90" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_gm_joined" style="endArrow=none;html=1;" edge="1" parent="1" source="rel_group_member" target="att_gm_joined">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_gm" value="M" style="endArrow=none;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_group_member">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_group_gm" value="N" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_group_member" target="ent_group">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 2. SO_HUU (Owns: 1:N) -->
+        <mxCell id="rel_owns" value="SO_HUU&#xa;(1:N)&#xa;owner_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="760" y="270" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_owns" value="1" style="endArrow=none;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_owns">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_group_owns" value="N" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_owns" target="ent_group">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== ENTITY: BAI_DANG (POST) ==================== -->
+        <mxCell id="ent_post" value="BAI_DANG&#xa;(post)" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="730" y="520" width="180" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Attributes of BAI_DANG -->
+        <mxCell id="att_post_id" value="&lt;u&gt;post_id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="590" y="520" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_pid" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_post" target="att_post_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_post_title" value="title" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="590" y="570" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_title" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_post" target="att_post_title">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_post_content" value="content" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="520" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_content" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_post" target="att_post_content">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="att_post_created" value="created_at" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="960" y="570" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_created" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_post" target="att_post_created">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- Relationships to BAI_DANG -->
+        <!-- 1. DANG_BAI (Writes: User 1 - N Post) -->
+        <mxCell id="rel_writes" value="DANG_BAI&#xa;(1:N)&#xa;author_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="390" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_writes" value="1" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_writes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_writes" value="N" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_writes" target="ent_post">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 2. THUOC_NHOM (BelongsTo: Group 1 - N Post) -->
+        <mxCell id="rel_belongs" value="THUOC_NHOM&#xa;(1:N)&#xa;group_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="390" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_group_belongs" value="1" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_group" target="rel_belongs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_belongs" value="N" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_belongs" target="ent_post">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 3. PHAN_HOI_CAM_XUC (Reacts: User M - N Post) -->
+        <mxCell id="rel_reacts" value="CAM_XUC&#xa;(M:N)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="380" y="440" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="att_react_kind" value="kind ('like',...)" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="445" width="90" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_react_kind" style="endArrow=none;html=1;" edge="1" parent="1" source="rel_reacts" target="att_react_kind">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_user_reacts" style="endArrow=none;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_reacts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_reacts" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_reacts" target="ent_post">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== SPECIALIZATION: BAI_DANG -> THAO_LUAN vs TAI_LIEU ==================== -->
+        <!-- Disjoint, Total: Circle with 'd' and double line from BAI_DANG -->
+        <mxCell id="spec_circle" value="d" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fontStyle=1;fontSize=16;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="800" y="660" width="40" height="40" as="geometry" />
+        </mxCell>
+        <!-- Double line from BAI_DANG to spec_circle indicating Total Participation -->
+        <mxCell id="edge_post_spec" style="endArrow=none;html=1;strokeWidth=3;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_post" target="spec_circle">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Subclass 1: BAI_THAO_LUAN -->
+        <mxCell id="ent_thaoluan" value="BAI_THAO_LUAN&#xa;('thaoluan')" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="640" y="760" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_spec_tl" style="endArrow=none;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spec_circle" target="ent_thaoluan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_tl_lock" value="is_closed&#xa;(khoa_bl)" style="ellipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="530" y="765" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_tl_lock" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_thaoluan" target="att_tl_lock">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Subclass 2: BAI_TAI_LIEU -->
+        <mxCell id="ent_tailieu" value="BAI_TAI_LIEU&#xa;('tailieu')" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="860" y="760" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_spec_doc" style="endArrow=none;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spec_circle" target="ent_tailieu">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_doc_url" value="file_url" style="ellipse;whiteSpace=wrap;html=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="740" width="75" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_doc_url" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_tailieu" target="att_doc_url">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_doc_tags" value="tap_nhan&#xa;{tags}" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="790" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_doc_tags" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_tailieu" target="att_doc_tags">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== ENTITY: BINH_LUAN (COMMENT) & HIERARCHY ==================== -->
+        <!-- Relationship: BINH_LUAN_TRONG (Post 1 - N Comment) -->
+        <mxCell id="rel_post_comment" value="CO_BINH_LUAN&#xa;(1:N)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="755" y="870" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_post_c_conn" value="1" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="spec_circle" target="rel_post_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Entity: BINH_LUAN -->
+        <mxCell id="ent_comment" value="BINH_LUAN&#xa;(comment)" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="740" y="990" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_rel_comment_conn" value="N (Toàn phần)" style="endArrow=none;html=1;strokeWidth=2;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_post_comment" target="ent_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Attributes of BINH_LUAN -->
+        <mxCell id="att_comment_id" value="&lt;u&gt;comment_id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="600" y="970" width="95" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_cid" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_comment" target="att_comment_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_comment_content" value="content" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1030" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_cnt" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_comment" target="att_comment_content">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_comment_created" value="created_at" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="1080" width="85" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_cr" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_comment" target="att_comment_created">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Recursive Relationship: TRA_LOI (ReplyTo: Comment 1 - N Comment via parent_id) -->
+        <mxCell id="rel_reply" value="TRA_LOI&#xa;(1:N, Đệ quy)&#xa;parent_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="990" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_reply_parent" value="cha (1)" style="endArrow=classic;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_comment" target="rel_reply">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_reply_child" value="con (N)" style="endArrow=classic;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_reply" target="ent_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relationship: VIET_BINH_LUAN (User 1 - N Comment) -->
+        <mxCell id="rel_user_comment" value="VIET_BINH_LUAN&#xa;(1:N)&#xa;author_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="700" width="130" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_u_uc" value="1" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_user" target="rel_user_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_c_uc" value="N" style="endArrow=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_user_comment" target="ent_comment">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+
+        <!-- ==================== ENTITY: THU_MUC & TAI_LIEU ==================== -->
+        <!-- Entity: THU_MUC (Folder) -->
+        <mxCell id="ent_folder" value="THU_MUC&#xa;(folder)" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1450" y="220" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="att_folder_id" value="&lt;u&gt;folder_id&lt;/u&gt;" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="120" width="85" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_f_fid" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_folder" target="att_folder_id">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="att_folder_name" value="name" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1520" y="120" width="80" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_f_name" style="endArrow=none;html=1;" edge="1" parent="1" source="ent_folder" target="att_folder_name">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Relationship: CHUA_THU_MUC (Group 1 - N Folder) -->
+        <mxCell id="rel_group_folder" value="CO_THU_MUC&#xa;(1:N)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="225" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_g_gf" value="1" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_group" target="rel_group_folder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_f_gf" value="N" style="endArrow=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_group_folder" target="ent_folder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Recursive Relationship: THU_MUC_CON (Folder 1 - N Folder) -->
+        <mxCell id="rel_subfolder" value="THU_MUC_CON&#xa;(1:N, Đệ quy)&#xa;parent_id" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1650" y="220" width="130" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_f_p" value="cha (1)" style="endArrow=classic;html=1;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;" edge="1" parent="1" source="ent_folder" target="rel_subfolder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_f_c" value="con (N)" style="endArrow=classic;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.7;entryDx=0;entryDy=0;" edge="1" parent="1" source="rel_subfolder" target="ent_folder">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
