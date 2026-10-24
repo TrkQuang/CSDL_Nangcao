@@ -1,21 +1,31 @@
--- ============================================================================
--- FILE: transactions/t3_concurrent/session_b.sql
--- MỤC ĐÍCH: Kịch bản Phiên 2 (Session B) chạy đối kháng với Session A.
--- PHỤ TRÁCH: TV4.
--- ============================================================================
 
--- BƯỚC B1: Bắt đầu giao dịch cùng mức cô lập
-BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+BEGIN;
 
--- BƯỚC B2: Khóa hàng user 2 (ngược thứ tự với Session A)
-SELECT * FROM users WHERE user_id = 2 FOR UPDATE;
+-- >>> CHỜ Session A thực hiện xong BƯỚC A2 (khóa user_id = 1).
 
--- (Chờ Session A thực hiện Bước A3)
+-- [BƯỚC B2] Khóa độc quyền hàng user_id = 2 (ngược thứ tự với Session A)
+-- Hàng 2 bị giữ khóa ExclusiveLock bởi Session B
+SELECT user_id, full_name, friend_count 
+FROM users 
+WHERE user_id = 2 
+FOR UPDATE;
 
--- BƯỚC B3: Cố gắng khóa hàng user 1 -> Tạo chu trình chờ khóa (Deadlock)!
-SELECT * FROM users WHERE user_id = 1 FOR UPDATE;
+-- >>> CHUYỂN VỀ SESSION A và thực hiện BƯỚC A3 (Session A sẽ bị BLOCK chờ user 2).
 
--- Kết thúc: Một trong 2 phiên sẽ nhận thông báo:
--- ERROR: deadlock detected
--- DETAIL: Process X waits for ExclusiveLock on tuple ...
-COMMIT;
+-- [BƯỚC B3] Trong khi Session A đang bị treo chờ user 2, Session B thực hiện xin khóa user_id = 1:
+-- Session B cần khóa user 1 (Session A đang giữ), Session A cần khóa user 2 (Session B đang giữ)
+-- -> Tạo chu trình bế tắc trong Wait-For Graph (WFG): Session A -> Session B -> Session A
+SELECT user_id, full_name, friend_count 
+FROM users 
+WHERE user_id = 1 
+FOR UPDATE;
+
+-- >>> KẾT QUẢ: PostgreSQL kích hoạt Deadlock Detector và hủy phiên này (hoặc phiên A):
+-- ERROR:  deadlock detected
+-- DETAIL: Process X waits for ExclusiveLock on tuple ... blocked by Process Y.
+--         Process Y waits for ExclusiveLock on tuple ... blocked by Process X.
+-- HINT:   See server log for query details.
+-- CONTEXT: while locking tuple (0,1) in relation "users"
+
+-- [BƯỚC B4] Xử lý sau khi bị ngắt
+ROLLBACK;

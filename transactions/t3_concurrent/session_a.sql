@@ -1,20 +1,33 @@
 -- ============================================================================
 -- FILE: transactions/t3_concurrent/session_a.sql
--- MỤC ĐÍCH: Kịch bản Phiên 1 (Session A) trong thí nghiệm cạnh tranh đồng thời.
---           Chạy song song từng bước với Session B để quan sát Lock và Deadlock.
--- PHỤ TRÁCH: TV4 (Chạy thực nghiệm) & TV3 (Duyệt kịch bản).
+-- MỤC ĐÍCH: Kịch bản Phiên 1 (Session A) trong thí nghiệm tranh chấp đồng thời gây bế tắc.
+--           Chạy song song từng bước (step-by-step) với Session B để kích hoạt lỗi Deadlock (40P01).
+-- PHỤ TRÁCH: TV4 (Chương).
 -- ============================================================================
 
--- BƯỚC A1: Bắt đầu giao dịch với mức cô lập Read Committed (hoặc Serializable)
-BEGIN TRANSACTION ISOLATION LEVEL READ COMMITTED;
+-- [BƯỚC A1] Khởi tạo giao dịch
+BEGIN;
 
--- BƯỚC A2: Khóa hàng user 1 để cập nhật
-SELECT * FROM users WHERE user_id = 1 FOR UPDATE;
+-- [BƯỚC A2] Khóa độc quyền hàng user_id = 1
+-- Hàng 1 bị giữ khóa ExclusiveLock bởi Session A
+SELECT user_id, full_name, friend_count 
+FROM users 
+WHERE user_id = 1 
+FOR UPDATE;
 
--- (Chờ Session B thực hiện Bước B2 khóa user 2)
+-- >>> DỪNG LẠI TẠI ĐÂY!
+-- >>> CHUYỂN SANG SESSION B và thực hiện BƯỚC B2 (khóa user_id = 2).
 
--- BƯỚC A3: Cố gắng khóa hàng user 2 (sẽ bị BLOCK nếu Session B đang giữ khóa user 2!)
-SELECT * FROM users WHERE user_id = 2 FOR UPDATE;
+-- [BƯỚC A3] Sau khi Session B đã khóa user_id = 2, Session A thực hiện xin khóa user_id = 2:
+-- Lệnh này sẽ bị BLOCK (treo) vì Session B đang nắm giữ khóa user 2!
+SELECT user_id, full_name, friend_count 
+FROM users 
+WHERE user_id = 2 
+FOR UPDATE;
 
--- BƯỚC A4: Khi xuất hiện Deadlock, PostgreSQL sẽ hủy 1 trong 2 phiên với mã lỗi 40P01
+-- >>> CHUYỂN TIẾP SANG SESSION B và thực hiện BƯỚC B3 (xin khóa user_id = 1).
+-- >>> Sau ~1 giây (deadlock_timeout), 1 trong 2 phiên sẽ bị PostgreSQL ngắt và báo lỗi:
+-- >>> ERROR:  deadlock detected (SQLSTATE 40P01)
+
+-- [BƯỚC A4] Kết thúc phiên (COMMIT nếu là phiên sống sót, hoặc ROLLBACK nếu là phiên bị hủy)
 COMMIT;

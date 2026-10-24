@@ -1,0 +1,30 @@
+=== [THỰC NGHIỆM 3 MỨC CÔ LẬP TRÊN POSTGRESQL] ===
+Thời gian chạy: 2026-10-23 10:12:14
+
+--- 1. KIỂM CHỨNG READ COMMITTED: Non-Repeatable Read ---
+[Session A] Lần đọc 1: friend_count của User 1 = 2
+[Session B] Đã UPDATE friend_count = friend_count + 1 và COMMIT.
+[Session A] Lần đọc 2 (cùng trong transaction A): friend_count = 3
+=> KẾT QUẢ: ĐÃ QUAN SÁT THẤY Non-Repeatable Read trên mức READ COMMITTED (giá trị thay đổi từ 2 -> 3).
+
+--- 2. KIỂM CHỨNG REPEATABLE READ: Ngăn Chặn Non-Repeatable Read ---
+[Session A] Lần đọc 1 (Snapshot): friend_count của User 1 = 3
+[Session B] Đã UPDATE friend_count = 99 và COMMIT.
+[Session A] Lần đọc 2 (sau khi B commit 99): friend_count = 3
+=> KẾT QUẢ: REPEATABLE READ ĐÃ CHẶN THÀNH CÔNG Non-Repeatable Read (Snapshot MVCC giữ nguyên giá trị 3).
+
+--- 3. KIỂM CHỨNG REPEATABLE READ: Xung Đột Concurrent Update (Lỗi 40001) ---
+[Session A] UPDATE users SET friend_count = 10 WHERE user_id = 1; (Chưa commit)
+[Session A] Đã COMMIT thành công.
+
+--- 4. KIỂM CHỨNG SERIALIZABLE: SSI Chặn Xung Đột Phụ Thuộc (Lỗi 40001) ---
+[Session A] Đọc tổng friend_count = 42
+[Session B] Đọc tổng friend_count = 42
+[Session A] UPDATE user 1; (Tạo phụ thuộc ghi)
+[Session B] UPDATE user 2; (Tạo phụ thuộc chéo)
+[Session A] COMMIT thành công.
+=> KẾT QUẢ: PostgreSQL SSI phát hiện Read-Write Dependency Cycle!
+   SQLSTATE: 40001
+   Nội dung: ERROR:  could not serialize access due to read/write dependencies among transactions
+DETAIL:  Reason code: Canceled on identification as a pivot, during commit attempt.
+HINT:  The transaction might succeed if retried.
