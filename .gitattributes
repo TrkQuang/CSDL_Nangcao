@@ -1,0 +1,2 @@
+benchmark/results/runs/**/*.txt whitespace=-blank-at-eol,-blank-at-eof
+docs/review_evidence/**/*.txt whitespace=-blank-at-eol,-blank-at-eof

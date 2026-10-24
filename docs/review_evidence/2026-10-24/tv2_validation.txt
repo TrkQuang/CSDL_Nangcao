@@ -1,0 +1,7 @@
+You cannot call a method on a null-valued expression.
+At C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\tree_models\_validate\validate.ps1:48 char:5
++ if ($exists.Trim() -eq '1') {
++     ~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+ 

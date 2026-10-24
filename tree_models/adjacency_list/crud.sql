@@ -5,7 +5,7 @@
 -- Moi vi du dung ROLLBACK de giu nguyen du lieu kiem chung.
 -- ============================================================================
 
--- Th?m node con cu?i c?ng. Tr? v? comment_id m?i.
+-- Insert a child and return its new comment_id.
 CREATE OR REPLACE FUNCTION al_insert_child(p_parent_id INT, p_content TEXT)
 RETURNS INT AS $$
 DECLARE
@@ -24,7 +24,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- X?a node v? to?n b? subtree nh? kh?a ngo?i parent_id ON DELETE CASCADE.
+-- Delete the whole subtree using the parent_id cascading foreign key.
 CREATE OR REPLACE FUNCTION al_delete_subtree(p_node_id INT)
 RETURNS INT AS $$
 DECLARE
@@ -48,7 +48,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Chuy?n node c?ng subtree sang cha m?i. Ch?n chuy?n v?o ch?nh n?/con ch?u.
+-- Move subtree under a new parent; reject cycles and cross-post moves.
 CREATE OR REPLACE FUNCTION al_move_subtree(p_node_id INT, p_new_parent_id INT)
 RETURNS VOID AS $$
 DECLARE
@@ -91,7 +91,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 BEGIN;
-SELECT al_insert_child(2, 'B?nh lu?n con m?i th?m') AS new_comment_id;
+SELECT al_insert_child(2, 'New child comment') AS new_comment_id;
 SELECT al_move_subtree(2, 4);
 SELECT al_delete_subtree(2) AS deleted_node_count;
 ROLLBACK;

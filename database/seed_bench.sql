@@ -14,10 +14,7 @@
 
 BEGIN;
 
-SELECT CASE
-    WHEN :'bench_size'::integer IN (1000, 10000, 100000) THEN 1
-    ELSE 1 / 0
-END AS valid_bench_size;
+SELECT 1 / (:'bench_size'::integer IN (1000, 10000, 100000))::integer AS valid_bench_size;
 
 -- Xoa toan bo du lieu cu va reset sequence de ket qua co the lap lai.
 TRUNCATE TABLE users RESTART IDENTITY CASCADE;
@@ -79,9 +76,9 @@ CROSS JOIN LATERAL (
 ON CONFLICT (user_a, user_b) DO NOTHING;
 
 UPDATE users u
-SET friend_count = (
-    SELECT COUNT(*) FROM friend_edge e WHERE e.a = u.user_id
-);
+SET friend_count = degree.total
+FROM (SELECT a, COUNT(*) AS total FROM friend_edge GROUP BY a) degree
+WHERE degree.a = u.user_id;
 
 -- Cay tam phan: do sau xap xi 7 (1k), 9 (10k), 11 (100k).
 -- Cung mot cay dong bo cho Adjacency List, ltree, Nested Set, Closure Table.
@@ -95,6 +92,8 @@ SELECT
     timestamptz '2026-01-01 00:00:00+07' + comment_id * interval '1 second'
 FROM generate_series(1, :'bench_size'::integer) AS comment_id;
 SELECT setval('comment_comment_id_seq', :'bench_size'::integer, true);
+
+CREATE INDEX idx_seed_comment_parent ON comment(parent_id);
 
 -- Path Enumeration: ltree label dung n<id>; khong dung label bat dau bang so.
 WITH RECURSIVE tree AS (
@@ -119,20 +118,19 @@ WITH RECURSIVE tree AS (
     SELECT c.comment_id, tree.sort_path || c.comment_id
     FROM comment c
     JOIN tree ON c.parent_id = tree.comment_id
-), ordered AS (
-    SELECT comment_id, sort_path, ROW_NUMBER() OVER (ORDER BY sort_path) AS preorder
-    FROM tree
+), events AS (
+    SELECT comment_id, false AS closing, sort_path || 0 AS event_path FROM tree
+    UNION ALL
+    SELECT comment_id, true, sort_path || 2147483647 FROM tree
+), numbered AS (
+    SELECT comment_id, closing, ROW_NUMBER() OVER (ORDER BY event_path) AS position
+    FROM events
 )
 INSERT INTO comment_ns (comment_id, post_id, lft, rgt)
-SELECT
-    parent.comment_id,
-    1,
-    (parent.preorder * 2 - 1)::integer,
-    (parent.preorder * 2 + 2 * COUNT(descendant.comment_id) - 2)::integer
-FROM ordered parent
-JOIN ordered descendant
-  ON descendant.sort_path[1:array_length(parent.sort_path, 1)] = parent.sort_path
-GROUP BY parent.comment_id, parent.preorder;
+SELECT comment_id, 1,
+       MIN(position)::integer, MAX(position)::integer
+FROM numbered
+GROUP BY comment_id;
 
 -- Closure Table: tu moi nut den chinh no (depth 0) va den tat ca hau due.
 WITH RECURSIVE closure AS (
@@ -146,6 +144,8 @@ WITH RECURSIVE closure AS (
 INSERT INTO comment_closure (ancestor, descendant, depth)
 SELECT ancestor, descendant, depth
 FROM closure;
+
+DROP INDEX idx_seed_comment_parent;
 
 ANALYZE users;
 ANALYZE friendship;

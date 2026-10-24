@@ -1,0 +1,4 @@
+Script minh họa Embedded SQL (Python + psycopg2)
+=== Danh sách bạn bè của User ID 1 ===
+- ID: 2, Tên: Binh, Email: binh@sgu.vn
+- ID: 3, Tên: Chi, Email: chi@sgu.vn

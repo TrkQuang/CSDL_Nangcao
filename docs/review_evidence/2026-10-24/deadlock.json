@@ -1,0 +1,9 @@
+[
+  {
+    "sqlstate": "40P01",
+    "detail": "ERROR:  deadlock detected\nDETAIL:  Process 11236 waits for ShareLock on transaction 957; blocked by process 21416.\nProcess 21416 waits for ShareLock on transaction 956; blocked by process 11236.\nHINT:  See server log for query details.\nCONTEXT:  while updating tuple (0,8) in relation \"users\"\n"
+  },
+  {
+    "outcome": "completed"
+  }
+]

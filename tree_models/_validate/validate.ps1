@@ -1,10 +1,26 @@
 param(
     [string]$DatabaseName = 'de17_tv2_validation',
+    [string]$PsqlPath = '',
     [switch]$ResetDatabase
 )
 
 $ErrorActionPreference = 'Stop'
-$psql = 'C:\Program Files\PostgreSQL\18\bin\psql.exe'
+$psql = $PsqlPath
+if (-not $psql) {
+    $command = Get-Command psql -ErrorAction SilentlyContinue
+    if ($command) { $psql = $command.Source }
+}
+if (-not $psql) {
+    $installRoot = Join-Path $env:ProgramFiles 'PostgreSQL'
+    $versions = Get-ChildItem -LiteralPath $installRoot -Directory -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -match '^\d+(\.\d+)*$' } |
+        Sort-Object { [version]$_.Name } -Descending
+    foreach ($version in $versions) {
+        $candidate = Join-Path $version.FullName 'bin\psql.exe'
+        if (Test-Path -LiteralPath $candidate) { $psql = $candidate; break }
+    }
+}
+if (-not $psql) { throw 'psql not found; pass -PsqlPath with the installed psql.exe path.' }
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..\..')).Path
 $out = Join-Path $PSScriptRoot 'validation_result.txt'
 
@@ -29,7 +45,7 @@ if ($LASTEXITCODE -ne 0) {
     throw "Không kết nối được PostgreSQL. Hãy cấu hình pgpass.conf hoặc biến môi trường PGPASSWORD bên ngoài repo."
 }
 
-if ($exists.Trim() -eq '1') {
+if ("$exists".Trim() -eq '1') {
     if (-not $ResetDatabase) {
         throw "Database '$DatabaseName' đã tồn tại. Không có dữ liệu nào bị xóa. Dùng -ResetDatabase chỉ khi chắc chắn muốn tạo lại database kiểm thử này."
     }

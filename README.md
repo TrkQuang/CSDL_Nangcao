@@ -178,6 +178,7 @@ psql -U postgres -d detai17_db -f recursive_sql/friends_of_friends.sql
 psql -U postgres -d detai17_db -f recursive_sql/shortest_path.sql
 
 # Kiểm tra các câu truy vấn cây trên mô hình Adjacency List
+psql -U postgres -d detai17_db -f tree_models/adjacency_list/crud.sql
 psql -U postgres -d detai17_db -f tree_models/adjacency_list/queries_q1_q10.sql
 ```
 
@@ -222,3 +223,26 @@ python benchmark/scripts/plot_results.py
 `benchmark/results/benchmark_results.csv`; `plot_results.py` tao PNG trong
 `benchmark/results/charts/`. Xem `benchmark/README.md` de co lenh day du cho
 ba kich thuoc du lieu va mau nhat ky thi nghiem.
+
+### Task 5: completed measurements and safe full reproduction
+
+Full results (360 measurements, 1k/10k/100k, reads and writes):
+`report/task5_benchmark_results.md`.
+Experiment log: `docs/experiment_log/task5_completed.md`.
+Slide content: `slides/task5_benchmark.md`.
+
+```powershell
+python -m pip install -r benchmark/requirements.txt
+python benchmark/scripts/run_complete.py --postgres-bin "C:/Program Files/PostgreSQL/16/bin"
+```
+
+This command creates a private password-protected PostgreSQL cluster, runs seed,
+validation and all benchmarks, then stops/removes that cluster. Existing databases
+are not changed. See `benchmark/README.md` for CSV corpus verification and publishing
+the completed run as tables, charts, report, slides and experiment log.
+
+### Review of all five tasks
+
+See `docs/task_review_2026-10-24.md` for member-by-member status, reproduced
+PostgreSQL checks, integration fixes and remaining report/slide/Neo4j evidence
+items. Raw review logs are in `docs/review_evidence/2026-10-24/`.

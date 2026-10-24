@@ -1,0 +1,277 @@
+{
+  "status": "passed",
+  "graph_random_seed": 42,
+  "tree": "deterministic breadth-first ternary tree",
+  "files": [
+    {
+      "file": "benchmark/data/comment_1000.csv",
+      "rows": 1000,
+      "bytes": 36400,
+      "header": [
+        "comment_id",
+        "post_id",
+        "author_id",
+        "parent_id",
+        "content"
+      ],
+      "sha256": "e000754e678b546c51cf3c2fd2fa3ee66736f47b17994b835468f79639b26207"
+    },
+    {
+      "file": "benchmark/data/comment_path_1000.csv",
+      "rows": 1000,
+      "bytes": 31851,
+      "header": [
+        "comment_id",
+        "post_id",
+        "path"
+      ],
+      "sha256": "66e4ae721ef4fe11249c9461e81c2ee5fed0ad876ae44205145b2663d7d620d9"
+    },
+    {
+      "file": "benchmark/data/comment_ns_1000.csv",
+      "rows": 1000,
+      "bytes": 15814,
+      "header": [
+        "comment_id",
+        "post_id",
+        "lft",
+        "rgt"
+      ],
+      "sha256": "4826ef65850c040dfc600982bb05a7816210312ad87b2c7e31c4981f308f8d9f"
+    },
+    {
+      "file": "benchmark/data/comment_closure_1000.csv",
+      "rows": 6457,
+      "bytes": 63250,
+      "header": [
+        "ancestor",
+        "descendant",
+        "depth"
+      ],
+      "sha256": "59f06152bdb57ccaa4c60f981936e56cd2020ce13cc75d2d06788c137bf7cafb"
+    },
+    {
+      "file": "benchmark/data/comment_10000.csv",
+      "rows": 10000,
+      "bytes": 403405,
+      "header": [
+        "comment_id",
+        "post_id",
+        "author_id",
+        "parent_id",
+        "content"
+      ],
+      "sha256": "63516ce22c4306c492884d56820c778408ed4a0f22273741a98cc60b9355a3db"
+    },
+    {
+      "file": "benchmark/data/comment_path_10000.csv",
+      "rows": 10000,
+      "bytes": 449240,
+      "header": [
+        "comment_id",
+        "post_id",
+        "path"
+      ],
+      "sha256": "2805bffba0abbc203af41556ae4b7d154ebb59875075611914f903aa3e150ce1"
+    },
+    {
+      "file": "benchmark/data/comment_ns_10000.csv",
+      "rows": 10000,
+      "bytes": 187816,
+      "header": [
+        "comment_id",
+        "post_id",
+        "lft",
+        "rgt"
+      ],
+      "sha256": "594d98376ed0e7bcf3014a09be8a958abc1943a37cb8a80ff5bfa135b68db25b"
+    },
+    {
+      "file": "benchmark/data/comment_closure_10000.csv",
+      "rows": 85243,
+      "bytes": 960150,
+      "header": [
+        "ancestor",
+        "descendant",
+        "depth"
+      ],
+      "sha256": "14bf6833248803fb75357ee2dc9747a65a3147c721568f4b180e764124836cc8"
+    },
+    {
+      "file": "benchmark/data/comment_100000.csv",
+      "rows": 100000,
+      "bytes": 4433410,
+      "header": [
+        "comment_id",
+        "post_id",
+        "author_id",
+        "parent_id",
+        "content"
+      ],
+      "sha256": "ec40c40444927ba389a3d8a97876ada2c48558ccb88ca547efd27193a25aee65"
+    },
+    {
+      "file": "benchmark/data/comment_path_100000.csv",
+      "rows": 100000,
+      "bytes": 6037195,
+      "header": [
+        "comment_id",
+        "post_id",
+        "path"
+      ],
+      "sha256": "6cded5edf878be9328b36104d44a52374aa0472c1a7a889438eca1e221f81588"
+    },
+    {
+      "file": "benchmark/data/comment_ns_100000.csv",
+      "rows": 100000,
+      "bytes": 2177818,
+      "header": [
+        "comment_id",
+        "post_id",
+        "lft",
+        "rgt"
+      ],
+      "sha256": "fa117b5eac79e07f1bed945d0a0c27aa253add0a00a56973a0d950eb819db79d"
+    },
+    {
+      "file": "benchmark/data/comment_closure_100000.csv",
+      "rows": 1067146,
+      "bytes": 13675243,
+      "header": [
+        "ancestor",
+        "descendant",
+        "depth"
+      ],
+      "sha256": "a81b25aaf188abb121d191da6b5d8590e2e3440a7e15c4c8f88fdc98ca30066c"
+    },
+    {
+      "file": "benchmark/data/users_1000_users_5000_edges.csv",
+      "rows": 1000,
+      "bytes": 41704,
+      "header": [
+        "user_id",
+        "full_name",
+        "email"
+      ],
+      "sha256": "9226092347c2081a5cc78cf962d5a9fb586262ed10c938aed0419cf4f9b6237e"
+    },
+    {
+      "file": "benchmark/data/friendship_1000_users_5000_edges.csv",
+      "rows": 5000,
+      "bytes": 43998,
+      "header": [
+        "user_a",
+        "user_b"
+      ],
+      "sha256": "17af2e016d4c070ca02f23146e7ca6ccee7e1ebca0398a0c692b1d5430422f9b"
+    },
+    {
+      "file": "benchmark/data/neo4j_users_1000_users_5000_edges.csv",
+      "rows": 1000,
+      "bytes": 24821,
+      "header": [
+        "user_id:ID(User)",
+        "full_name",
+        ":LABEL"
+      ],
+      "sha256": "da85fed349e2f883e511cc2b1646840400460be2fee26307e340caa0dba0b8df"
+    },
+    {
+      "file": "benchmark/data/neo4j_friendship_1000_users_5000_edges.csv",
+      "rows": 5000,
+      "bytes": 79020,
+      "header": [
+        ":START_ID(User)",
+        ":END_ID(User)",
+        ":TYPE"
+      ],
+      "sha256": "c2b97865b4c3c38b68b0632c457591f15e28abfaaf9d6da6a4519b804ced2cb0"
+    },
+    {
+      "file": "benchmark/data/users_10000_users_50000_edges.csv",
+      "rows": 10000,
+      "bytes": 446707,
+      "header": [
+        "user_id",
+        "full_name",
+        "email"
+      ],
+      "sha256": "0eac2b30f0c6dd4ddc6c26be9b3817cda56694c329319f75f9c84b1a1fbf0f7e"
+    },
+    {
+      "file": "benchmark/data/friendship_10000_users_50000_edges.csv",
+      "rows": 50000,
+      "bytes": 539001,
+      "header": [
+        "user_a",
+        "user_b"
+      ],
+      "sha256": "4232f58d4ac54d9a4b8d63ca4716dd05894d9bd96a55070545115c5542a3f5a5"
+    },
+    {
+      "file": "benchmark/data/neo4j_users_10000_users_50000_edges.csv",
+      "rows": 10000,
+      "bytes": 267823,
+      "header": [
+        "user_id:ID(User)",
+        "full_name",
+        ":LABEL"
+      ],
+      "sha256": "79781d0c81c067871fca986adf819891996fc280a551a2c474f7382b194ee3d6"
+    },
+    {
+      "file": "benchmark/data/neo4j_friendship_10000_users_50000_edges.csv",
+      "rows": 50000,
+      "bytes": 889023,
+      "header": [
+        ":START_ID(User)",
+        ":END_ID(User)",
+        ":TYPE"
+      ],
+      "sha256": "0f66a2491d85e98d20bee934cfaef8c853a9912ec1f810e14b43d188a47bc8a6"
+    },
+    {
+      "file": "benchmark/data/users_100000_users_500000_edges.csv",
+      "rows": 100000,
+      "bytes": 4766710,
+      "header": [
+        "user_id",
+        "full_name",
+        "email"
+      ],
+      "sha256": "013acbd829371334d4a2bef31046e689806c3bd7b4e5b62f0417ae5ea3febbf4"
+    },
+    {
+      "file": "benchmark/data/friendship_100000_users_500000_edges.csv",
+      "rows": 500000,
+      "bytes": 6388717,
+      "header": [
+        "user_a",
+        "user_b"
+      ],
+      "sha256": "dfab350e1fbb23c6edf32c02a6ab5cd597c1272ae81eeb8900fcd40ea9aa8f8f"
+    },
+    {
+      "file": "benchmark/data/neo4j_users_100000_users_500000_edges.csv",
+      "rows": 100000,
+      "bytes": 2877825,
+      "header": [
+        "user_id:ID(User)",
+        "full_name",
+        ":LABEL"
+      ],
+      "sha256": "42897cc6a8125787143e51ba3b4a455ec6d789ab36883504bcd3dcc2900896b3"
+    },
+    {
+      "file": "benchmark/data/neo4j_friendship_100000_users_500000_edges.csv",
+      "rows": 500000,
+      "bytes": 9888739,
+      "header": [
+        ":START_ID(User)",
+        ":END_ID(User)",
+        ":TYPE"
+      ],
+      "sha256": "21b2a1699fa95906042db6c8d90aaf9aeaef0b02aa611ec53911c3678364cc2d"
+    }
+  ]
+}

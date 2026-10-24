@@ -1,0 +1,1198 @@
+CREATE EXTENSION
+CREATE TABLE
+CREATE TABLE
+CREATE VIEW
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:13: NOTICE:  constraint "chk_group_role" of relation "group_member" does not exist, skipping
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:64: NOTICE:  trigger "trg_check_post_author_membership" for relation "post" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:121: NOTICE:  trigger "trg_protect_group_owner" for relation "group_member" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/q09_trigger.sql:45: NOTICE:  trigger "trg_check_comment_parent" for relation "comment" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE PROCEDURE
+CREATE PROCEDURE
+CREATE FUNCTION
+BEGIN
+DO
+DO
+DO
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:86: NOTICE:  Đã kết bạn thành công giữa user 1 và user 6
+CALL
+DO
+DO
+DO
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:149: NOTICE:  Executing Dynamic Query: SELECT post_id, title, post_type, author_id FROM post WHERE 1=1 AND title ILIKE $1
+DO
+ROLLBACK
+Task 3 regression checks passed
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=25.17..25.29 rows=47 width=226) (actual time=0.127..0.128 rows=2 loops=1)
+   Sort Key: users.user_id
+   Sort Method: quicksort  Memory: 25kB
+   InitPlan 1 (returns $0)
+     ->  Aggregate  (cost=11.75..11.76 rows=1 width=32) (actual time=0.038..0.039 rows=1 loops=1)
+           ->  Seq Scan on users users_1  (cost=0.00..11.40 rows=140 width=4) (actual time=0.007..0.008 rows=6 loops=1)
+   ->  Seq Scan on users  (cost=0.00..12.10 rows=47 width=226) (actual time=0.092..0.094 rows=2 loops=1)
+         Filter: ((friend_count)::numeric > $0)
+         Rows Removed by Filter: 4
+ Planning Time: 0.843 ms
+ Execution Time: 0.246 ms
+(11 rows)
+
+                                                           QUERY PLAN                                                            
+---------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=48.71..48.72 rows=1 width=222) (actual time=0.069..0.070 rows=1 loops=1)
+   Sort Key: u.user_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Hash Right Anti Join  (cost=25.31..48.70 rows=1 width=222) (actual time=0.065..0.066 rows=1 loops=1)
+         Hash Cond: (c.author_id = u.user_id)
+         ->  Seq Scan on comment c  (cost=0.00..19.70 rows=970 width=4) (actual time=0.009..0.009 rows=5 loops=1)
+         ->  Hash  (cost=25.30..25.30 rows=1 width=222) (actual time=0.045..0.045 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               ->  Hash Anti Join  (cost=13.38..25.30 rows=1 width=222) (actual time=0.032..0.034 rows=3 loops=1)
+                     Hash Cond: (u.user_id = p.author_id)
+                     ->  Seq Scan on users u  (cost=0.00..11.40 rows=140 width=222) (actual time=0.009..0.010 rows=6 loops=1)
+                     ->  Hash  (cost=11.50..11.50 rows=150 width=4) (actual time=0.013..0.014 rows=3 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=4) (actual time=0.010..0.010 rows=3 loops=1)
+ Planning Time: 0.558 ms
+ Execution Time: 0.096 ms
+(16 rows)
+
+                                                        QUERY PLAN                                                         
+---------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=1171.72..1171.90 rows=70 width=222) (actual time=0.134..0.135 rows=4 loops=1)
+   Sort Key: u.user_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Nested Loop Anti Join  (cost=0.00..1169.58 rows=70 width=222) (actual time=0.113..0.120 rows=4 loops=1)
+         Join Filter: (NOT (hashed SubPlan 2))
+         Rows Removed by Join Filter: 4
+         ->  Seq Scan on users u  (cost=0.00..11.40 rows=140 width=222) (actual time=0.018..0.019 rows=6 loops=1)
+         ->  Materialize  (cost=0.00..12.63 rows=1 width=4) (actual time=0.005..0.005 rows=1 loops=6)
+               ->  Seq Scan on study_group sg  (cost=0.00..12.62 rows=1 width=4) (actual time=0.028..0.029 rows=1 loops=1)
+                     Filter: ((topic)::text = 'CSDL'::text)
+                     Rows Removed by Filter: 1
+         SubPlan 2
+           ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.022..0.023 rows=6 loops=1)
+ Planning Time: 1.680 ms
+ Execution Time: 0.191 ms
+(15 rows)
+
+                                                             QUERY PLAN                                                              
+-------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=47.00..47.17 rows=70 width=230) (actual time=0.034..0.035 rows=1 loops=1)
+   Sort Key: sg.group_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=42.23..44.85 rows=70 width=230) (actual time=0.031..0.032 rows=1 loops=1)
+         Group Key: sg.group_id
+         Filter: (count(*) >= 3)
+         Batches: 1  Memory Usage: 40kB
+         Rows Removed by Filter: 1
+         ->  Hash Join  (cost=14.72..37.28 rows=990 width=222) (actual time=0.022..0.024 rows=6 loops=1)
+               Hash Cond: (gm.group_id = sg.group_id)
+               ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=4) (actual time=0.009..0.009 rows=6 loops=1)
+               ->  Hash  (cost=12.10..12.10 rows=210 width=222) (actual time=0.009..0.010 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on study_group sg  (cost=0.00..12.10 rows=210 width=222) (actual time=0.005..0.006 rows=2 loops=1)
+ Planning Time: 0.161 ms
+ Execution Time: 0.063 ms
+(16 rows)
+
+                                                         QUERY PLAN                                                          
+-----------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=47.45..47.82 rows=150 width=430) (actual time=0.031..0.032 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=40.53..42.03 rows=150 width=430) (actual time=0.028..0.029 rows=3 loops=1)
+         Group Key: p.post_id
+         Batches: 1  Memory Usage: 40kB
+         ->  Hash Right Join  (cost=13.38..35.68 rows=970 width=426) (actual time=0.020..0.025 rows=6 loops=1)
+               Hash Cond: (c.post_id = p.post_id)
+               ->  Seq Scan on comment c  (cost=0.00..19.70 rows=970 width=8) (actual time=0.005..0.005 rows=5 loops=1)
+               ->  Hash  (cost=11.50..11.50 rows=150 width=422) (actual time=0.011..0.011 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=422) (actual time=0.009..0.009 rows=3 loops=1)
+ Planning Time: 0.123 ms
+ Execution Time: 0.058 ms
+(14 rows)
+
+                                                                    QUERY PLAN                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ Incremental Sort  (cost=52.53..62.25 rows=150 width=442) (actual time=0.090..0.091 rows=3 loops=1)
+   Sort Key: post_likes.group_id, (rank() OVER (?)), post_likes.post_id
+   Presorted Key: post_likes.group_id
+   Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 25kB  Peak Memory: 25kB
+   ->  WindowAgg  (cost=52.50..55.50 rows=150 width=442) (actual time=0.072..0.079 rows=3 loops=1)
+         ->  Sort  (cost=52.50..52.88 rows=150 width=434) (actual time=0.057..0.058 rows=3 loops=1)
+               Sort Key: post_likes.group_id, post_likes.like_count DESC
+               Sort Method: quicksort  Memory: 25kB
+               ->  Subquery Scan on post_likes  (cost=45.58..47.08 rows=150 width=434) (actual time=0.051..0.053 rows=3 loops=1)
+                     ->  HashAggregate  (cost=45.58..47.08 rows=150 width=434) (actual time=0.049..0.050 rows=3 loops=1)
+                           Group Key: p.post_id
+                           Batches: 1  Memory Usage: 40kB
+                           ->  Hash Right Join  (cost=13.38..37.33 rows=1100 width=464) (actual time=0.040..0.045 rows=6 loops=1)
+                                 Hash Cond: (pr.post_id = p.post_id)
+                                 ->  Seq Scan on post_reaction pr  (cost=0.00..21.00 rows=1100 width=42) (actual time=0.012..0.013 rows=5 loops=1)
+                                 ->  Hash  (cost=11.50..11.50 rows=150 width=426) (actual time=0.022..0.022 rows=3 loops=1)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                       ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=426) (actual time=0.009..0.010 rows=3 loops=1)
+ Planning Time: 0.421 ms
+ Execution Time: 0.134 ms
+(20 rows)
+
+                                                               QUERY PLAN                                                               
+----------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=1278.94..1279.13 rows=75 width=422) (actual time=0.047..0.048 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Seq Scan on post p  (cost=0.00..1276.60 rows=75 width=422) (actual time=0.031..0.044 rows=3 loops=1)
+         Filter: (SubPlan 1)
+         SubPlan 1
+           ->  Bitmap Heap Scan on group_member gm  (cost=4.19..12.66 rows=5 width=4) (actual time=0.005..0.005 rows=1 loops=3)
+                 Recheck Cond: (group_id = p.group_id)
+                 Heap Blocks: exact=3
+                 ->  Bitmap Index Scan on group_member_pkey  (cost=0.00..4.19 rows=5 width=0) (actual time=0.004..0.004 rows=3 loops=3)
+                       Index Cond: (group_id = p.group_id)
+ Planning Time: 0.077 ms
+ Execution Time: 0.077 ms
+(13 rows)
+
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=41.15..41.16 rows=4 width=422) (actual time=0.028..0.029 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Hash Join  (cost=13.75..41.11 rows=4 width=422) (actual time=0.020..0.023 rows=3 loops=1)
+         Hash Cond: ((gm.group_id = p.group_id) AND (gm.user_id = p.author_id))
+         ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.008..0.009 rows=6 loops=1)
+         ->  Hash  (cost=11.50..11.50 rows=150 width=430) (actual time=0.008..0.008 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=430) (actual time=0.005..0.006 rows=3 loops=1)
+ Planning Time: 0.101 ms
+ Execution Time: 0.042 ms
+(11 rows)
+
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Unique  (cost=41.15..41.18 rows=4 width=422) (actual time=0.038..0.040 rows=3 loops=1)
+   ->  Sort  (cost=41.15..41.16 rows=4 width=422) (actual time=0.038..0.039 rows=3 loops=1)
+         Sort Key: p.post_id, p.title
+         Sort Method: quicksort  Memory: 25kB
+         ->  Hash Join  (cost=13.75..41.11 rows=4 width=422) (actual time=0.021..0.023 rows=3 loops=1)
+               Hash Cond: ((gm.group_id = p.group_id) AND (gm.user_id = p.author_id))
+               ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.009..0.009 rows=6 loops=1)
+               ->  Hash  (cost=11.50..11.50 rows=150 width=430) (actual time=0.008..0.008 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=430) (actual time=0.005..0.006 rows=3 loops=1)
+ Planning Time: 0.246 ms
+ Execution Time: 0.059 ms
+(12 rows)
+
+                                                                       QUERY PLAN                                                                        
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=95.79..95.80 rows=1 width=8) (actual time=0.063..0.064 rows=1 loops=1)
+   ->  Sort  (cost=95.70..95.75 rows=18 width=4) (actual time=0.060..0.062 rows=1 loops=1)
+         Sort Key: friendship.user_b
+         Sort Method: quicksort  Memory: 25kB
+         ->  Hash Join  (cost=51.87..95.33 rows=18 width=4) (actual time=0.037..0.041 rows=1 loops=1)
+               Hash Cond: (friendship.user_b = friendship_2.user_b)
+               ->  Append  (cost=4.22..47.43 rows=18 width=4) (actual time=0.017..0.020 rows=2 loops=1)
+                     ->  Bitmap Heap Scan on friendship  (cost=4.22..14.76 rows=9 width=4) (actual time=0.017..0.017 rows=2 loops=1)
+                           Recheck Cond: (user_a = 1)
+                           Heap Blocks: exact=1
+                           ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..4.22 rows=9 width=0) (actual time=0.008..0.008 rows=3 loops=1)
+                                 Index Cond: (user_a = 1)
+                     ->  Bitmap Heap Scan on friendship friendship_1  (cost=22.03..32.57 rows=9 width=4) (actual time=0.002..0.002 rows=0 loops=1)
+                           Recheck Cond: (user_b = 1)
+                           ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..22.03 rows=9 width=0) (actual time=0.002..0.002 rows=0 loops=1)
+                                 Index Cond: (user_b = 1)
+               ->  Hash  (cost=47.43..47.43 rows=18 width=4) (actual time=0.010..0.011 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Append  (cost=4.22..47.43 rows=18 width=4) (actual time=0.002..0.004 rows=2 loops=1)
+                           ->  Bitmap Heap Scan on friendship friendship_2  (cost=4.22..14.76 rows=9 width=4) (actual time=0.002..0.002 rows=1 loops=1)
+                                 Recheck Cond: (user_a = 4)
+                                 Heap Blocks: exact=1
+                                 ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..4.22 rows=9 width=0) (actual time=0.001..0.001 rows=1 loops=1)
+                                       Index Cond: (user_a = 4)
+                           ->  Bitmap Heap Scan on friendship friendship_3  (cost=22.03..32.57 rows=9 width=4) (actual time=0.001..0.002 rows=1 loops=1)
+                                 Recheck Cond: (user_b = 4)
+                                 Heap Blocks: exact=1
+                                 ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..22.03 rows=9 width=0) (actual time=0.001..0.001 rows=1 loops=1)
+                                       Index Cond: (user_b = 4)
+ Planning Time: 0.466 ms
+ Execution Time: 0.156 ms
+(31 rows)
+
+  cycle_path   | path_length 
+---------------+-------------
+ {1,2,3,1}     |           3
+ {2,3,5,4,2}   |           4
+ {1,2,4,5,3,1} |           5
+(3 rows)
+
+ user_id | full_name 
+---------+-----------
+       4 | Dung
+       5 | Em
+(2 rows)
+
+ recommended_user_id | recommended_user_name | mutual_friends_count 
+---------------------+-----------------------+----------------------
+                   4 | Dung                  |                    1
+                   5 | Em                    |                    1
+(2 rows)
+
+ shortest_path | path_length 
+---------------+-------------
+ {1,3,5}       |           2
+(1 row)
+
+BEGIN
+INSERT 0 1
+UPDATE 1
+UPDATE 1
+COMMIT
+ user_id | full_name | friend_count | actual_edge_count 
+---------+-----------+--------------+-------------------
+       1 | An        |            3 |                 3
+       6 | Phong     |            1 |                 1
+(2 rows)
+
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE TABLE
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_comment_id 
+----------------
+              6
+(1 row)
+
+ al_move_subtree 
+-----------------
+ 
+(1 row)
+
+ deleted_node_count 
+--------------------
+                  3
+(1 row)
+
+ROLLBACK
+ comment_id | parent_id |      indented_content      | level 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 |   c2 - Phản hồi c1         |     1
+          3 |         2 |     c3 - Phản hồi c2       |     2
+          4 |           | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id | parent_id |          content           | depth 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 | c2 - Phản hồi c1           |     1
+          3 |         2 | c3 - Phản hồi c2           |     2
+(3 rows)
+
+ comment_id | parent_id |          content           | distance 
+------------+-----------+----------------------------+----------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |        2
+          2 |         1 | c2 - Phản hồi c1           |        1
+(2 rows)
+
+ comment_id | parent_id |     content      | depth 
+------------+-----------+------------------+-------
+          2 |         1 | c2 - Phản hồi c1 |     1
+(1 row)
+
+BEGIN
+ new_comment_id 
+----------------
+              7
+(1 row)
+
+ROLLBACK
+BEGIN
+ deleted_node_count 
+--------------------
+                  2
+(1 row)
+
+ROLLBACK
+BEGIN
+ al_move_subtree 
+-----------------
+ 
+(1 row)
+
+ comment_id | parent_id 
+------------+-----------
+          2 |         4
+(1 row)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | distance_from_node 
+------------+----------------------------+--------------------
+          1 | c1 - Bình luận gốc 1 bài 1 |                  2
+          2 | c2 - Phản hồi c1           |                  1
+          3 | c3 - Phản hồi c2           |                  0
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/schema.sql:11: NOTICE:  extension "ltree" already exists, skipping
+CREATE EXTENSION
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+      6
+(1 row)
+
+ comment_id | post_id | path  
+------------+---------+-------
+          1 |       1 | 1
+          2 |       1 | 1.2
+          3 |       1 | 1.2.3
+          6 |       1 | 1.2.6
+          4 |       1 | 4
+          5 |       2 | 5
+(6 rows)
+
+ROLLBACK
+BEGIN
+ updated_rows 
+--------------
+            2
+(1 row)
+
+ comment_id | path 
+------------+------
+          1 | 1
+          4 | 4
+          2 | 4
+          3 | 4.3
+          5 | 5
+(5 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/crud.sql:136: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/crud.sql:156: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+ comment_id |          content           |      indented_content      | level 
+------------+----------------------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 | c2 - Phản hồi c1           |   c2 - Phản hồi c1         |     1
+          3 | c3 - Phản hồi c2           |     c3 - Phản hồi c2       |     2
+          4 | c4 - Bình luận gốc 2 bài 1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | path  
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+          3 | c3 - Phản hồi c2           | 1.2.3
+(3 rows)
+
+ comment_id |          content           | path 
+------------+----------------------------+------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+(2 rows)
+
+ comment_id |     content      | path | depth 
+------------+------------------+------+-------
+          2 | c2 - Phản hồi c1 | 1.2  |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:92: NOTICE:  Đã thêm comment_id = 7 với path = 1.2.7.
+DO
+ comment_id | post_id | path  |          content           
+------------+---------+-------+----------------------------
+          1 |       1 | 1     | c1 - Bình luận gốc 1 bài 1
+          2 |       1 | 1.2   | c2 - Phản hồi c1
+          3 |       1 | 1.2.3 | c3 - Phản hồi c2
+          7 |       1 | 1.2.7 | Q5 path enum - child of 2
+          4 |       1 | 4     | c4 - Bình luận gốc 2 bài 1
+          5 |       2 | 5     | c5 - Bình luận gốc bài 2
+(6 rows)
+
+ROLLBACK
+BEGIN
+DELETE 2
+DELETE 1
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          5 | 5    | c5 - Bình luận gốc bài 2
+(3 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:181: NOTICE:  Đã chuyển subtree(1.2) xuống làm con của 4.
+DO
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          2 | 4    | c2 - Phản hồi c1
+          3 | 4.3  | c3 - Phản hồi c2
+          5 | 5    | c5 - Bình luận gốc bài 2
+(5 rows)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | path  | depth 
+------------+----------------------------+-------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1     |     1
+          2 | c2 - Phản hồi c1           | 1.2   |     2
+          3 | c3 - Phản hồi c2           | 1.2.3 |     3
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+      6
+(1 row)
+
+ comment_id | post_id | lft | rgt |          content           
+------------+---------+-----+-----+----------------------------
+          1 |       1 |   1 |   8 | c1 - Bình luận gốc 1 bài 1
+          5 |       2 |   1 |   2 | c5 - Bình luận gốc bài 2
+          2 |       1 |   2 |   7 | c2 - Phản hồi c1
+          3 |       1 |   3 |   4 | c3 - Phản hồi c2
+          6 |       1 |   5 |   6 | CRUD - child of 2
+          4 |       1 |   9 |  10 | c4 - Bình luận gốc 2 bài 1
+(6 rows)
+
+ROLLBACK
+BEGIN
+ deleted_nodes 
+---------------
+             2
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   4 | c4 - Bình luận gốc 2 bài 1
+(3 rows)
+
+ROLLBACK
+BEGIN
+ rebuilt_nodes 
+---------------
+             4
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   8 | c4 - Bình luận gốc 2 bài 1
+          2 |   5 |   8 | c2 - Phản hồi c1
+          3 |   7 |   8 | c3 - Phản hồi c2
+(5 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/crud.sql:196: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/crud.sql:216: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+DROP FUNCTION
+ comment_id | post_id |      indented_content      | level 
+------------+---------+----------------------------+-------
+          1 |       1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |       1 |   c2 - Phản hồi c1         |     1
+          3 |       1 |     c3 - Phản hồi c2       |     2
+          4 |       1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | lft | rgt 
+------------+----------------------------+-----+-----
+          1 | c1 - Bình luận gốc 1 bài 1 |   1 |   6
+          2 | c2 - Phản hồi c1           |   2 |   5
+          3 | c3 - Phản hồi c2           |   3 |   4
+(3 rows)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+(2 rows)
+
+ comment_id |     content      | depth 
+------------+------------------+-------
+          2 | c2 - Phản hồi c1 |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:129: NOTICE:  Đã chèn comment_id = 7 vào khoảng [5, 6].
+DO
+ comment_id | post_id | lft | rgt |          content           
+------------+---------+-----+-----+----------------------------
+          1 |       1 |   1 |   8 | c1 - Bình luận gốc 1 bài 1
+          5 |       2 |   1 |   2 | c5 - Bình luận gốc bài 2
+          2 |       1 |   2 |   7 | c2 - Phản hồi c1
+          3 |       1 |   3 |   4 | c3 - Phản hồi c2
+          7 |       1 |   5 |   6 | Q5 nested set - child of 2
+          4 |       1 |   9 |  10 | c4 - Bình luận gốc 2 bài 1
+(6 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:177: NOTICE:  Đã xóa subtree(node 2) bề rộng 4.
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   4 | c4 - Bình luận gốc 2 bài 1
+(3 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:270: NOTICE:  Đã chuyển subtree(2) xuống làm con của 4 và rebuild lft/rgt.
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   8 | c4 - Bình luận gốc 2 bài 1
+          2 |   5 |   8 | c2 - Phản hồi c1
+          3 |   7 |   8 | c3 - Phản hồi c2
+(5 rows)
+
+ROLLBACK
+ comment_id | subtree_node_count 
+------------+--------------------
+          1 |                  3
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+          3 |   3 |   4 | c3 - Phản hồi c2
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE INDEX
+CREATE INDEX
+CREATE INDEX
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+      6
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          6 |     2
+        2 |          6 |     1
+        6 |          6 |     0
+(3 rows)
+
+ROLLBACK
+BEGIN
+ inserted_rows 
+---------------
+             2
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          1 |     0
+        2 |          2 |     0
+        2 |          3 |     1
+        3 |          3 |     0
+        4 |          2 |     1
+        4 |          3 |     2
+        4 |          4 |     0
+        5 |          5 |     0
+(8 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:155: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:175: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+ comment_id | parent_id |      indented_content      | level 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 |   c2 - Phản hồi c1         |     1
+          3 |         2 |     c3 - Phản hồi c2       |     2
+          4 |           | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 | c2 - Phản hồi c1           |     1
+          3 | c3 - Phản hồi c2           |     2
+(3 rows)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     2
+          2 | c2 - Phản hồi c1           |     1
+(2 rows)
+
+ comment_id |     content      | depth 
+------------+------------------+-------
+          2 | c2 - Phản hồi c1 |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/queries_q1_q10.sql:105: NOTICE:  Đã thêm comment_id = 7 kèm các cặp bao đóng tương ứng.
+DO
+ ancestor | descendant | depth |             content             
+----------+------------+-------+---------------------------------
+        7 |          7 |     0 | Q5 closure - reply to comment 2
+        2 |          7 |     1 | Q5 closure - reply to comment 2
+        1 |          7 |     2 | Q5 closure - reply to comment 2
+(3 rows)
+
+ROLLBACK
+BEGIN
+DELETE 2
+ remaining_closure_rows 
+------------------------
+                      3
+(1 row)
+
+ROLLBACK
+BEGIN
+DO
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          1 |     0
+        2 |          2 |     0
+        2 |          3 |     1
+        3 |          3 |     0
+        4 |          2 |     1
+        4 |          3 |     2
+        4 |          4 |     0
+        5 |          5 |     0
+(8 rows)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     2
+          2 | c2 - Phản hồi c1           |     1
+          3 | c3 - Phản hồi c2           |     0
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:32: NOTICE:  table "demo_user_profile_bad" does not exist, skipping
+DROP TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:33: NOTICE:  table "user_interest" does not exist, skipping
+DROP TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:34: NOTICE:  table "user_subject" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 4
+                        title                         
+------------------------------------------------------
+ === DỮ LIỆU BẢNG BỊ TÍCH DESCARTES (VI PHẠM 4NF) ===
+(1 row)
+
+ user_id | interest | subject 
+---------+----------+---------
+       1 | Neo4j    | CSDL
+       1 | Neo4j    | Web
+       1 | Python   | CSDL
+       1 | Python   | Web
+(4 rows)
+
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 2
+INSERT 0 1
+                     title                      
+------------------------------------------------
+ === TÁI LẬP DỮ LIỆU TỰ NHIÊN TỪ 2 BẢNG 4NF ===
+(1 row)
+
+ user_id |     interest     | subject 
+---------+------------------+---------
+       1 | Machine Learning | CSDL
+       1 | Machine Learning | Web
+       1 | Neo4j            | CSDL
+       1 | Neo4j            | Web
+       1 | Python           | CSDL
+       1 | Python           | Web
+(6 rows)
+
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8

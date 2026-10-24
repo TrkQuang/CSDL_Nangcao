@@ -1,0 +1,10 @@
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 1000 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 1000 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK

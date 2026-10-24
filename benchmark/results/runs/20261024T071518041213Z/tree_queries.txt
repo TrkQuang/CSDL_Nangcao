@@ -1,0 +1,483 @@
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_comment_id 
+----------------
+              7
+(1 row)
+
+ al_move_subtree 
+-----------------
+ 
+(1 row)
+
+ deleted_node_count 
+--------------------
+                  3
+(1 row)
+
+ROLLBACK
+ comment_id | parent_id |      indented_content      | level 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 |   c2 - Phản hồi c1         |     1
+          3 |         2 |     c3 - Phản hồi c2       |     2
+          4 |           | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id | parent_id |          content           | depth 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 | c2 - Phản hồi c1           |     1
+          3 |         2 | c3 - Phản hồi c2           |     2
+(3 rows)
+
+ comment_id | parent_id |          content           | distance 
+------------+-----------+----------------------------+----------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |        2
+          2 |         1 | c2 - Phản hồi c1           |        1
+(2 rows)
+
+ comment_id | parent_id |     content      | depth 
+------------+-----------+------------------+-------
+          2 |         1 | c2 - Phản hồi c1 |     1
+(1 row)
+
+BEGIN
+ new_comment_id 
+----------------
+              8
+(1 row)
+
+ROLLBACK
+BEGIN
+ deleted_node_count 
+--------------------
+                  2
+(1 row)
+
+ROLLBACK
+BEGIN
+ al_move_subtree 
+-----------------
+ 
+(1 row)
+
+ comment_id | parent_id 
+------------+-----------
+          2 |         4
+(1 row)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | distance_from_node 
+------------+----------------------------+--------------------
+          1 | c1 - Bình luận gốc 1 bài 1 |                  2
+          2 | c2 - Phản hồi c1           |                  1
+          3 | c3 - Phản hồi c2           |                  0
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+      9
+(1 row)
+
+ comment_id | post_id | path  
+------------+---------+-------
+          1 |       1 | 1
+          2 |       1 | 1.2
+          3 |       1 | 1.2.3
+          9 |       1 | 1.2.9
+          4 |       1 | 4
+          5 |       2 | 5
+(6 rows)
+
+ROLLBACK
+BEGIN
+ updated_rows 
+--------------
+            2
+(1 row)
+
+ comment_id | path 
+------------+------
+          1 | 1
+          4 | 4
+          2 | 4
+          3 | 4.3
+          5 | 5
+(5 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/crud.sql:136: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/crud.sql:156: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+ comment_id |          content           |      indented_content      | level 
+------------+----------------------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 | c2 - Phản hồi c1           |   c2 - Phản hồi c1         |     1
+          3 | c3 - Phản hồi c2           |     c3 - Phản hồi c2       |     2
+          4 | c4 - Bình luận gốc 2 bài 1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | path  
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+          3 | c3 - Phản hồi c2           | 1.2.3
+(3 rows)
+
+ comment_id |          content           | path 
+------------+----------------------------+------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+(2 rows)
+
+ comment_id |     content      | path | depth 
+------------+------------------+------+-------
+          2 | c2 - Phản hồi c1 | 1.2  |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:92: NOTICE:  Đã thêm comment_id = 10 với path = 1.2.10.
+DO
+ comment_id | post_id |  path  |          content           
+------------+---------+--------+----------------------------
+          1 |       1 | 1      | c1 - Bình luận gốc 1 bài 1
+          2 |       1 | 1.2    | c2 - Phản hồi c1
+         10 |       1 | 1.2.10 | Q5 path enum - child of 2
+          3 |       1 | 1.2.3  | c3 - Phản hồi c2
+          4 |       1 | 4      | c4 - Bình luận gốc 2 bài 1
+          5 |       2 | 5      | c5 - Bình luận gốc bài 2
+(6 rows)
+
+ROLLBACK
+BEGIN
+DELETE 2
+DELETE 1
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          5 | 5    | c5 - Bình luận gốc bài 2
+(3 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:181: NOTICE:  Đã chuyển subtree(1.2) xuống làm con của 4.
+DO
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          2 | 4    | c2 - Phản hồi c1
+          3 | 4.3  | c3 - Phản hồi c2
+          5 | 5    | c5 - Bình luận gốc bài 2
+(5 rows)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | path  | depth 
+------------+----------------------------+-------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1     |     1
+          2 | c2 - Phản hồi c1           | 1.2   |     2
+          3 | c3 - Phản hồi c2           | 1.2.3 |     3
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+     11
+(1 row)
+
+ comment_id | post_id | lft | rgt |          content           
+------------+---------+-----+-----+----------------------------
+          1 |       1 |   1 |   8 | c1 - Bình luận gốc 1 bài 1
+          5 |       2 |   1 |   2 | c5 - Bình luận gốc bài 2
+          2 |       1 |   2 |   7 | c2 - Phản hồi c1
+          3 |       1 |   3 |   4 | c3 - Phản hồi c2
+         11 |       1 |   5 |   6 | CRUD - child of 2
+          4 |       1 |   9 |  10 | c4 - Bình luận gốc 2 bài 1
+(6 rows)
+
+ROLLBACK
+BEGIN
+ deleted_nodes 
+---------------
+             2
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   4 | c4 - Bình luận gốc 2 bài 1
+(3 rows)
+
+ROLLBACK
+BEGIN
+ rebuilt_nodes 
+---------------
+             4
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   8 | c4 - Bình luận gốc 2 bài 1
+          2 |   5 |   8 | c2 - Phản hồi c1
+          3 |   7 |   8 | c3 - Phản hồi c2
+(5 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/crud.sql:196: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/crud.sql:216: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+DROP FUNCTION
+ comment_id | post_id |      indented_content      | level 
+------------+---------+----------------------------+-------
+          1 |       1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |       1 |   c2 - Phản hồi c1         |     1
+          3 |       1 |     c3 - Phản hồi c2       |     2
+          4 |       1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | lft | rgt 
+------------+----------------------------+-----+-----
+          1 | c1 - Bình luận gốc 1 bài 1 |   1 |   6
+          2 | c2 - Phản hồi c1           |   2 |   5
+          3 | c3 - Phản hồi c2           |   3 |   4
+(3 rows)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+(2 rows)
+
+ comment_id |     content      | depth 
+------------+------------------+-------
+          2 | c2 - Phản hồi c1 |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:129: NOTICE:  Đã chèn comment_id = 12 vào khoảng [5, 6].
+DO
+ comment_id | post_id | lft | rgt |          content           
+------------+---------+-----+-----+----------------------------
+          1 |       1 |   1 |   8 | c1 - Bình luận gốc 1 bài 1
+          5 |       2 |   1 |   2 | c5 - Bình luận gốc bài 2
+          2 |       1 |   2 |   7 | c2 - Phản hồi c1
+          3 |       1 |   3 |   4 | c3 - Phản hồi c2
+         12 |       1 |   5 |   6 | Q5 nested set - child of 2
+          4 |       1 |   9 |  10 | c4 - Bình luận gốc 2 bài 1
+(6 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:177: NOTICE:  Đã xóa subtree(node 2) bề rộng 4.
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   4 | c4 - Bình luận gốc 2 bài 1
+(3 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:270: NOTICE:  Đã chuyển subtree(2) xuống làm con của 4 và rebuild lft/rgt.
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          4 |   3 |   8 | c4 - Bình luận gốc 2 bài 1
+          2 |   5 |   8 | c2 - Phản hồi c1
+          3 |   7 |   8 | c3 - Phản hồi c2
+(5 rows)
+
+ROLLBACK
+ comment_id | subtree_node_count 
+------------+--------------------
+          1 |                  3
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+          3 |   3 |   4 | c3 - Phản hồi c2
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+     13
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |         13 |     2
+        2 |         13 |     1
+       13 |         13 |     0
+(3 rows)
+
+ROLLBACK
+BEGIN
+ inserted_rows 
+---------------
+             2
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          1 |     0
+        2 |          2 |     0
+        2 |          3 |     1
+        3 |          3 |     0
+        4 |          2 |     1
+        4 |          3 |     2
+        4 |          4 |     0
+        5 |          5 |     0
+(8 rows)
+
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:155: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+DO
+ROLLBACK
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:175: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+ comment_id | parent_id |      indented_content      | level 
+------------+-----------+----------------------------+-------
+          1 |           | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |         1 |   c2 - Phản hồi c1         |     1
+          3 |         2 |     c3 - Phản hồi c2       |     2
+          4 |           | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 | c2 - Phản hồi c1           |     1
+          3 | c3 - Phản hồi c2           |     2
+(3 rows)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     2
+          2 | c2 - Phản hồi c1           |     1
+(2 rows)
+
+ comment_id |     content      | depth 
+------------+------------------+-------
+          2 | c2 - Phản hồi c1 |     2
+(1 row)
+
+BEGIN
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/queries_q1_q10.sql:105: NOTICE:  Đã thêm comment_id = 14 kèm các cặp bao đóng tương ứng.
+DO
+ ancestor | descendant | depth |             content             
+----------+------------+-------+---------------------------------
+       14 |         14 |     0 | Q5 closure - reply to comment 2
+        2 |         14 |     1 | Q5 closure - reply to comment 2
+        1 |         14 |     2 | Q5 closure - reply to comment 2
+(3 rows)
+
+ROLLBACK
+BEGIN
+DELETE 2
+ remaining_closure_rows 
+------------------------
+                      3
+(1 row)
+
+ROLLBACK
+BEGIN
+DO
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          1 |     0
+        2 |          2 |     0
+        2 |          3 |     1
+        3 |          3 |     0
+        4 |          2 |     1
+        4 |          3 |     2
+        4 |          4 |     0
+        5 |          5 |     0
+(8 rows)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | depth 
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 |     2
+          2 | c2 - Phản hồi c1           |     1
+          3 | c3 - Phản hồi c2           |     0
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+

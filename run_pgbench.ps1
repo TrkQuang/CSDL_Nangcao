@@ -83,4 +83,8 @@ $scriptPath = Join-Path $PSScriptRoot "transactions\pgbench\add_friend.sql"
 
 & $pgbench -n -h $DbHost -p $Port -U $User -c $Clients -j $Threads -t $TransactionsPerClient -f $scriptPath $Database
 
+if ($LASTEXITCODE -ne 0) {
+    throw "pgbench failed with exit code $LASTEXITCODE. Check connection and script output."
+}
+
 Write-Host "`n>>> THU TAI PGBENCH HOAN TAT THANH CONG! <<<" -ForegroundColor Green

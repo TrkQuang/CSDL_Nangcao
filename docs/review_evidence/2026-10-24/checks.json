@@ -1,0 +1,16 @@
+{
+  "task3_regression_and_queries": "passed",
+  "task3_T1_T2": "passed; T2 intentionally produces two check-constraint errors",
+  "task2_adjacency_standalone": "failed: requires al_insert_child from crud.sql first",
+  "task2_adjacency_list_crud_then_queries": "passed",
+  "task2_path_enumeration_crud_then_queries": "passed",
+  "task2_nested_set_crud_then_queries": "passed",
+  "task2_closure_table_crud_then_queries": "passed",
+  "task1_normalization_and_4nf": "passed",
+  "task3_embedded": "passed",
+  "task4_deadlock": "40P01 reproduced in isolated cluster",
+  "task4_pgbench_5": "passed; 100 transactions/client; counters consistent",
+  "task4_pgbench_10": "passed; 100 transactions/client; counters consistent",
+  "task4_pgbench_20": "passed; 100 transactions/client; counters consistent",
+  "task2_standalone_validator_after_fix": "passed; four models; PostgreSQL 16 auto discovery and queries-first order"
+}

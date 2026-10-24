@@ -1,0 +1,59 @@
+================================================================================
+CHƯƠNG TRÌNH KIỂM CHỨNG TOÁN HỌC CHUẨN HÓA DỮ LIỆU - ĐỀ TÀI 17
+Phụ trách: TV1 - Trần Kỳ Quang (Leader)
+================================================================================
+
+[BƯỚC 1]: LƯỢC ĐỒ QUAN HỆ TỔNG HỢP & TẬP FD:
+R = ['author_email', 'author_id', 'author_name', 'comment_id', 'content', 'created_at', 'group_id', 'group_name', 'group_topic', 'parent_id', 'post_id']
+Tập phụ thuộc hàm F:
+  f1: {comment_id} -> {author_id, content, created_at, parent_id, post_id}
+  f2: {post_id} -> {group_id}
+  f3: {group_id} -> {group_name, group_topic}
+  f4: {author_id} -> {author_email, author_name}
+  f5: {author_email} -> {author_id, author_name}
+
+[BƯỚC 2]: BAO ĐÓNG CỦA {comment_id}+:
+  {comment_id}+ = ['author_email', 'author_id', 'author_name', 'comment_id', 'content', 'created_at', 'group_id', 'group_name', 'group_topic', 'parent_id', 'post_id']
+  -> Bằng toàn bộ R: True
+
+[BƯỚC 3]: PHÂN LOẠI THUỘC TÍNH & TÌM KHÓA:
+  Tập nguồn (L)     : ['comment_id']
+  Tập đích (R)      : ['author_name', 'content', 'created_at', 'group_name', 'group_topic', 'parent_id']
+  Tập trung gian (M): ['author_email', 'author_id', 'group_id', 'post_id']
+  Tập cô lập (I)    : []
+  -> CÁC KHÓA ỨNG VIÊN CỦA R: [['comment_id']]
+
+[BƯỚC 4]: PHỦ TỐI TIỂU F_min (3 bước: tách RHS, loại LHS dư, loại FD dư):
+  FD_1: {comment_id} -> {author_id}
+  FD_2: {comment_id} -> {content}
+  FD_3: {comment_id} -> {created_at}
+  FD_4: {comment_id} -> {parent_id}
+  FD_5: {comment_id} -> {post_id}
+  FD_6: {post_id} -> {group_id}
+  FD_7: {group_id} -> {group_name}
+  FD_8: {group_id} -> {group_topic}
+  FD_9: {author_id} -> {author_email}
+  FD_10: {author_email} -> {author_id}
+  FD_11: {author_email} -> {author_name}
+
+[BƯỚC 5]: PHÂN RÃ CHUẨN HÓA 3NF (BERNSTEIN SYNTHESIS):
+  R1 = ['author_id', 'comment_id', 'content', 'created_at', 'parent_id', 'post_id']
+       -> Kiểm tra BCNF: ĐẠT BCNF
+  R2 = ['group_id', 'post_id']
+       -> Kiểm tra BCNF: ĐẠT BCNF
+  R3 = ['group_id', 'group_name', 'group_topic']
+       -> Kiểm tra BCNF: ĐẠT BCNF
+  R4 = ['author_email', 'author_id', 'author_name']
+       -> Kiểm tra BCNF: ĐẠT BCNF
+
+[BƯỚC 6]: THUẬT TOÁN MA TRẬN CHASE (CHASE TEST FOR LOSSLESS JOIN):
+  Thuộc tính: ['A1:author_email', 'A2:author_id', 'A3:author_name', 'A4:comment_id', 'A5:content', 'A6:created_at', 'A7:group_id', 'A8:group_name', 'A9:group_topic', 'A10:parent_id', 'A11:post_id']
+  Hàng R1: ['a_1', 'a_2', 'a_3', 'a_4', 'a_5', 'a_6', 'a_7', 'a_8', 'a_9', 'a_10', 'a_11']
+  Hàng R2: ['b_2_1', 'b_2_2', 'b_2_3', 'b_2_4', 'b_2_5', 'b_2_6', 'a_7', 'a_8', 'a_9', 'b_2_10', 'a_11']
+  Hàng R3: ['b_3_1', 'b_3_2', 'b_3_3', 'b_3_4', 'b_3_5', 'b_3_6', 'a_7', 'a_8', 'a_9', 'b_3_10', 'b_3_11']
+  Hàng R4: ['a_1', 'a_2', 'a_3', 'b_4_4', 'b_4_5', 'b_4_6', 'b_4_7', 'b_4_8', 'b_4_9', 'b_4_10', 'b_4_11']
+  -> KẾT LUẬN CHASE: HOÀN TOÀN BẢO TOÀN THÔNG TIN (LOSSLESS JOIN)!
+
+================================================================================
+XÁC NHẬN: TOÀN BỘ CÁC BƯỚC TOÁN HỌC CHUẨN HÓA CỦA TASK 1 ĐỀU CHÍNH XÁC 100%!
+================================================================================

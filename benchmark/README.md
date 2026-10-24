@@ -1,5 +1,60 @@
 # QUY TRINH THIET KE VAT LY VA BENCHMARK
 
+## Completed Task 5 run
+
+Verified run: `results/runs/20261024T071518041213Z/` on PostgreSQL 16.15.
+360 measurements cover 3 sizes, 4 models, 2 index modes, 3 workloads and 5 repeats.
+
+- Report: `../report/task5_benchmark_results.md`.
+- Experiment log: `../docs/experiment_log/task5_completed.md`.
+- Slide content: `../slides/task5_benchmark.md`.
+- Results: `results/benchmark_results.csv`, `results/benchmark_summary.md`, `results/charts/`.
+- Corpus verification: `results/generated_data_manifest.json`.
+
+### Safe full reproduction on Windows
+
+```powershell
+python -m pip install -r benchmark/requirements.txt
+python benchmark/scripts/run_complete.py --postgres-bin "C:/Program Files/PostgreSQL/16/bin"
+python benchmark/scripts/gen_tree_data.py --sizes 1000 10000 100000
+python benchmark/scripts/gen_graph_data.py --all
+python benchmark/scripts/verify_generated_data.py
+```
+
+The runner creates a fresh private SCRAM-protected cluster on a free loopback
+port. No existing PostgreSQL password is needed. Existing databases are not
+modified. The cluster stops and is removed after the run. Python must have
+`psycopg2-binary` and `matplotlib`; the PostgreSQL bin directory must contain
+`initdb`, `pg_ctl` and `psql`. Run from the repository root.
+
+When the runner prints a completed run path, publish it:
+
+```powershell
+python benchmark/scripts/publish_results.py --run-dir benchmark/results/runs/20261024T071518041213Z
+```
+
+Replace the example run path with the new run path. Publication preserves old
+CSV measurements in `results/archive/` before updating the central results.
+The publication step generates Vietnamese report, slide content and log.
+
+### Measurement semantics
+
+`has_index=false` retains PK/UNIQUE constraint indexes; it does not mean zero
+indexes. The runner removes all unconstrained secondary indexes from the five
+benchmark relations, then adds `indexes.sql` in the indexed phase. All index
+changes are rolled back before closing the connection. Use a dedicated database
+to avoid blocking other users while measuring.
+
+Read and storage measurements happen before write workloads. INSERT adds a leaf
+under node 2; UPDATE moves leaf N under node 2. These operations update the base
+comment row plus the selected model's metadata. Savepoints roll writes back;
+sequence gaps, WAL and physical dead tuples are possible. Results are warm-cache
+execution times, not COMMIT latency or whole-subtree update throughput.
+Raw JSON plans and storage/index snapshots are retained in each run's artifacts.
+
+`database/seed_bench.sql` truncates existing application data. Do not run it on a
+database containing data you need to retain; use the isolated full runner instead.
+
 ## Muc tieu
 
 Do hieu nang Q2 (lay toan bo hau due) tren 4 mo hinh cay voi cung du lieu va cung node goc:

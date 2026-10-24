@@ -1,7 +1,6 @@
-﻿
-=== VALIDATION TV2 tree_models  2026-10-14 23:12:05 ===
+﻿=== VALIDATION TV2 tree_models  2026-10-24 15:03:39 ===
 adjacency_list  queries=OK  crud=OK
 closure_table  queries=OK  crud=OK
 nested_set  queries=OK  crud=OK
 path_enumeration  queries=OK  crud=OK
-=== DONE ===
+Database retained for inspection: de17_tv2_validation_audit20261024
