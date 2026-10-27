@@ -1,0 +1,245 @@
+{
+  "status": "Python syntax passed; inventory does not imply full semantic testing of other languages",
+  "files": [
+    {
+      "file": "benchmark/indexes.sql",
+      "sha256": "b6ea6cb80bcfe11ea61704080c970f1979255112f82df6cac3320360451cad7e"
+    },
+    {
+      "file": "benchmark/scripts/gen_graph_data.py",
+      "sha256": "9c67a3f4b49e63d8532ddc059978b131ea4cdd1f6a644b40fcd11c2423090401"
+    },
+    {
+      "file": "benchmark/scripts/gen_tree_data.py",
+      "sha256": "3b5524a4494c77e35caf67f4e9f221b0f7d19e990942cfa3605711fb2adf9c0f"
+    },
+    {
+      "file": "benchmark/scripts/plot_results.py",
+      "sha256": "d0daf758b63be1c8c91b783264bf83a8bef96c2b7c0d1ace4d7877a5c4610fcc"
+    },
+    {
+      "file": "benchmark/scripts/publish_results.py",
+      "sha256": "96472447b6fa3d35b41b1f0a7fd8991caf0f58083074b3e9205894fbdf45888e"
+    },
+    {
+      "file": "benchmark/scripts/run_benchmark.py",
+      "sha256": "081bd967610cb025a7697c003b1d6cf13ad9ae7d851075d4e9f99ef72fec8f02"
+    },
+    {
+      "file": "benchmark/scripts/run_complete.py",
+      "sha256": "9b168f7bfeef39500c09579dde984981d5f848950d111ab8dc2957a6c6c7e751"
+    },
+    {
+      "file": "benchmark/scripts/summarize_results.py",
+      "sha256": "742c605b04d7a0ae453b4e2fa55d35b797b2863baf0cc6eb222f6d882f038899"
+    },
+    {
+      "file": "benchmark/scripts/validate_fd.py",
+      "sha256": "91826092acf90293d5b026a69651ff299ecc9f82bfb4c8d09aa15c2e106cf74c"
+    },
+    {
+      "file": "benchmark/scripts/verify_generated_data.py",
+      "sha256": "8e2546574f03ed14c56600d08d1799399913cef65582c2b0d1ea12607b387d2e"
+    },
+    {
+      "file": "benchmark/scripts/verify_tree_shapes.py",
+      "sha256": "225f3e092414d1fb382fa5636c0526c2066ab01f7857fa131b9b65b33e590891"
+    },
+    {
+      "file": "benchmark/storage_sizes.sql",
+      "sha256": "ae2399db6391276d7e987304ef0b6f18da3a7d9b23e014545c785472c66e9074"
+    },
+    {
+      "file": "benchmark/validate_dataset.sql",
+      "sha256": "76c8a517323fc4791024addde74b97ae31b7e9bee4dd9ed89495adc5b59c1381"
+    },
+    {
+      "file": "benchmark/write_workloads.sql",
+      "sha256": "16ec11ffdf0599ae97ab8f8ea0f83a16aeddca717b13c8c3cb282ffed231042d"
+    },
+    {
+      "file": "database/constraints.sql",
+      "sha256": "4fef7cfb97649378e57f3ee90c342ba90291cc4d2fa20d3d49715dfb8de0abb1"
+    },
+    {
+      "file": "database/schema.sql",
+      "sha256": "8ef6af12e24310a65185606cd3a320557a8228bc9f636eaf60df0aef7c886786"
+    },
+    {
+      "file": "database/seed_bench.sql",
+      "sha256": "73834e752d61a19af643af798f80c35031b7cc3c0e79a491fc05b1107cc6640e"
+    },
+    {
+      "file": "database/seed_test.sql",
+      "sha256": "e277e46214fb5f1037f5ba7f3a2b63514b3913e3543195591fb02c63967d972f"
+    },
+    {
+      "file": "docs/scripts/build_quynh_report.py",
+      "sha256": "b5f148fedde14c281ce6c066fa9ec2f2beb9aafa03ea45e3f0169d95d7354d34"
+    },
+    {
+      "file": "docs/scripts/export_markdown_docx.py",
+      "sha256": "a13c401a2b5a8bfe3cd7e9f5424e2d4003ea8ab90d9228edb9c876e54f7d8acf"
+    },
+    {
+      "file": "neo4j/cypher/cycle_detection.cypher",
+      "sha256": "de0cb78c9fe5053f249b702277036a9c06cca9c7a381280207eb1017c03d65b8"
+    },
+    {
+      "file": "neo4j/cypher/friends_of_friends.cypher",
+      "sha256": "0a1e24746852beb3fac11d668f4d688267b00ce5657bce51cf17ec2f6a33f01f"
+    },
+    {
+      "file": "neo4j/cypher/recommendation.cypher",
+      "sha256": "7acd7a6f85f07f03460b09ffe13c0c77e3b117d8b1acd3adaf78d7d889f19389"
+    },
+    {
+      "file": "neo4j/cypher/shortest_path.cypher",
+      "sha256": "ceae854f29adaef344ab745463f70a65446555939a50df387f8dffba7e71a8da"
+    },
+    {
+      "file": "neo4j/import/import_nodes_edges.cypher",
+      "sha256": "8d4af35f451061f6310f6a272842fe14b6b34be0af6369dddac03c8d4dff67c1"
+    },
+    {
+      "file": "normalization/algorithms.py",
+      "sha256": "fc2556979b4ebd6a82a3218982a6d7a203edfe01077a5dea56d8016eb3254401"
+    },
+    {
+      "file": "normalization/fd_check.sql",
+      "sha256": "c6f658d36b7d9935c29bb4b356bb34df02c859f88a61ee25680a7e9386492175"
+    },
+    {
+      "file": "normalization/mvd_4nf.sql",
+      "sha256": "73ddc6a0aec15f726e37069e81008ca1b16e92d8b10fb74d70edd276a4268848"
+    },
+    {
+      "file": "oo_model/schema.odl",
+      "sha256": "e43a37c6eebffced985d92811effa4201b5de14378b4e63b6094259240f2b710"
+    },
+    {
+      "file": "recursive_sql/cycle_detection.sql",
+      "sha256": "20762eaaf5da543b020f615c7526454d6b3e340d3b0390e3487b5cabb2b358ac"
+    },
+    {
+      "file": "recursive_sql/friends_of_friends.sql",
+      "sha256": "da4eecf41904a776acfe38b4d67538fd3c911f2681251c5b27e5366b1942aa3b"
+    },
+    {
+      "file": "recursive_sql/recommendation.sql",
+      "sha256": "1fa397a54de1750b241d871a6507476999ff8133061041f074b26fb35c41d861"
+    },
+    {
+      "file": "recursive_sql/shortest_path.sql",
+      "sha256": "8065556c625022830dd1a67f016aebe9f0666f65e3027dd7264f5765054754b0"
+    },
+    {
+      "file": "run_pgbench.ps1",
+      "sha256": "f4be32be3daff971f17f41b647a781c5e3f1a09ec102f05d6e4836f1986be785"
+    },
+    {
+      "file": "sql_advanced/embedded/psycopg2_cursor.py",
+      "sha256": "a1c8908c0d74ca6600d510973bffed51b0f869efc72ff447bfbaede860b89926"
+    },
+    {
+      "file": "sql_advanced/q01_q08_select.sql",
+      "sha256": "c64680e14df37f7cd759bfb53f8c3de8d3d823e8805fa4bdbb18f6b96d7143d5"
+    },
+    {
+      "file": "sql_advanced/q09_trigger.sql",
+      "sha256": "6e249b42a319c92c333ddfeaebf50dadf82054a045a5509b0a2ee2a7736df082"
+    },
+    {
+      "file": "sql_advanced/q10_procedure.sql",
+      "sha256": "2296d4c291459575910d21696d5bc4b7d41d552462dc93c8c3182926e6e8ea7d"
+    },
+    {
+      "file": "sql_advanced/q11_function.sql",
+      "sha256": "8375697c9a84666dfa6a764de5ea87dd802b9e84812b447a0c9c4bbc3c820baf"
+    },
+    {
+      "file": "sql_advanced/q12_dynamic.sql",
+      "sha256": "1658f5f618e475c2606f539ad1180134ee51958ef0d22905bc9ace2f8d0715c4"
+    },
+    {
+      "file": "sql_advanced/validate_task3.sql",
+      "sha256": "34dc57442590216a0c36ff8839a3c0a81f5002fb2c5d857f2fde3d852a33b244"
+    },
+    {
+      "file": "transactions/pgbench/add_friend.sql",
+      "sha256": "9ad0653b8b6b1b08382dc4a410b5454b54594394ccbc7e01f26be5e193c292b0"
+    },
+    {
+      "file": "transactions/t1_success.sql",
+      "sha256": "c0060e324ccbda37cc63b1061ae5d2a35bf7487673aa4796497df34c3b27629c"
+    },
+    {
+      "file": "transactions/t2_rollback_savepoint.sql",
+      "sha256": "32d6163c41dff21763eba42444d15d2d07d1fc42c76e8356a9303ddd199a069e"
+    },
+    {
+      "file": "transactions/t3_concurrent/session_a.sql",
+      "sha256": "8241b73aeb686042810bf0b8b56f5fd390ffa658b2d592b40e50415c6c5d5a49"
+    },
+    {
+      "file": "transactions/t3_concurrent/session_b.sql",
+      "sha256": "e396b0ae1e4c17a111570b97012b9d4de1221c49f148751eac6662233052fd9e"
+    },
+    {
+      "file": "tree_models/_validate/reset_db.ps1",
+      "sha256": "70528513a77f2599b431541ee67f7532790ffe15a3e19c4575cebd8b94337419"
+    },
+    {
+      "file": "tree_models/_validate/validate.ps1",
+      "sha256": "258693c9470dd250416ad6512698a6f3418b717f6033ad27da50189bdb27947c"
+    },
+    {
+      "file": "tree_models/adjacency_list/crud.sql",
+      "sha256": "c3f97957caeb2dc032567119c57eda931a3d7b7104d72dc6225a79cf199517fb"
+    },
+    {
+      "file": "tree_models/adjacency_list/queries_q1_q10.sql",
+      "sha256": "b47acd0a3482d7b338c67d575993f2adb7c85e030d0fd35998782a6f0ed89c0c"
+    },
+    {
+      "file": "tree_models/adjacency_list/schema.sql",
+      "sha256": "b4a213155b1cbb371c9b1cdc4917572adbc81115606832b5cf8a2b76275f4718"
+    },
+    {
+      "file": "tree_models/closure_table/crud.sql",
+      "sha256": "e7179f06823f1796b943a7fccbc4c6c99579e0930e6e1f49e493ee08b9b3c7ad"
+    },
+    {
+      "file": "tree_models/closure_table/queries_q1_q10.sql",
+      "sha256": "0ec4d894480a9c2829b8eb6029b18ef16f7eeadc769625845ce1e74cc741f2a1"
+    },
+    {
+      "file": "tree_models/closure_table/schema.sql",
+      "sha256": "be6a7afd0a56c72bf1dea4b0cdaf3b6fccfe3465a2b62f03f69b46e30293dcd9"
+    },
+    {
+      "file": "tree_models/nested_set/crud.sql",
+      "sha256": "9a334966d575d0e0cb284a4a6adf98522201447f6a62c6248013e67cefc8b929"
+    },
+    {
+      "file": "tree_models/nested_set/queries_q1_q10.sql",
+      "sha256": "094c661646042f8f934ffd5f44b66aed7acbd77dcdc1b243f231e28efa256408"
+    },
+    {
+      "file": "tree_models/nested_set/schema.sql",
+      "sha256": "58abf20c12f3b432fb9dc3848ff1c9a27e38410b953b4655ac619cbd54468241"
+    },
+    {
+      "file": "tree_models/path_enumeration/crud.sql",
+      "sha256": "0bdb27b67e0cdf897a3b92c0b1470b736791e2203722c83cbff6faeabd15a00b"
+    },
+    {
+      "file": "tree_models/path_enumeration/queries_q1_q10.sql",
+      "sha256": "dbf5eb163704ec8e41d38cde1f8210c9c974c9b53c81a5bbbcb43bf31f3a9f31"
+    },
+    {
+      "file": "tree_models/path_enumeration/schema.sql",
+      "sha256": "0b06bfef6813792a1ac78260cd055296e6e0fa05a996b484a727aaff05fc76bd"
+    }
+  ]
+}

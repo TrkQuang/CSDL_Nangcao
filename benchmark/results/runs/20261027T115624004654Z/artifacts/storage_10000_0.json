@@ -1,0 +1,78 @@
+{
+  "dataset_size": 10000,
+  "has_index": false,
+  "relations": [
+    {
+      "relation_name": "comment",
+      "table_bytes": 770048,
+      "index_bytes": 245760,
+      "total_bytes": 1048576,
+      "table_size": "752 kB",
+      "index_size": "240 kB",
+      "total_size": "1024 kB"
+    },
+    {
+      "relation_name": "comment_closure",
+      "table_bytes": 3776512,
+      "index_bytes": 2949120,
+      "total_bytes": 6750208,
+      "table_size": "3688 kB",
+      "index_size": "2880 kB",
+      "total_size": "6592 kB"
+    },
+    {
+      "relation_name": "comment_ns",
+      "table_bytes": 450560,
+      "index_bytes": 319488,
+      "total_bytes": 794624,
+      "table_size": "440 kB",
+      "index_size": "312 kB",
+      "total_size": "776 kB"
+    },
+    {
+      "relation_name": "comment_path",
+      "table_bytes": 1138688,
+      "index_bytes": 245760,
+      "total_bytes": 1417216,
+      "table_size": "1112 kB",
+      "index_size": "240 kB",
+      "total_size": "1384 kB"
+    },
+    {
+      "relation_name": "friendship",
+      "table_bytes": 2220032,
+      "index_bytes": 1589248,
+      "total_bytes": 3833856,
+      "table_size": "2168 kB",
+      "index_size": "1552 kB",
+      "total_size": "3744 kB"
+    }
+  ],
+  "indexes": [
+    [
+      "comment",
+      "comment_pkey",
+      "CREATE UNIQUE INDEX comment_pkey ON public.comment USING btree (comment_id)"
+    ],
+    [
+      "comment_closure",
+      "comment_closure_pkey",
+      "CREATE UNIQUE INDEX comment_closure_pkey ON public.comment_closure USING btree (ancestor, descendant)"
+    ],
+    [
+      "comment_ns",
+      "comment_ns_pkey",
+      "CREATE UNIQUE INDEX comment_ns_pkey ON public.comment_ns USING btree (comment_id)"
+    ],
+    [
+      "comment_path",
+      "comment_path_pkey",
+      "CREATE UNIQUE INDEX comment_path_pkey ON public.comment_path USING btree (comment_id)"
+    ],
+    [
+      "friendship",
+      "friendship_pkey",
+      "CREATE UNIQUE INDEX friendship_pkey ON public.friendship USING btree (user_a, user_b)"
+    ]
+  ]
+}

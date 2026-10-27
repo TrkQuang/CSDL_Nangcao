@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "source_files_in_inventory": 60,
+  "measurements": 360,
+  "measurement_groups": 72,
+  "raw_artifacts": 78,
+  "docx_tables": 12,
+  "docx_images": 9,
+  "docx_markdown_content": "all paragraphs and table cells match",
+  "embedded_images": "hashes match source PNGs",
+  "fd_regression_cases": 10,
+  "runner_smoke_measurements": 24,
+  "tree_shapes_cases": 4,
+  "generator_invalid_inputs": "rejected",
+  "random_seed_variation": "passed",
+  "python_syntax": "passed",
+  "powershell_syntax": "passed",
+  "word_visual_layout": "not checked in Word/LibreOffice",
+  "report_sha256": "31ec5b8956b6e96eeb6c2eaf692700e96b9b9bc4ea91b03d784747c2cb74b51e",
+  "docx_sha256": "ebd892e39913791806d5b98ad4a17f99e708d398f16346afcd74d5baf180de51"
+}

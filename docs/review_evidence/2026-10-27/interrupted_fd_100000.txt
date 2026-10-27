@@ -1,0 +1,60 @@
+ test_name | user_id | distinct_emails 
+-----------+---------+-----------------
+(0 rows)
+
+ test_name | email | distinct_users 
+-----------+-------+----------------
+(0 rows)
+
+ test_name | post_id | distinct_groups | distinct_authors 
+-----------+---------+-----------------+------------------
+(0 rows)
+
+ test_name | group_id | distinct_names | distinct_owners 
+-----------+----------+----------------+-----------------
+(0 rows)
+
+ test_name | comment_id | distinct_posts | distinct_authors 
+-----------+------------+----------------+------------------
+(0 rows)
+
+ test_name | full_name | email_count 
+-----------+-----------+-------------
+(0 rows)
+
+ test_name | name | group_count 
+-----------+------+-------------
+(0 rows)
+
+ test_name | child_id | child_post_id | parent_id | parent_post_id 
+-----------+----------+---------------+-----------+----------------
+(0 rows)
+
+ test_name | user_a | user_b 
+-----------+--------+--------
+(0 rows)
+
+ test_name | user_id | stored_count | calculated_count 
+-----------+---------+--------------+------------------
+(0 rows)
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: NOTICE:  PASS f1: comment_id -> all comment attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: NOTICE:  PASS f2: post_id -> all post attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: NOTICE:  PASS f3: group_id -> all group attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: NOTICE:  PASS f4: user_id -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: NOTICE:  PASS f5: email -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: FATAL:  terminating connection due to administrator command
+CONTEXT:  SQL expression "EXISTS (
+        SELECT 1 FROM comment child JOIN comment parent ON child.parent_id = parent.comment_id
+        WHERE child.post_id <> parent.post_id
+    ) OR EXISTS (SELECT 1 FROM friendship WHERE user_a >= user_b)
+      OR EXISTS (
+        SELECT 1 FROM users LEFT JOIN friend_edge ON users.user_id = friend_edge.a
+        GROUP BY users.user_id, users.friend_count
+        HAVING users.friend_count <> COUNT(friend_edge.b)
+    )"
+PL/pgSQL function inline_code_block line 25 at IF
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:181: error: connection to server was lost

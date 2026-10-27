@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import random
 from pathlib import Path
 from typing import Iterable
 
@@ -18,12 +19,17 @@ def parent_for(node_id: int, branching_factor: int) -> int | None:
     return (node_id - 2) // branching_factor + 1
 
 
-def write_tree_data(num_nodes: int, output_dir: Path, branching_factor: int) -> dict[str, int]:
+def write_tree_data(num_nodes: int, output_dir: Path, branching_factor: int,
+                    shape: str = "kary", seed: int = SEED) -> dict[str, int]:
     """Write CSV input for comment, ltree, nested-set, and closure tables."""
     if num_nodes < 1:
         raise ValueError("num_nodes must be positive")
     if branching_factor < 2:
         raise ValueError("branching_factor must be at least 2")
+    if shape not in ("kary", "random", "chain"):
+        raise ValueError("shape must be kary, random, or chain")
+    if shape == "chain" and num_nodes > 1000:
+        raise ValueError("chain is limited to 1000 nodes: closure storage grows quadratically")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     parents: list[int | None] = [None] * (num_nodes + 1)
@@ -31,8 +37,14 @@ def write_tree_data(num_nodes: int, output_dir: Path, branching_factor: int) -> 
     paths: list[list[int] | None] = [None] * (num_nodes + 1)
 
     paths[1] = [1]
+    randomizer = random.Random(seed)
     for node_id in range(2, num_nodes + 1):
-        parent_id = parent_for(node_id, branching_factor)
+        if shape == "chain":
+            parent_id = node_id - 1
+        elif shape == "random":
+            parent_id = randomizer.randint(1, node_id - 1)
+        else:
+            parent_id = parent_for(node_id, branching_factor)
         parents[node_id] = parent_id
         children[parent_id].append(node_id)
         paths[node_id] = paths[parent_id] + [node_id]
@@ -103,11 +115,14 @@ def main() -> None:
     parser.add_argument("--sizes", nargs="+", default=[str(size) for size in DEFAULT_SIZES])
     parser.add_argument("--output-dir", type=Path, default=Path(__file__).resolve().parents[1] / "data")
     parser.add_argument("--branching-factor", type=int, default=3)
+    parser.add_argument("--shape", choices=("kary", "random", "chain"), default="kary")
+    parser.add_argument("--seed", type=int, default=SEED)
     args = parser.parse_args()
 
     for size in parse_sizes(args.sizes):
-        result = write_tree_data(size, args.output_dir, args.branching_factor)
-        print(f"tree={size} nodes, closure_rows={result['closure_rows']}, output={args.output_dir}")
+        output_dir = args.output_dir if args.shape == "kary" else args.output_dir / args.shape
+        result = write_tree_data(size, output_dir, args.branching_factor, args.shape, args.seed)
+        print(f"shape={args.shape}, tree={size} nodes, closure_rows={result['closure_rows']}, output={output_dir}")
 
 
 if __name__ == "__main__":

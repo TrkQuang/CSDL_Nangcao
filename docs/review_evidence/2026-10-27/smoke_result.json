@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "scripts": [
+    "database/schema.sql",
+    "database/constraints.sql",
+    "database/seed_test.sql",
+    "sql_advanced/q09_trigger.sql",
+    "sql_advanced/q10_procedure.sql",
+    "sql_advanced/q11_function.sql",
+    "sql_advanced/q12_dynamic.sql",
+    "sql_advanced/q01_q08_select.sql",
+    "sql_advanced/q09_trigger.sql",
+    "recursive_sql/cycle_detection.sql",
+    "recursive_sql/friends_of_friends.sql",
+    "recursive_sql/recommendation.sql",
+    "recursive_sql/shortest_path.sql",
+    "normalization/mvd_4nf.sql",
+    "transactions/t1_success.sql",
+    "normalization/fd_check.sql"
+  ],
+  "python_syntax": "passed"
+}

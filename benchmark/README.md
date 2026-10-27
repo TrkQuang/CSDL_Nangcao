@@ -2,7 +2,7 @@
 
 ## Completed Task 5 run
 
-Verified run: `results/runs/20261024T071518041213Z/` on PostgreSQL 16.15.
+Verified run: `results/runs/20261027T115624004654Z/` on PostgreSQL 16.15.
 360 measurements cover 3 sizes, 4 models, 2 index modes, 3 workloads and 5 repeats.
 
 - Report: `../report/task5_benchmark_results.md`.
@@ -19,6 +19,7 @@ python benchmark/scripts/run_complete.py --postgres-bin "C:/Program Files/Postgr
 python benchmark/scripts/gen_tree_data.py --sizes 1000 10000 100000
 python benchmark/scripts/gen_graph_data.py --all
 python benchmark/scripts/verify_generated_data.py
+python benchmark/scripts/verify_tree_shapes.py
 ```
 
 The runner creates a fresh private SCRAM-protected cluster on a free loopback
@@ -30,12 +31,33 @@ modified. The cluster stops and is removed after the run. Python must have
 When the runner prints a completed run path, publish it:
 
 ```powershell
-python benchmark/scripts/publish_results.py --run-dir benchmark/results/runs/20261024T071518041213Z
+python benchmark/scripts/publish_results.py --run-dir benchmark/results/runs/20261027T115624004654Z
 ```
 
 Replace the example run path with the new run path. Publication preserves old
 CSV measurements in `results/archive/` before updating the central results.
 The publication step generates Vietnamese report, slide content and log.
+
+### Additional tree shapes and FD regression checks
+
+`verify_tree_shapes.py` generates random trees at 1k/10k/100k nodes and a
+1k-node chain, cross-checks all four CSV representations, and regenerates each
+dataset to verify byte-for-byte reproducibility. Seed defaults to 42.
+Results: `results/tree_shapes_manifest.json`. These are corpus checks, not
+additional timing results; the published benchmark still uses the ternary tree.
+Chain generation is capped at 1k nodes because closure storage is quadratic.
+
+```powershell
+python benchmark/scripts/gen_tree_data.py --shape random --sizes 1000 10000 100000
+python benchmark/scripts/gen_tree_data.py --shape chain --sizes 1000
+```
+
+The isolated full runner also executes `validate_fd.py` on the small seed.
+Temporary unconstrained copies deliberately contain conflicting dependent
+attributes, including NULL/non-NULL parent IDs. Every malformed case must raise
+an exception; rollback restores the valid data. Assertions cover the complete
+rows for f1-f5 and BR2/BR6/BR9. Passing finite data checks supports, but does not
+prove, the business dependencies defined by Task 1.
 
 ### Measurement semantics
 

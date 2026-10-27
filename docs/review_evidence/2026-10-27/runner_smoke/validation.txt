@@ -1,0 +1,103 @@
+CREATE EXTENSION
+CREATE TABLE
+CREATE TABLE
+CREATE VIEW
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:13: NOTICE:  constraint "chk_group_role" of relation "group_member" does not exist, skipping
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:64: NOTICE:  trigger "trg_check_post_author_membership" for relation "post" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:121: NOTICE:  trigger "trg_protect_group_owner" for relation "group_member" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/q09_trigger.sql:45: NOTICE:  trigger "trg_check_comment_parent" for relation "comment" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE PROCEDURE
+CREATE PROCEDURE
+CREATE FUNCTION
+BEGIN
+DO
+DO
+DO
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:86: NOTICE:  Đã kết bạn thành công giữa user 1 và user 6
+CALL
+DO
+DO
+DO
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:149: NOTICE:  Executing Dynamic Query: SELECT post_id, title, post_type, author_id FROM post WHERE 1=1 AND title ILIKE $1
+DO
+ROLLBACK
+Task 3 regression checks passed
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK
+BEGIN
+CREATE INDEX
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified
+DO
+ROLLBACK

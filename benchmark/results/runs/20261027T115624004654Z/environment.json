@@ -1,0 +1,45 @@
+{
+  "platform": "Windows-10-10.0.19045-SP0",
+  "processor": "Intel64 Family 6 Model 142 Stepping 9, GenuineIntel",
+  "logical_cpus": 4,
+  "python": "3.15.0 (tags/v3.15.0:d220409, Oct  9 2026, 11:55:56) [MSC v.1951 64 bit (AMD64)]",
+  "postgresql": "PostgreSQL 16.15, compiled by Visual C++ build 1944, 64-bit",
+  "settings": [
+    [
+      "effective_cache_size",
+      "524288",
+      "8kB"
+    ],
+    [
+      "jit",
+      "on",
+      null
+    ],
+    [
+      "max_connections",
+      "100",
+      null
+    ],
+    [
+      "shared_buffers",
+      "16384",
+      "8kB"
+    ],
+    [
+      "work_mem",
+      "4096",
+      "kB"
+    ]
+  ],
+  "run_id": "20261027T115624004654Z",
+  "sizes": [
+    1000,
+    10000,
+    100000
+  ],
+  "repeats": 5,
+  "cluster": "fresh isolated SCRAM cluster; loopback only; stopped and removed after run",
+  "memory": {
+    "TotalPhysicalMemory": 17038536704
+  }
+}

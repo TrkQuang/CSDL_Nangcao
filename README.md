@@ -230,6 +230,9 @@ Full results (360 measurements, 1k/10k/100k, reads and writes):
 `report/task5_benchmark_results.md`.
 Experiment log: `docs/experiment_log/task5_completed.md`.
 Slide content: `slides/task5_benchmark.md`.
+Quỳnh's complete Chapter 6: `docs/bao_cao_chuong_6_Quynh.md` and
+`docs/bao_cao_chuong_6_Quynh.docx` (12 tables, 9 embedded charts).
+Latest verification: `docs/task_review_Quynh_2026-10-27.md`.
 
 ```powershell
 python -m pip install -r benchmark/requirements.txt

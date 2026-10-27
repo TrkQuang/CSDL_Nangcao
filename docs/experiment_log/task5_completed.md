@@ -1,9 +1,9 @@
 # Nhật ký thực nghiệm Task 5
 
-- Ngày: 2026-10-24; run ID: `20261024T071518041213Z`.
+- Ngày: 2026-10-27; run ID: `20261027T115624004654Z`.
 - Trạng thái: hoàn tất 360 lượt đo, không điền số mẫu.
-- Môi trường và config: `benchmark/results/runs/20261024T071518041213Z/environment.json`.
-- Commit nền: `33090e2edab8ffca1a22e4f9850c640a3e0bd8ae`. Có thay đổi chưa commit; xem manifest nguồn công bố.
+- Môi trường và config: `benchmark/results/runs/20261027T115624004654Z/environment.json`.
+- Commit nền: `9b6e78c2d38425a060934ecae04311dd00d038bf`. Có thay đổi chưa commit; xem manifest nguồn công bố.
 - Seed và kiểm chứng: `seed_*.txt`, `validate_*.txt`, `validation.txt`, `fd_*.txt`, `tree_queries.txt` trong run gốc.
 - Đầu ra: CSV, 9 biểu đồ, summary và 78 JSON (72 plan + 6 snapshot dung lượng/index).
 
@@ -32,7 +32,7 @@
 - `benchmark/validate_dataset.sql`: so toàn bộ cặp closure với CTE, đường dẫn ltree, khoảng Nested Set, số node, post cha-con và friend_count.
 - Kiểm chứng dataset trước và sau benchmark ở từng quy mô; 360 lượt đo hoàn tất, 72 nhóm, mỗi nhóm 5 lượt.
 - Corpus CSV: 24 file cây/đồ thị đã kiểm tra nội dung, số dòng và SHA-256 trong `benchmark/results/generated_data_manifest.json`.
-- Log gốc và kế hoạch thực thi: `benchmark/results/runs/20261024T071518041213Z/`.
+- Log gốc và kế hoạch thực thi: `benchmark/results/runs/20261027T115624004654Z/`.
 
 ## Kết quả và nhận xét
 

@@ -133,4 +133,51 @@ FROM users u
 LEFT JOIN friend_edge e ON u.user_id = e.a
 GROUP BY u.user_id, u.friend_count
 HAVING u.friend_count <> COUNT(e.b);
+
+DO $$
+DECLARE
+    dependency RECORD;
+    violated BOOLEAN;
+BEGIN
+    FOR dependency IN
+        SELECT * FROM (VALUES
+            ('comment', 'comment_id', 'f1: comment_id -> all comment attributes'),
+            ('post', 'post_id', 'f2: post_id -> all post attributes'),
+            ('study_group', 'group_id', 'f3: group_id -> all group attributes'),
+            ('users', 'user_id', 'f4: user_id -> all user attributes'),
+            ('users', 'email', 'f5: email -> all user attributes')
+        ) AS dependencies(relation_name, determinant, label)
+    LOOP
+        EXECUTE format(
+            'SELECT EXISTS (SELECT 1 FROM %I AS source GROUP BY %I '
+            'HAVING COUNT(DISTINCT to_jsonb(source)) > 1)',
+            dependency.relation_name, dependency.determinant
+        ) INTO violated;
+        IF violated THEN
+            RAISE EXCEPTION 'FD violation: %', dependency.label;
+        END IF;
+        RAISE NOTICE 'PASS %', dependency.label;
+    END LOOP;
+    IF EXISTS (
+        SELECT 1 FROM comment child JOIN comment parent ON child.parent_id = parent.comment_id
+        WHERE child.post_id <> parent.post_id
+    ) OR EXISTS (SELECT 1 FROM friendship WHERE user_a >= user_b)
+      OR EXISTS (
+        SELECT 1 FROM users
+        LEFT JOIN (SELECT a, COUNT(*) AS total FROM friend_edge GROUP BY a) AS counts
+            ON users.user_id = counts.a
+        WHERE users.friend_count <> COALESCE(counts.total, 0)
+    ) THEN
+        RAISE EXCEPTION 'Business integrity violation: BR2, BR6 or BR9';
+    END IF;
+    IF NOT EXISTS (
+        SELECT full_name FROM (VALUES ('Same name', 'one@example.test'),
+                                     ('Same name', 'two@example.test')) AS sample(full_name, email)
+        GROUP BY full_name HAVING COUNT(DISTINCT email) > 1
+    ) THEN
+        RAISE EXCEPTION 'Accidental FD counterexample failed';
+    END IF;
+    RAISE NOTICE 'PASS BR2/BR6/BR9 and accidental FD counterexample';
+END;
+$$;
 -- Kỳ vọng: 0 dòng (Nếu > 0 dòng: Bộ đếm dẫn xuất bị lệch pha).

@@ -23,4 +23,4 @@
 - Chốt đánh đổi đọc/ghi/dung lượng, giới hạn warm-cache và một cấu trúc cây.
 
 ## Demo
-Mở `benchmark/results/benchmark_summary.md`, biểu đồ 100k và một raw plan trong `benchmark/results/runs/20261024T071518041213Z/artifacts/`.
+Mở `benchmark/results/benchmark_summary.md`, biểu đồ 100k và một raw plan trong `benchmark/results/runs/20261027T115624004654Z/artifacts/`.

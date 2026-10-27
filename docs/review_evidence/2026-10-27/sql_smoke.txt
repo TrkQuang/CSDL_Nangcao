@@ -1,0 +1,390 @@
+CREATE EXTENSION
+CREATE TABLE
+CREATE TABLE
+CREATE VIEW
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:13: NOTICE:  constraint "chk_group_role" of relation "group_member" does not exist, skipping
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:64: NOTICE:  trigger "trg_check_post_author_membership" for relation "post" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:121: NOTICE:  trigger "trg_protect_group_owner" for relation "group_member" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/q09_trigger.sql:45: NOTICE:  trigger "trg_check_comment_parent" for relation "comment" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE PROCEDURE
+CREATE PROCEDURE
+CREATE FUNCTION
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=25.17..25.29 rows=47 width=226) (actual time=0.070..0.070 rows=2 loops=1)
+   Sort Key: users.user_id
+   Sort Method: quicksort  Memory: 25kB
+   InitPlan 1 (returns $0)
+     ->  Aggregate  (cost=11.75..11.76 rows=1 width=32) (actual time=0.018..0.019 rows=1 loops=1)
+           ->  Seq Scan on users users_1  (cost=0.00..11.40 rows=140 width=4) (actual time=0.004..0.005 rows=6 loops=1)
+   ->  Seq Scan on users  (cost=0.00..12.10 rows=47 width=226) (actual time=0.047..0.048 rows=2 loops=1)
+         Filter: ((friend_count)::numeric > $0)
+         Rows Removed by Filter: 4
+ Planning Time: 3.046 ms
+ Execution Time: 0.170 ms
+(11 rows)
+
+                                                           QUERY PLAN                                                            
+---------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=48.71..48.72 rows=1 width=222) (actual time=0.064..0.065 rows=1 loops=1)
+   Sort Key: u.user_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Hash Right Anti Join  (cost=25.31..48.70 rows=1 width=222) (actual time=0.060..0.062 rows=1 loops=1)
+         Hash Cond: (c.author_id = u.user_id)
+         ->  Seq Scan on comment c  (cost=0.00..19.70 rows=970 width=4) (actual time=0.009..0.009 rows=5 loops=1)
+         ->  Hash  (cost=25.30..25.30 rows=1 width=222) (actual time=0.041..0.042 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               ->  Hash Anti Join  (cost=13.38..25.30 rows=1 width=222) (actual time=0.032..0.033 rows=3 loops=1)
+                     Hash Cond: (u.user_id = p.author_id)
+                     ->  Seq Scan on users u  (cost=0.00..11.40 rows=140 width=222) (actual time=0.008..0.009 rows=6 loops=1)
+                     ->  Hash  (cost=11.50..11.50 rows=150 width=4) (actual time=0.015..0.015 rows=3 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                           ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=4) (actual time=0.011..0.012 rows=3 loops=1)
+ Planning Time: 2.190 ms
+ Execution Time: 0.088 ms
+(16 rows)
+
+                                                        QUERY PLAN                                                         
+---------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=1171.72..1171.90 rows=70 width=222) (actual time=0.062..0.063 rows=4 loops=1)
+   Sort Key: u.user_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Nested Loop Anti Join  (cost=0.00..1169.58 rows=70 width=222) (actual time=0.056..0.059 rows=4 loops=1)
+         Join Filter: (NOT (hashed SubPlan 2))
+         Rows Removed by Join Filter: 4
+         ->  Seq Scan on users u  (cost=0.00..11.40 rows=140 width=222) (actual time=0.008..0.009 rows=6 loops=1)
+         ->  Materialize  (cost=0.00..12.63 rows=1 width=4) (actual time=0.003..0.003 rows=1 loops=6)
+               ->  Seq Scan on study_group sg  (cost=0.00..12.62 rows=1 width=4) (actual time=0.017..0.018 rows=1 loops=1)
+                     Filter: ((topic)::text = 'CSDL'::text)
+                     Rows Removed by Filter: 1
+         SubPlan 2
+           ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.011..0.012 rows=6 loops=1)
+ Planning Time: 2.040 ms
+ Execution Time: 0.085 ms
+(15 rows)
+
+                                                             QUERY PLAN                                                              
+-------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=47.00..47.17 rows=70 width=230) (actual time=0.033..0.034 rows=1 loops=1)
+   Sort Key: sg.group_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=42.23..44.85 rows=70 width=230) (actual time=0.031..0.031 rows=1 loops=1)
+         Group Key: sg.group_id
+         Filter: (count(*) >= 3)
+         Batches: 1  Memory Usage: 40kB
+         Rows Removed by Filter: 1
+         ->  Hash Join  (cost=14.72..37.28 rows=990 width=222) (actual time=0.024..0.026 rows=6 loops=1)
+               Hash Cond: (gm.group_id = sg.group_id)
+               ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=4) (actual time=0.007..0.008 rows=6 loops=1)
+               ->  Hash  (cost=12.10..12.10 rows=210 width=222) (actual time=0.013..0.014 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on study_group sg  (cost=0.00..12.10 rows=210 width=222) (actual time=0.004..0.005 rows=2 loops=1)
+ Planning Time: 0.138 ms
+ Execution Time: 0.060 ms
+(16 rows)
+
+                                                         QUERY PLAN                                                          
+-----------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=47.45..47.82 rows=150 width=430) (actual time=0.028..0.029 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  HashAggregate  (cost=40.53..42.03 rows=150 width=430) (actual time=0.025..0.026 rows=3 loops=1)
+         Group Key: p.post_id
+         Batches: 1  Memory Usage: 40kB
+         ->  Hash Right Join  (cost=13.38..35.68 rows=970 width=426) (actual time=0.017..0.022 rows=6 loops=1)
+               Hash Cond: (c.post_id = p.post_id)
+               ->  Seq Scan on comment c  (cost=0.00..19.70 rows=970 width=8) (actual time=0.004..0.004 rows=5 loops=1)
+               ->  Hash  (cost=11.50..11.50 rows=150 width=422) (actual time=0.009..0.010 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=422) (actual time=0.007..0.008 rows=3 loops=1)
+ Planning Time: 0.113 ms
+ Execution Time: 0.061 ms
+(14 rows)
+
+                                                                    QUERY PLAN                                                                     
+---------------------------------------------------------------------------------------------------------------------------------------------------
+ Incremental Sort  (cost=52.53..62.25 rows=150 width=442) (actual time=0.084..0.085 rows=3 loops=1)
+   Sort Key: post_likes.group_id, (rank() OVER (?)), post_likes.post_id
+   Presorted Key: post_likes.group_id
+   Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 25kB  Peak Memory: 25kB
+   ->  WindowAgg  (cost=52.50..55.50 rows=150 width=442) (actual time=0.064..0.069 rows=3 loops=1)
+         ->  Sort  (cost=52.50..52.88 rows=150 width=434) (actual time=0.052..0.053 rows=3 loops=1)
+               Sort Key: post_likes.group_id, post_likes.like_count DESC
+               Sort Method: quicksort  Memory: 25kB
+               ->  Subquery Scan on post_likes  (cost=45.58..47.08 rows=150 width=434) (actual time=0.047..0.049 rows=3 loops=1)
+                     ->  HashAggregate  (cost=45.58..47.08 rows=150 width=434) (actual time=0.046..0.048 rows=3 loops=1)
+                           Group Key: p.post_id
+                           Batches: 1  Memory Usage: 40kB
+                           ->  Hash Right Join  (cost=13.38..37.33 rows=1100 width=464) (actual time=0.036..0.041 rows=6 loops=1)
+                                 Hash Cond: (pr.post_id = p.post_id)
+                                 ->  Seq Scan on post_reaction pr  (cost=0.00..21.00 rows=1100 width=42) (actual time=0.012..0.012 rows=5 loops=1)
+                                 ->  Hash  (cost=11.50..11.50 rows=150 width=426) (actual time=0.019..0.019 rows=3 loops=1)
+                                       Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                       ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=426) (actual time=0.009..0.009 rows=3 loops=1)
+ Planning Time: 1.226 ms
+ Execution Time: 0.134 ms
+(20 rows)
+
+                                                               QUERY PLAN                                                               
+----------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=1278.94..1279.13 rows=75 width=422) (actual time=0.035..0.036 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Seq Scan on post p  (cost=0.00..1276.60 rows=75 width=422) (actual time=0.021..0.032 rows=3 loops=1)
+         Filter: (SubPlan 1)
+         SubPlan 1
+           ->  Bitmap Heap Scan on group_member gm  (cost=4.19..12.66 rows=5 width=4) (actual time=0.004..0.005 rows=1 loops=3)
+                 Recheck Cond: (group_id = p.group_id)
+                 Heap Blocks: exact=3
+                 ->  Bitmap Index Scan on group_member_pkey  (cost=0.00..4.19 rows=5 width=0) (actual time=0.003..0.003 rows=3 loops=3)
+                       Index Cond: (group_id = p.group_id)
+ Planning Time: 0.070 ms
+ Execution Time: 0.058 ms
+(13 rows)
+
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=41.15..41.16 rows=4 width=422) (actual time=0.024..0.024 rows=3 loops=1)
+   Sort Key: p.post_id
+   Sort Method: quicksort  Memory: 25kB
+   ->  Hash Join  (cost=13.75..41.11 rows=4 width=422) (actual time=0.017..0.019 rows=3 loops=1)
+         Hash Cond: ((gm.group_id = p.group_id) AND (gm.user_id = p.author_id))
+         ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.007..0.007 rows=6 loops=1)
+         ->  Hash  (cost=11.50..11.50 rows=150 width=430) (actual time=0.006..0.007 rows=3 loops=1)
+               Buckets: 1024  Batches: 1  Memory Usage: 9kB
+               ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=430) (actual time=0.004..0.005 rows=3 loops=1)
+ Planning Time: 0.089 ms
+ Execution Time: 0.036 ms
+(11 rows)
+
+                                                          QUERY PLAN                                                          
+------------------------------------------------------------------------------------------------------------------------------
+ Unique  (cost=41.15..41.18 rows=4 width=422) (actual time=0.029..0.031 rows=3 loops=1)
+   ->  Sort  (cost=41.15..41.16 rows=4 width=422) (actual time=0.029..0.030 rows=3 loops=1)
+         Sort Key: p.post_id, p.title
+         Sort Method: quicksort  Memory: 25kB
+         ->  Hash Join  (cost=13.75..41.11 rows=4 width=422) (actual time=0.016..0.018 rows=3 loops=1)
+               Hash Cond: ((gm.group_id = p.group_id) AND (gm.user_id = p.author_id))
+               ->  Seq Scan on group_member gm  (cost=0.00..19.90 rows=990 width=8) (actual time=0.006..0.007 rows=6 loops=1)
+               ->  Hash  (cost=11.50..11.50 rows=150 width=430) (actual time=0.006..0.006 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on post p  (cost=0.00..11.50 rows=150 width=430) (actual time=0.004..0.005 rows=3 loops=1)
+ Planning Time: 0.183 ms
+ Execution Time: 0.044 ms
+(12 rows)
+
+                                                                       QUERY PLAN                                                                        
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=95.79..95.80 rows=1 width=8) (actual time=0.077..0.079 rows=1 loops=1)
+   ->  Sort  (cost=95.70..95.75 rows=18 width=4) (actual time=0.074..0.076 rows=1 loops=1)
+         Sort Key: friendship.user_b
+         Sort Method: quicksort  Memory: 25kB
+         ->  Hash Join  (cost=51.87..95.33 rows=18 width=4) (actual time=0.053..0.059 rows=1 loops=1)
+               Hash Cond: (friendship.user_b = friendship_2.user_b)
+               ->  Append  (cost=4.22..47.43 rows=18 width=4) (actual time=0.025..0.029 rows=2 loops=1)
+                     ->  Bitmap Heap Scan on friendship  (cost=4.22..14.76 rows=9 width=4) (actual time=0.024..0.025 rows=2 loops=1)
+                           Recheck Cond: (user_a = 1)
+                           Heap Blocks: exact=1
+                           ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..4.22 rows=9 width=0) (actual time=0.013..0.013 rows=2 loops=1)
+                                 Index Cond: (user_a = 1)
+                     ->  Bitmap Heap Scan on friendship friendship_1  (cost=22.03..32.57 rows=9 width=4) (actual time=0.003..0.003 rows=0 loops=1)
+                           Recheck Cond: (user_b = 1)
+                           ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..22.03 rows=9 width=0) (actual time=0.003..0.003 rows=0 loops=1)
+                                 Index Cond: (user_b = 1)
+               ->  Hash  (cost=47.43..47.43 rows=18 width=4) (actual time=0.015..0.016 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Append  (cost=4.22..47.43 rows=18 width=4) (actual time=0.003..0.007 rows=2 loops=1)
+                           ->  Bitmap Heap Scan on friendship friendship_2  (cost=4.22..14.76 rows=9 width=4) (actual time=0.003..0.003 rows=1 loops=1)
+                                 Recheck Cond: (user_a = 4)
+                                 Heap Blocks: exact=1
+                                 ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..4.22 rows=9 width=0) (actual time=0.002..0.002 rows=1 loops=1)
+                                       Index Cond: (user_a = 4)
+                           ->  Bitmap Heap Scan on friendship friendship_3  (cost=22.03..32.57 rows=9 width=4) (actual time=0.003..0.003 rows=1 loops=1)
+                                 Recheck Cond: (user_b = 4)
+                                 Heap Blocks: exact=1
+                                 ->  Bitmap Index Scan on friendship_pkey  (cost=0.00..22.03 rows=9 width=0) (actual time=0.002..0.002 rows=1 loops=1)
+                                       Index Cond: (user_b = 4)
+ Planning Time: 1.834 ms
+ Execution Time: 0.253 ms
+(31 rows)
+
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+  cycle_path   | path_length 
+---------------+-------------
+ {1,2,3,1}     |           3
+ {2,3,5,4,2}   |           4
+ {1,2,4,5,3,1} |           5
+(3 rows)
+
+ user_id | full_name 
+---------+-----------
+       4 | Dung
+       5 | Em
+(2 rows)
+
+ recommended_user_id | recommended_user_name | mutual_friends_count 
+---------------------+-----------------------+----------------------
+                   4 | Dung                  |                    1
+                   5 | Em                    |                    1
+(2 rows)
+
+ shortest_path | path_length 
+---------------+-------------
+ {1,3,5}       |           2
+(1 row)
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:32: NOTICE:  table "demo_user_profile_bad" does not exist, skipping
+DROP TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:33: NOTICE:  table "user_interest" does not exist, skipping
+DROP TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:34: NOTICE:  table "user_subject" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+INSERT 0 4
+                        title                         
+------------------------------------------------------
+ === DỮ LIỆU BẢNG BỊ TÍCH DESCARTES (VI PHẠM 4NF) ===
+(1 row)
+
+ user_id | interest | subject 
+---------+----------+---------
+       1 | Neo4j    | CSDL
+       1 | Neo4j    | Web
+       1 | Python   | CSDL
+       1 | Python   | Web
+(4 rows)
+
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 2
+INSERT 0 1
+                     title                      
+------------------------------------------------
+ === TÁI LẬP DỮ LIỆU TỰ NHIÊN TỪ 2 BẢNG 4NF ===
+(1 row)
+
+ user_id |     interest     | subject 
+---------+------------------+---------
+       1 | Machine Learning | CSDL
+       1 | Machine Learning | Web
+       1 | Neo4j            | CSDL
+       1 | Neo4j            | Web
+       1 | Python           | CSDL
+       1 | Python           | Web
+(6 rows)
+
+BEGIN
+INSERT 0 1
+UPDATE 1
+UPDATE 1
+COMMIT
+ user_id | full_name | friend_count | actual_edge_count 
+---------+-----------+--------------+-------------------
+       1 | An        |            3 |                 3
+       6 | Phong     |            1 |                 1
+(2 rows)
+
+ test_name | user_id | distinct_emails 
+-----------+---------+-----------------
+(0 rows)
+
+ test_name | email | distinct_users 
+-----------+-------+----------------
+(0 rows)
+
+ test_name | post_id | distinct_groups | distinct_authors 
+-----------+---------+-----------------+------------------
+(0 rows)
+
+ test_name | group_id | distinct_names | distinct_owners 
+-----------+----------+----------------+-----------------
+(0 rows)
+
+ test_name | comment_id | distinct_posts | distinct_authors 
+-----------+------------+----------------+------------------
+(0 rows)
+
+ test_name | full_name | email_count 
+-----------+-----------+-------------
+(0 rows)
+
+ test_name | name | group_count 
+-----------+------+-------------
+(0 rows)
+
+ test_name | child_id | child_post_id | parent_id | parent_post_id 
+-----------+----------+---------------+-----------+----------------
+(0 rows)
+
+ test_name | user_a | user_b 
+-----------+--------+--------
+(0 rows)
+
+ test_name | user_id | stored_count | calculated_count 
+-----------+---------+--------------+------------------
+(0 rows)
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f1: comment_id -> all comment attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f2: post_id -> all post attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f3: group_id -> all group attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f4: user_id -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f5: email -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS BR2/BR6/BR9 and accidental FD counterexample
+DO

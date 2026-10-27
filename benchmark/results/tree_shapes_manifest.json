@@ -1,0 +1,222 @@
+{
+  "status": "passed",
+  "seed": 42,
+  "cases": [
+    {
+      "shape": "random",
+      "nodes": 1000,
+      "max_depth": 14,
+      "files": [
+        {
+          "file": "benchmark/data/random/comment_1000.csv",
+          "rows": 1000,
+          "bytes": 36347,
+          "header": [
+            "comment_id",
+            "post_id",
+            "author_id",
+            "parent_id",
+            "content"
+          ],
+          "sha256": "e0fb4da7453c0114362f3e409ebcab1917f17af6c3b6009c4c3f80c06987929f"
+        },
+        {
+          "file": "benchmark/data/random/comment_path_1000.csv",
+          "rows": 1000,
+          "bytes": 34097,
+          "header": [
+            "comment_id",
+            "post_id",
+            "path"
+          ],
+          "sha256": "6124098b0beb0351242e0ac5411ce013979e58b5558e3967074c2311f7f44c99"
+        },
+        {
+          "file": "benchmark/data/random/comment_ns_1000.csv",
+          "rows": 1000,
+          "bytes": 15814,
+          "header": [
+            "comment_id",
+            "post_id",
+            "lft",
+            "rgt"
+          ],
+          "sha256": "9d7d1336d2076fce6521739037c35dd2dc877ab53e3e3d5e03d0de7c9fcbc76a"
+        },
+        {
+          "file": "benchmark/data/random/comment_closure_1000.csv",
+          "rows": 6857,
+          "bytes": 67908,
+          "header": [
+            "ancestor",
+            "descendant",
+            "depth"
+          ],
+          "sha256": "11ca64ab218b1b6c917c2e8c546ca3ae89bd227e745145aabf2997c12d575fc4"
+        }
+      ]
+    },
+    {
+      "shape": "random",
+      "nodes": 10000,
+      "max_depth": 18,
+      "files": [
+        {
+          "file": "benchmark/data/random/comment_10000.csv",
+          "rows": 10000,
+          "bytes": 402869,
+          "header": [
+            "comment_id",
+            "post_id",
+            "author_id",
+            "parent_id",
+            "content"
+          ],
+          "sha256": "09e7b1621aefb0caaaed1e3cb49151065855f476b2c15beca134723d8b83d674"
+        },
+        {
+          "file": "benchmark/data/random/comment_path_10000.csv",
+          "rows": 10000,
+          "bytes": 491795,
+          "header": [
+            "comment_id",
+            "post_id",
+            "path"
+          ],
+          "sha256": "e5a7511dd2a78b59c69dd3141718e39e74d143e1517765b734488a1ecfd85269"
+        },
+        {
+          "file": "benchmark/data/random/comment_ns_10000.csv",
+          "rows": 10000,
+          "bytes": 187816,
+          "header": [
+            "comment_id",
+            "post_id",
+            "lft",
+            "rgt"
+          ],
+          "sha256": "c6f6913b23c59d6b433dae88a4fd4996cf943defbfe45e12dc7e64a529e03d27"
+        },
+        {
+          "file": "benchmark/data/random/comment_closure_10000.csv",
+          "rows": 91837,
+          "bytes": 1054780,
+          "header": [
+            "ancestor",
+            "descendant",
+            "depth"
+          ],
+          "sha256": "584f6b488377d287f307c0025e3d6b280277746600a95094a3376b8140152493"
+        }
+      ]
+    },
+    {
+      "shape": "random",
+      "nodes": 100000,
+      "max_depth": 25,
+      "files": [
+        {
+          "file": "benchmark/data/random/comment_100000.csv",
+          "rows": 100000,
+          "bytes": 4427123,
+          "header": [
+            "comment_id",
+            "post_id",
+            "author_id",
+            "parent_id",
+            "content"
+          ],
+          "sha256": "26e446bebcb267a99819099e3e16c4b95693502d45cf2c423e823aca980e7f4b"
+        },
+        {
+          "file": "benchmark/data/random/comment_path_100000.csv",
+          "rows": 100000,
+          "bytes": 6629641,
+          "header": [
+            "comment_id",
+            "post_id",
+            "path"
+          ],
+          "sha256": "005775cbdf276cd35a5aeb72899192ad8de893a20cd8f735ea03bc85c4f1a6f5"
+        },
+        {
+          "file": "benchmark/data/random/comment_ns_100000.csv",
+          "rows": 100000,
+          "bytes": 2177818,
+          "header": [
+            "comment_id",
+            "post_id",
+            "lft",
+            "rgt"
+          ],
+          "sha256": "36fcda1a846f50cb8ef82f245a6182c1b7ccdc9e6ebe50449b83f15c31c6655d"
+        },
+        {
+          "file": "benchmark/data/random/comment_closure_100000.csv",
+          "rows": 1149169,
+          "bytes": 15036758,
+          "header": [
+            "ancestor",
+            "descendant",
+            "depth"
+          ],
+          "sha256": "158ada233a61af8b79ac69d9dad59a39fc0920d01321e892eb5871955ecebc65"
+        }
+      ]
+    },
+    {
+      "shape": "chain",
+      "nodes": 1000,
+      "max_depth": 1000,
+      "files": [
+        {
+          "file": "benchmark/data/chain/comment_1000.csv",
+          "rows": 1000,
+          "bytes": 36616,
+          "header": [
+            "comment_id",
+            "post_id",
+            "author_id",
+            "parent_id",
+            "content"
+          ],
+          "sha256": "a9998e53a61b17b771caf4466615e34c3e53932e270375bb55cb7e9248a57fa9"
+        },
+        {
+          "file": "benchmark/data/chain/comment_path_1000.csv",
+          "rows": 1000,
+          "bytes": 2406306,
+          "header": [
+            "comment_id",
+            "post_id",
+            "path"
+          ],
+          "sha256": "0cf08db343b442ec45ba3dc38c21be435f6c0045f4dd05f71c14402eb788f8b1"
+        },
+        {
+          "file": "benchmark/data/chain/comment_ns_1000.csv",
+          "rows": 1000,
+          "bytes": 15814,
+          "header": [
+            "comment_id",
+            "post_id",
+            "lft",
+            "rgt"
+          ],
+          "sha256": "1d8e0d613d1be20d8fb62b3022ee5debcf8f81a2b30147631b99720a88b04609"
+        },
+        {
+          "file": "benchmark/data/chain/comment_closure_1000.csv",
+          "rows": 500500,
+          "bytes": 6294415,
+          "header": [
+            "ancestor",
+            "descendant",
+            "depth"
+          ],
+          "sha256": "362b49486013a999f814ccc8dda36e473c1674eb3855b102e2f0cb6a7a7beb2c"
+        }
+      ]
+    }
+  ]
+}

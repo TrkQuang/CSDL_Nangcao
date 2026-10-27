@@ -1,6 +1,6 @@
 # Task 5 — Dữ liệu, chỉ mục và benchmark
 
-Ngày thực nghiệm: 2026-10-24. Người phụ trách: Quỳnh.
+Ngày thực nghiệm: 2026-10-27. Người phụ trách: Quỳnh.
 
 ## Môi trường
 
@@ -40,58 +40,58 @@ Ngày thực nghiệm: 2026-10-24. Người phụ trách: Quỳnh.
 - `benchmark/validate_dataset.sql`: so toàn bộ cặp closure với CTE, đường dẫn ltree, khoảng Nested Set, số node, post cha-con và friend_count.
 - Kiểm chứng dataset trước và sau benchmark ở từng quy mô; 360 lượt đo hoàn tất, 72 nhóm, mỗi nhóm 5 lượt.
 - Corpus CSV: 24 file cây/đồ thị đã kiểm tra nội dung, số dòng và SHA-256 trong `benchmark/results/generated_data_manifest.json`.
-- Log gốc và kế hoạch thực thi: `benchmark/results/runs/20261024T071518041213Z/`.
+- Log gốc và kế hoạch thực thi: `benchmark/results/runs/20261027T115624004654Z/`.
 
 ## Kết quả Q2 đọc subtree — trung vị ms
 
 | Số node | Mô hình | Chỉ mục ràng buộc (ms) | Thêm chỉ mục phụ (ms) | Tỉ số trước/sau |
 | ---: | --- | ---: | ---: | ---: |
-| 1,000 | Adjacency List | 1.474 | 3.085 | 0.48 |
-| 1,000 | Path Enumeration | 0.245 | 0.543 | 0.45 |
-| 1,000 | Nested Set | 0.316 | 0.197 | 1.60 |
-| 1,000 | Closure Table | 0.081 | 0.126 | 0.64 |
-| 10,000 | Adjacency List | 17.089 | 7.223 | 2.37 |
-| 10,000 | Path Enumeration | 2.210 | 1.268 | 1.74 |
-| 10,000 | Nested Set | 2.866 | 0.902 | 3.18 |
-| 10,000 | Closure Table | 0.532 | 0.527 | 1.01 |
-| 100,000 | Adjacency List | 233.665 | 90.894 | 2.57 |
-| 100,000 | Path Enumeration | 48.384 | 15.048 | 3.22 |
-| 100,000 | Nested Set | 59.007 | 13.517 | 4.37 |
-| 100,000 | Closure Table | 7.658 | 8.841 | 0.87 |
+| 1,000 | Adjacency List | 1.461 | 1.235 | 1.18 |
+| 1,000 | Path Enumeration | 0.502 | 0.131 | 3.83 |
+| 1,000 | Nested Set | 0.317 | 0.160 | 1.98 |
+| 1,000 | Closure Table | 0.103 | 0.091 | 1.13 |
+| 10,000 | Adjacency List | 17.052 | 5.901 | 2.89 |
+| 10,000 | Path Enumeration | 2.136 | 0.913 | 2.34 |
+| 10,000 | Nested Set | 2.864 | 1.121 | 2.55 |
+| 10,000 | Closure Table | 0.519 | 0.516 | 1.01 |
+| 100,000 | Adjacency List | 231.705 | 85.509 | 2.71 |
+| 100,000 | Path Enumeration | 36.880 | 13.381 | 2.76 |
+| 100,000 | Nested Set | 52.214 | 13.147 | 3.97 |
+| 100,000 | Closure Table | 7.148 | 6.814 | 1.05 |
 
 ## Chi phí INSERT lá — trung vị ms
 
 | Số node | Mô hình | Chỉ mục ràng buộc (ms) | Thêm chỉ mục phụ (ms) | Tỉ số trước/sau |
 | ---: | --- | ---: | ---: | ---: |
-| 1,000 | Adjacency List | 0.513 | 0.135 | 3.80 |
-| 1,000 | Path Enumeration | 0.452 | 0.182 | 2.48 |
-| 1,000 | Nested Set | 22.382 | 22.666 | 0.99 |
-| 1,000 | Closure Table | 1.582 | 0.219 | 7.22 |
-| 10,000 | Adjacency List | 0.363 | 0.147 | 2.47 |
-| 10,000 | Path Enumeration | 0.324 | 0.245 | 1.32 |
-| 10,000 | Nested Set | 321.481 | 322.535 | 1.00 |
-| 10,000 | Closure Table | 13.250 | 0.230 | 57.61 |
-| 100,000 | Adjacency List | 0.304 | 0.182 | 1.67 |
-| 100,000 | Path Enumeration | 0.293 | 0.213 | 1.38 |
-| 100,000 | Nested Set | 2880.428 | 3403.259 | 0.85 |
-| 100,000 | Closure Table | 127.713 | 0.301 | 424.30 |
+| 1,000 | Adjacency List | 0.298 | 0.157 | 1.90 |
+| 1,000 | Path Enumeration | 0.291 | 0.216 | 1.35 |
+| 1,000 | Nested Set | 20.560 | 22.932 | 0.90 |
+| 1,000 | Closure Table | 1.051 | 0.390 | 2.69 |
+| 10,000 | Adjacency List | 0.252 | 0.145 | 1.74 |
+| 10,000 | Path Enumeration | 0.505 | 0.207 | 2.44 |
+| 10,000 | Nested Set | 258.811 | 324.625 | 0.80 |
+| 10,000 | Closure Table | 8.618 | 0.359 | 24.01 |
+| 100,000 | Adjacency List | 0.279 | 0.197 | 1.42 |
+| 100,000 | Path Enumeration | 0.275 | 0.260 | 1.06 |
+| 100,000 | Nested Set | 2427.696 | 3391.805 | 0.72 |
+| 100,000 | Closure Table | 142.623 | 0.490 | 291.07 |
 
 ## Chi phí UPDATE chuyển lá — trung vị ms
 
 | Số node | Mô hình | Chỉ mục ràng buộc (ms) | Thêm chỉ mục phụ (ms) | Tỉ số trước/sau |
 | ---: | --- | ---: | ---: | ---: |
-| 1,000 | Adjacency List | 0.479 | 0.183 | 2.62 |
-| 1,000 | Path Enumeration | 0.585 | 0.243 | 2.41 |
-| 1,000 | Nested Set | 36.897 | 25.407 | 1.45 |
-| 1,000 | Closure Table | 3.233 | 0.297 | 10.89 |
-| 10,000 | Adjacency List | 1.813 | 0.160 | 11.33 |
-| 10,000 | Path Enumeration | 1.739 | 0.223 | 7.80 |
-| 10,000 | Nested Set | 950.372 | 933.786 | 1.02 |
-| 10,000 | Closure Table | 18.589 | 0.339 | 54.83 |
-| 100,000 | Adjacency List | 14.347 | 0.880 | 16.30 |
-| 100,000 | Path Enumeration | 14.712 | 1.100 | 13.37 |
-| 100,000 | Nested Set | 8036.136 | 10148.457 | 0.79 |
-| 100,000 | Closure Table | 267.488 | 1.144 | 233.82 |
+| 1,000 | Adjacency List | 0.425 | 0.222 | 1.91 |
+| 1,000 | Path Enumeration | 0.421 | 0.300 | 1.40 |
+| 1,000 | Nested Set | 21.769 | 46.006 | 0.47 |
+| 1,000 | Closure Table | 1.581 | 0.673 | 2.35 |
+| 10,000 | Adjacency List | 2.261 | 0.247 | 9.15 |
+| 10,000 | Path Enumeration | 1.693 | 0.284 | 5.96 |
+| 10,000 | Nested Set | 837.115 | 933.816 | 0.90 |
+| 10,000 | Closure Table | 20.177 | 0.246 | 82.02 |
+| 100,000 | Adjacency List | 13.560 | 0.684 | 19.82 |
+| 100,000 | Path Enumeration | 16.477 | 0.742 | 22.21 |
+| 100,000 | Nested Set | 8226.932 | 9180.796 | 0.90 |
+| 100,000 | Closure Table | 352.790 | 0.854 | 413.10 |
 
 ## Dung lượng index
 
@@ -105,12 +105,12 @@ Ngày thực nghiệm: 2026-10-24. Người phụ trách: Quỳnh.
 | 10,000 | comment | 245760 | 425984 | 180224 |
 | 10,000 | comment_closure | 2949120 | 7585792 | 4636672 |
 | 10,000 | comment_ns | 319488 | 655360 | 335872 |
-| 10,000 | comment_path | 245760 | 2310144 | 2064384 |
+| 10,000 | comment_path | 245760 | 2301952 | 2056192 |
 | 10,000 | friendship | 1589248 | 2727936 | 1138688 |
 | 100,000 | comment | 2260992 | 3915776 | 1654784 |
 | 100,000 | comment_closure | 38289408 | 95961088 | 57671680 |
 | 100,000 | comment_ns | 3047424 | 6225920 | 3178496 |
-| 100,000 | comment_path | 2260992 | 26419200 | 24158208 |
+| 100,000 | comment_path | 2260992 | 26370048 | 24109056 |
 | 100,000 | friendship | 15736832 | 26992640 | 11255808 |
 
 Dung lượng bảng, index và tổng đầy đủ có trong `benchmark/results/benchmark_summary.md` và raw JSON; bảng trên chỉ hiển thị index.
@@ -143,4 +143,4 @@ Runner in đường dẫn run mới khi hoàn tất. Chạy `publish_results.py 
 - Biểu đồ: `benchmark/results/charts/`, gồm Q2, INSERT, UPDATE cho cả ba quy mô.
 - Nhật ký: `docs/experiment_log/task5_completed.md`.
 - Slide nội dung: `slides/task5_benchmark.md`.
-- Run gốc: `benchmark/results/runs/20261024T071518041213Z/`; dữ liệu 1k cũ được giữ riêng trong `benchmark/results/archive/`, không gộp vào lần đo này.
+- Run gốc: `benchmark/results/runs/20261027T115624004654Z/`; dữ liệu 1k cũ được giữ riêng trong `benchmark/results/archive/`, không gộp vào lần đo này.

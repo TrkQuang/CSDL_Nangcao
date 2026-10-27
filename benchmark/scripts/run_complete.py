@@ -91,6 +91,8 @@ def main() -> None:
                 psql_file(f"sql_advanced/{filename}", "validation.txt")
             psql_file("sql_advanced/validate_task3.sql", "validation.txt")
             psql_file("normalization/fd_check.sql", "fd_seed.txt")
+            run([sys.executable, str(SCRIPTS / "validate_fd.py"),
+                 "--output", str(output / "fd_regression.json")], environment, output / "fd_regression.txt")
             psql_file("benchmark/validate_dataset.sql", "validation.txt")
             for model in ("adjacency_list", "path_enumeration", "nested_set", "closure_table"):
                 psql_file(f"tree_models/{model}/crud.sql", "tree_queries.txt")

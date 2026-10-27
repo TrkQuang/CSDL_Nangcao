@@ -1,0 +1,25 @@
+experiment_id,run_at_utc,target_model,query_code,dataset_size,has_index,repeat_no,execution_time_ms,planning_time_ms,shared_hit_blocks,shared_read_blocks,plan_node_type,notes
+N1000-NOIDX-ADJ-01,2026-10-27T12:05:32+00:00,Adjacency List,Q2_Subtree,1000,false,1,1.202,0.119,63,0,Aggregate,WITH RECURSIVE parent_id traversal; median_execution_ms=1.202
+N1000-NOIDX-PAT-01,2026-10-27T12:05:32+00:00,Path Enumeration,Q2_Subtree,1000,false,1,0.592,0.102,15,0,Aggregate,ltree descendant operator <@; median_execution_ms=0.592
+N1000-NOIDX-NES-01,2026-10-27T12:05:32+00:00,Nested Set,Q2_Subtree,1000,false,1,0.645,0.099,9,0,Aggregate,lft/rgt range scan; median_execution_ms=0.645
+N1000-NOIDX-CLO-01,2026-10-27T12:05:32+00:00,Closure Table,Q2_Subtree,1000,false,1,0.149,0.063,10,0,Aggregate,ancestor lookup; median_execution_ms=0.149
+N1000-IDX-ADJ-01,2026-10-27T12:05:33+00:00,Adjacency List,Q2_Subtree,1000,true,1,1.513,0.198,63,0,Aggregate,WITH RECURSIVE parent_id traversal; median_execution_ms=1.513
+N1000-IDX-PAT-01,2026-10-27T12:05:33+00:00,Path Enumeration,Q2_Subtree,1000,true,1,0.174,0.123,19,0,Aggregate,ltree descendant operator <@; median_execution_ms=0.174
+N1000-IDX-NES-01,2026-10-27T12:05:33+00:00,Nested Set,Q2_Subtree,1000,true,1,0.197,0.159,12,0,Aggregate,lft/rgt range scan; median_execution_ms=0.197
+N1000-IDX-CLO-01,2026-10-27T12:05:33+00:00,Closure Table,Q2_Subtree,1000,true,1,0.275,0.173,12,0,Aggregate,ancestor lookup; median_execution_ms=0.275
+N1000-NOIDX-ADJ-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Adjacency List,INSERT_Leaf,1000,false,1,0.323,0.01,26,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-ADJ-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Adjacency List,UPDATE_MoveLeaf,1000,false,1,0.39,0.007,32,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-PAT-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Path Enumeration,INSERT_Leaf,1000,false,1,0.641,0.011,41,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-PAT-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Path Enumeration,UPDATE_MoveLeaf,1000,false,1,0.463,0.007,41,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-NES-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Nested Set,INSERT_Leaf,1000,false,1,20.266,0.037,18255,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-NES-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Nested Set,UPDATE_MoveLeaf,1000,false,1,21.932,0.013,21745,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-CLO-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Closure Table,INSERT_Leaf,1000,false,1,0.915,0.012,100,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-NOIDX-CLO-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Closure Table,UPDATE_MoveLeaf,1000,false,1,1.258,0.006,137,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-ADJ-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Adjacency List,INSERT_Leaf,1000,true,1,0.153,0.006,28,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-ADJ-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Adjacency List,UPDATE_MoveLeaf,1000,true,1,0.259,0.006,38,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-PAT-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Path Enumeration,INSERT_Leaf,1000,true,1,0.356,0.006,46,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-PAT-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Path Enumeration,UPDATE_MoveLeaf,1000,true,1,0.36,0.006,55,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-NES-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Nested Set,INSERT_Leaf,1000,true,1,22.087,0.012,22321,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-NES-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Nested Set,UPDATE_MoveLeaf,1000,true,1,28.591,0.012,24943,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-CLO-INSERT_Leaf-01,2026-10-27T12:05:33+00:00,Closure Table,INSERT_Leaf,1000,true,1,0.506,0.007,83,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
+N1000-IDX-CLO-UPDATE_MoveLeaf-01,2026-10-27T12:05:33+00:00,Closure Table,UPDATE_MoveLeaf,1000,true,1,0.565,0.007,96,0,Result,parent=2; move leaf=N; savepoint rollback; warm cache; includes model metadata maintenance
