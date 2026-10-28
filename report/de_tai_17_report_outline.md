@@ -229,29 +229,256 @@ Dựa trên 10 quy tắc nghiệp vụ, nhóm xác lập tập phụ thuộc hà
 
 ---
 
-# TÓM TẮT CÁC CHƯƠNG KỸ THUẬT TIẾP THEO (TV2 – TV5)
+# CHƯƠNG 3: DỮ LIỆU PHÂN CẤP (CÂY) TRÊN CƠ SỞ DỮ LIỆU QUAN HỆ
 
-### CHƯƠNG 3: DỮ LIỆU PHÂN CẤP (CÂY) TRÊN CSDL QUAN HỆ (TV2 - Hưng)
-- So sánh toàn diện 4 mô hình: Adjacency List, Path Enumeration (`ltree`), Nested Set, Closure Table.
-- Hiện thực hoàn chỉnh bộ 10 truy vấn chuẩn (Q1–Q10) trên từng mô hình.
-- Minh chứng cả 4 mô hình đều trả về kết quả giống nhau trên bộ dữ liệu kiểm chứng nhỏ: cây con của c1 là `{ c1, c2, c3 }`, tổ tiên của c3 là `{ c1, c2 }`, độ sâu c3 bằng 3.
+## 3.1 Cơ sở lý thuyết và cấu trúc 4 mô hình lưu trữ cây
+Trong hệ thống mạng xã hội học tập, cấu trúc cây phân cấp xuất hiện ở luồng bình luận lồng nhau (threaded comments) dưới bài viết và cây thư mục học liệu. Để giải quyết hạn chế của mô hình quan hệ 2 chiều phẳng, nhóm đã hiện thực và đối chiếu 4 giải pháp kinh điển:
 
-### CHƯƠNG 4: SQL NÂNG CAO, ĐỆ QUY ĐỒ THỊ & GIAO DỊCH (TV3 - Hữu)
-- 8 truy vấn nâng cao: Subquery, NOT EXISTS lồng nhau (phép chia quan hệ), Window Functions.
-- Lập trình CSDL: Trigger kiểm tra cây (Q9), Stored Procedure kết bạn nguyên tử (Q10), Di chuyển nhánh chặn chu trình (Q11), Dynamic SQL chống injection (Q12), ví dụ SQL nhúng qua Cursor.
-- 4 bài toán đệ quy đồ thị (R1–R4): Bạn của bạn (k=2), Đường đi ngắn nhất BFS, Phát hiện chu trình, Gợi ý kết bạn.
-- Giao dịch T1 (Thành công), T2 (Rollback và Savepoint).
+| Mô hình | Cấu trúc lưu trữ | Ưu điểm cốt lõi | Nhược điểm cốt lõi | Chỉ mục tối ưu |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Adjacency List** *(Danh sách kề)* | Mỗi dòng lưu `parent_id` trỏ về bình luận cha trực tiếp. | Cấu trúc tối giản, chèn nút mới cực nhanh ($O(1)$), không phát sinh dung lượng dư thừa. | Đọc cây con hoặc tổ tiên bắt buộc dùng đệ quy `WITH RECURSIVE`, chi phí tăng theo độ sâu cây. | `B-tree (post_id, parent_id)` |
+| **2. Path Enumeration** *(PostgreSQL `ltree`)* | Lưu toàn bộ chuỗi phả hệ từ gốc đến nút hiện tại (ví dụ: `'1.2.5'`). | Đọc cây con, tổ tiên cực nhanh qua toán tử `<@`, `@>` không cần đệ quy. | Chi phí cập nhật chuỗi path khi di chuyển nhánh; chuỗi đường dẫn bị giới hạn độ dài. | `GiST (path)` |
+| **3. Nested Set** *(Tập lồng nhau)* | Lưu cặp số thứ tự duyệt cây tiền thứ tự `(lft, rgt)`. | Đọc toàn bộ cây con bằng 1 phép so sánh số học `BETWEEN` ($O(1)$ về mặt logic truy vấn). | Chi phí ghi cực đắt: chèn/xóa/chuyển nhánh phải đánh số lại $O(N)$ nút trong cây. | `Composite (post_id, lft, rgt)` |
+| **4. Closure Table** *(Bảng bao đóng)* | Dùng bảng phụ `comment_closure` lưu mọi cặp `(ancestor, descendant, depth)`. | Đọc cây con, tổ tiên, tính khoảng cách bằng 1 phép `JOIN` đơn giản. Tách biệt cấu trúc cây và thuộc tính nghiệp vụ. | Tốn dung lượng đĩa nhất ($O(N^2)$ trong trường hợp cây thoái hóa thành danh sách liên kết). | `Composite (ancestor, depth)` & `(descendant, ancestor)` |
 
-### CHƯƠNG 5: CSDL HƯỚNG ĐỐI TƯỢNG VÀ CSDL ĐỒ THỊ (TV2 & TV4)
-- Thiết kế 6 lớp đối tượng, lược đồ ODL chuẩn ODMG 3.0, 8 câu truy vấn OQL và ánh xạ JPQL.
-- Phân tích sự lệch pha trở kháng (Impedance Mismatch).
-- CSDL đồ thị Neo4j: Nạp dữ liệu qua Cypher, đối chiếu cú pháp ngắn gọn và tốc độ duyệt đồ thị sâu của Neo4j so với `WITH RECURSIVE` của PostgreSQL.
+---
 
-### CHƯƠNG 6: THỰC NGHIỆM, BENCHMARK & ĐÁNH GIÁ HIỆU NĂNG (TV5 & TV4)
-- Thiết kế vật lý: Chiến lược đánh chỉ mục B-tree, GiST ltree, Composite Index.
-- Đo lường trước và sau chỉ mục qua `EXPLAIN (ANALYZE, BUFFERS)` trên các quy mô 1.000, 10.000 và 100.000 bản ghi.
-- Thử nghiệm tương tranh T3: Gây Deadlock (mã lỗi `40P01`), ma trận kiểm thử các mức cô lập (Read Committed, Repeatable Read, Serializable).
-- Thử tải đồng thời bằng `pgbench` với các mức 5, 10, 20 kết nối.
+## 3.2 Hiện thực bộ 10 truy vấn chuẩn (Q1 – Q10)
+Để đảm bảo tính khoa học và công bằng khi đánh giá, cả 4 mô hình đều hiện thực cùng một bộ 10 truy vấn chuẩn và đối chứng trên bộ dữ liệu kiểm chứng [database/seed_test.sql](file:///c:/Users/shuut/Documents/CSDL_Nangcao/database/seed_test.sql):
+
+- **Q1 (Toàn bộ cây có thụt dòng):**
+  - *Adjacency List:* Dùng CTE đệ quy tăng dần `level`, nối chuỗi `REPEAT('  ', level) || content`.
+  - *Path Enumeration:* Dùng hàm `nlevel(path)` của module `ltree` để tính khoảng cách thụt lề.
+  - *Nested Set:* Dùng phép `COUNT` số nút bao quanh nút hiện tại để suy ra độ sâu.
+  - *Closure Table:* `JOIN` với bảng bao đóng lọc theo nút gốc (`ancestor = root`) và lấy `depth`.
+- **Q2 (Lấy toàn bộ hậu duệ / cây con của nút $X$):**
+  - *Adjacency List:* `WITH RECURSIVE subtree AS (...) SELECT ... JOIN subtree ON child.parent_id = subtree.comment_id`.
+  - *Path Enumeration:* `SELECT * FROM comment_path WHERE path <@ (SELECT path FROM comment_path WHERE comment_id = X)`.
+  - *Nested Set:* `SELECT child.* FROM comment_ns child, comment_ns root WHERE root.comment_id = X AND child.lft BETWEEN root.lft AND root.rgt`.
+  - *Closure Table:* `SELECT c.* FROM comment_closure cc JOIN comment c ON cc.descendant = c.comment_id WHERE cc.ancestor = X`.
+- **Q3 (Lấy toàn bộ tổ tiên - Breadcrumb):**
+  - *Path Enumeration:* Dùng toán tử `@>` tìm các nút mà đường dẫn là tiền tố của nút hiện tại.
+  - *Closure Table:* `SELECT * FROM comment_closure WHERE descendant = X AND depth > 0 ORDER BY depth DESC`.
+- **Q4 (Lấy các nút ở độ sâu xác định $k$):** Lọc theo `depth = k` hoặc `nlevel(path) = k`.
+- **Q5 (Thêm nút mới):** Chèn vào cây; với Nested Set phải dịch `lft`/`rgt` các nút phía sau; với Closure Table phải nhân bản mọi tổ tiên của cha thêm 1 bước.
+- **Q6 (Xóa nút và toàn bộ cây con):** Xóa cascade; với Closure Table xóa toàn bộ liên kết có `descendant` nằm trong cây con.
+- **Q7 (Di chuyển nhánh an toàn - Move Subtree):** Kiểm tra chống chu trình (không cho phép chuyển một nút làm con của chính hậu duệ của nó).
+- **Q8 (Đếm số lượng nút con):** Trên Nested Set tính trực tiếp bằng công thức $(rgt - lft - 1) / 2$ mà không cần quét bảng; trên Closure Table dùng `COUNT(*) WHERE ancestor = X AND depth > 0`.
+- **Q9 (Đường dẫn từ gốc đến nút hiện tại):** Lấy danh sách ID các nút tổ tiên theo thứ tự từ trên xuống.
+- **Q10 (Kiểm tra quan hệ tổ tiên - hậu duệ):** Trả về kiểu Boolean (`true/false`) xác định nhanh nút $A$ có phải tổ tiên của nút $B$ hay không.
+
+---
+
+## 3.3 Quy ước thống nhất và Kiểm chứng kết quả logic
+Theo biên bản nghiệm thu kỹ thuật [tree_models/TONGKET-TV2.md](file:///c:/Users/shuut/Documents/CSDL_Nangcao/tree_models/TONGKET-TV2.md), nhóm thống nhất quy ước:
+1. **Truy vấn cây con (Q2, Q8):** Tính cả chính nút gốc được chỉ định $\Rightarrow$ `subtree(1) = {1, 2, 3}`, số lượng = 3.
+2. **Truy vấn tổ tiên (Q3, Q9, Q10):** Lọc nghiêm ngặt, không tính chính nút đó $\Rightarrow$ `ancestors(3) = {1, 2}`.
+3. **Độ sâu cây:** Nút gốc có `depth = 1`.
+
+Bộ script kiểm thử tự động [tree_models/_validate/validate.ps1](file:///c:/Users/shuut/Documents/CSDL_Nangcao/tree_models/_validate/validate.ps1) đã chạy quét sạch sẽ 4/4 mô hình trên PostgreSQL, trả về kết quả đồng nhất 100%:
+```text
+adjacency_list    queries=OK  crud=OK
+closure_table     queries=OK  crud=OK
+nested_set        queries=OK  crud=OK
+path_enumeration  queries=OK  crud=OK
+```
+
+---
+
+# CHƯƠNG 4: SQL NÂNG CAO, ĐỆ QUY ĐỒ THỊ & ĐIỀU KHIỂN ĐỒNG THỜI
+
+## 4.1 Bộ 8 truy vấn nâng cao (Q1 – Q8)
+Nhóm đã hiện thực đầy đủ các kỹ thuật truy vấn phức tạp trong [sql_advanced/q01_q08_select.sql](file:///c:/Users/shuut/Documents/CSDL_Nangcao/sql_advanced/q01_q08_select.sql):
+
+1. **Q1 (Scalar Subquery):** Tìm người dùng có số lượng bạn bè vượt mức trung bình hệ thống:
+   ```sql
+   SELECT user_id, full_name, friend_count 
+   FROM users 
+   WHERE friend_count > (SELECT AVG(friend_count) FROM users);
+   ```
+2. **Q2 (Double NOT EXISTS):** Tìm sinh viên chưa từng đăng bài viết nào và chưa từng bình luận (phát hiện tài khoản không hoạt động).
+3. **Q3 (Phép chia quan hệ - Relational Division):** Tìm sinh viên tham gia **TẤT CẢ** các nhóm học tập thuộc chủ đề `'CSDL'`. Đây là dạng truy vấn kinh điển được hiện thực bằng 2 tầng `NOT EXISTS` lồng nhau:
+   ```sql
+   SELECT u.user_id, u.full_name
+   FROM users u
+   WHERE NOT EXISTS (
+       SELECT 1 FROM study_group sg WHERE sg.topic = 'CSDL'
+       AND NOT EXISTS (
+           SELECT 1 FROM group_member gm 
+           WHERE gm.group_id = sg.group_id AND gm.user_id = u.user_id
+       )
+   );
+   ```
+4. **Q4 (HAVING với điều kiện gộp):** Lọc nhóm học tập có tỷ lệ bài thảo luận chiếm trên 60% tổng số bài đăng.
+5. **Q5 (Window Function `DENSE_RANK`):** Xếp hạng người dùng tích cực theo số lượng bài viết trong từng tháng mà không làm xẹp dòng dữ liệu.
+6. **Q6 (Window Function `COUNT(*) OVER`):** Tính tổng số lượt thích tích lũy và tỷ lệ phần trăm đóng góp của từng bài viết trong nhóm.
+7. **Q7 (Window Function `LAG`):** Tính khoảng cách thời gian giữa hai lần đăng bài liên tiếp của cùng một tác giả để phân tích tần suất hoạt động.
+8. **Q8 (Self-Join & Grouping):** Thống kê số lượng bạn chung giữa từng cặp người dùng trong hệ thống.
+
+---
+
+## 4.2 Lập trình Cơ sở dữ liệu nâng cao (Q9 – Q12)
+- **Q9 (Trigger kiểm tra cây bình luận - BR6):** Trigger `trg_check_comment_parent` chặn đứng việc bình luận con trỏ vào bình luận cha thuộc bài viết khác hoặc trỏ vào chính nó:
+  ```sql
+  CREATE OR REPLACE FUNCTION fn_check_comment_parent() RETURNS TRIGGER AS $$
+  BEGIN
+      IF NEW.parent_id IS NOT NULL THEN
+          IF NEW.parent_id = NEW.comment_id THEN
+              RAISE EXCEPTION 'Bình luận không thể làm cha của chính nó';
+          END IF;
+          IF NOT EXISTS (
+              SELECT 1 FROM comment p 
+              WHERE p.comment_id = NEW.parent_id AND p.post_id = NEW.post_id
+          ) THEN
+              RAISE EXCEPTION 'Bình luận cha phải thuộc cùng một bài viết';
+          END IF;
+      END IF;
+      RETURN NEW;
+  END;
+  $$ LANGUAGE plpgsql;
+  ```
+- **Q10 (Stored Procedure kết bạn nguyên tử):** `proc_add_friend(u1, u2)` thực hiện chuẩn hóa thứ tự `user_a < user_b`, ghi nhận quan hệ trong `friendship` và đồng thời tăng bộ đếm `friend_count` của cả 2 người dùng trong 1 giao dịch nguyên tử.
+- **Q11 (Procedure chuyển nhánh an toàn chặn chu trình):** `proc_move_comment(target_id, new_parent_id)` sử dụng CTE đệ quy kiểm tra nếu `new_parent_id` nằm trong tập hậu duệ của `target_id` thì lập tức hủy thao tác với thông báo lỗi.
+- **Q12 (Dynamic SQL chống SQL Injection):** Hàm `fn_search_posts_dynamic(keyword)` dùng hàm `format()` với định dạng `%L` (literal escaping) để tham số hóa an toàn chuỗi truy vấn động, vô hiệu hóa hoàn toàn các chuỗi tấn công như `' OR 1=1 --`.
+- **SQL nhúng (Embedded SQL):** Cung cấp mã nguồn Python [sql_advanced/embedded/psycopg2_cursor.py](file:///c:/Users/shuut/Documents/CSDL_Nangcao/sql_advanced/embedded/psycopg2_cursor.py) sử dụng con trỏ Client-side/Server-side và tham số hóa truy vấn an toàn qua biến môi trường.
+
+---
+
+## 4.3 SQL Đệ quy trên Đồ thị bạn bè (R1 – R4)
+Duyệt đồ thị trên CSDL quan hệ thông qua View đối xứng `friend_edge` (thực hiện `UNION ALL` 2 chiều):
+- **R1 (Bạn của bạn - FoF độ sâu $k=2$):** Tìm bạn của bạn của An (ID = 1), loại bỏ chính An và những người đã là bạn trực tiếp. Kết quả kiểm chứng: `{Dung (ID 4), Em (ID 5)}`.
+- **R2 (Đường đi ngắn nhất BFS):** Thuật toán tìm kiếm theo chiều rộng duy trì mảng nút đã đi qua `ARRAY[1, b]` để chặn chu trình và dừng lại ngay ở độ sâu nhỏ nhất tìm thấy đích. Kết quả đường đi An $\rightarrow$ Em: `[1, 3, 5]` với độ dài 2 bước.
+- **R3 (Phát hiện chu trình vòng kín):** Tìm các chu trình bạn bè khép kín độ dài 3 đến 5 (tam giác bạn bè). Kết quả phát hiện 3 chu trình: `(1-2-3)`, `(2-3-5-4)` và `(1-2-4-5-3)`.
+- **R4 (Gợi ý kết bạn):** Đếm số lượng bạn chung giữa người dùng mục tiêu với những người chưa kết bạn và xếp hạng giảm dần theo độ ưu tiên.
+
+---
+
+## 4.4 Quản trị Giao dịch & Thực nghiệm Bế tắc (Deadlock T3)
+- **Kịch bản T1 & T2:** Minh chứng tính toàn vẹn ACID, khả năng cô lập lỗi bằng `SAVEPOINT` để rollback cục bộ một thao tác thất bại mà không hủy toàn bộ giao dịch cha.
+- **Thực nghiệm Deadlock T3 (Kiểm chứng thực tế):**
+  - Session A xin khóa ghi User 1, sau đó yêu cầu khóa User 2.
+  - Session B đồng thời xin khóa ghi User 2, sau đó yêu cầu khóa User 1.
+  - Hệ quản trị PostgreSQL phát hiện chu trình chờ đợi tài nguyên (Wait-For Graph), kích hoạt cơ chế `deadlock_timeout` (mặc định 1 giây) và chủ động hủy giao dịch của Session A.
+  - **Trích xuất log thực nghiệm nguyên văn từ [transactions/t3_concurrent/logs/deadlock_t3_log.txt](file:///c:/Users/shuut/Documents/CSDL_Nangcao/transactions/t3_concurrent/logs/deadlock_t3_log.txt):**
+    ```text
+    ERROR:  deadlock detected
+    DETAIL:  Process 16484 waits for ShareLock on transaction 14459; blocked by process 13804.
+    Process 13804 waits for ShareLock on transaction 14458; blocked by process 16484.
+    HINT:  See server log for query details.
+    CONTEXT:  while locking tuple (3,1) in relation "users"
+    SQLSTATE: 40P01
+    ```
+
+---
+
+# CHƯƠNG 5: CSDL HƯỚNG ĐỐI TƯỢNG VÀ CSDL ĐỒ THỊ CHUYÊN DỤNG
+
+## 5.1 CSDL Hướng đối tượng: ODL, OQL và Phân tích Lệch pha trở kháng
+- **Lược đồ ODL chuẩn ODMG 3.0 ([oo_model/schema.odl](file:///c:/Users/shuut/Documents/CSDL_Nangcao/oo_model/schema.odl)):**
+  - Định nghĩa 6 lớp đối tượng: `NguoiDung`, `NhomHocTap`, `BaiDang`, `BaiThaoLuan`, `BaiTaiLieu`, `BinhLuan`.
+  - Khai báo tường minh tập mở rộng (`extent`), mối quan hệ 2 chiều tự động đồng bộ (`inverse`), và các phương thức nghiệp vụ: `doSau(): Integer`, `soBanChung(in NguoiDung u): Integer`.
+- **Bộ 8 truy vấn OQL ([oo_model/oql_queries.md](file:///c:/Users/shuut/Documents/CSDL_Nangcao/oo_model/oql_queries.md)):**
+  - Minh họa điều hướng đối tượng bằng toán tử dấu chấm (`.`): `p.tacGia.hoTen` (không cần viết lệnh `JOIN`).
+  - Gọi phương thức trực tiếp trong điều kiện lọc: `SELECT c.noiDung FROM c IN dsBinhLuan WHERE c.doSau() >= 3;`.
+- **Phân tích hiện tượng Lệch pha trở kháng (Impedance Mismatch) trong [oo_model/jpql_mapping.md](file:///c:/Users/shuut/Documents/CSDL_Nangcao/oo_model/jpql_mapping.md):**
+  - *Lệch pha về mô hình kế thừa:* RDBMS không hỗ trợ kế thừa bản địa $\Rightarrow$ Phải ánh xạ qua bảng phụ hoặc Single Table kèm cột phân biệt loại.
+  - *Lệch pha về bản sắc đối tượng (Object Identity vs Primary Key):* OOP quản lý bằng địa chỉ bộ nhớ/OID, còn RDBMS dựa trên giá trị dữ liệu của khóa chính.
+  - *Vấn đề $N+1$ truy vấn trong ORM (JPA/Hibernate):* Khi duyệt danh sách bình luận kèm tác giả, ORM có thể bắn thêm $N$ truy vấn con xuống database nếu không dùng `JOIN FETCH`.
+
+---
+
+## 5.2 CSDL Đồ thị chuyên dụng Neo4j & Đối chiếu Cypher
+Hệ thống đồ thị 6 người dùng đã được triển khai hoàn chỉnh trên Neo4j Community ([neo4j/](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/)):
+- **Mô hình nhãn và quan hệ:**
+  - Nút: `(:User {id, name, email})`.
+  - Cạnh: `[:FRIEND]` (quan hệ 2 chiều), `[:FOLLOWS]` (quan hệ 1 chiều).
+- **Hiện thực 4 bài toán đồ thị bằng Cypher:**
+  1. *Bạn của bạn (FoF):*
+     ```cypher
+     MATCH (an:User {name: 'An'})-[:FRIEND]-(:User)-[:FRIEND]-(fof:User)
+     WHERE fof <> an AND NOT (an)-[:FRIEND]-(fof)
+     RETURN DISTINCT fof.id, fof.name;
+     ```
+  2. *Đường đi ngắn nhất:* Dùng hàm bản địa `shortestPath`:
+     ```cypher
+     MATCH p = shortestPath((an:User {name: 'An'})-[:FRIEND*..6]-(em:User {name: 'Em'}))
+     RETURN [n IN nodes(p) | n.name] AS path, length(p) AS len;
+     ```
+  3. *Phát hiện chu trình:* `MATCH p = (a:User)-[:FRIEND*3..5]-(a) RETURN DISTINCT [n IN nodes(p) | n.id];`.
+- **Minh chứng trực quan từ Neo4j Browser ([neo4j/screenshots/](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/screenshots/)):**
+  - Ảnh 1: [01_neo4j_full_graph.png](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/screenshots/01_neo4j_full_graph.png) — Toàn cảnh mạng lưới 6 nút và các liên kết kết bạn/theo dõi.
+  - Ảnh 2: [02_neo4j_friends_of_friends.png](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/screenshots/02_neo4j_friends_of_friends.png) — Mạng lưới bạn của bạn.
+  - Ảnh 3: [03_neo4j_shortest_path.png](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/screenshots/03_neo4j_shortest_path.png) — Đường đi ngắn nhất `An -> Chi -> Em`.
+  - Ảnh 4: [04_neo4j_cycle_detection.png](file:///c:/Users/shuut/Documents/CSDL_Nangcao/neo4j/screenshots/04_neo4j_cycle_detection.png) — Chu trình tam giác bạn bè `(1-2-3)`.
+
+---
+
+## 5.3 So sánh đối chiếu toàn diện: PostgreSQL vs Neo4j
+| Tiêu chí so sánh | PostgreSQL (`WITH RECURSIVE`) | Neo4j (`Cypher`) |
+| :--- | :--- | :--- |
+| **Mô hình dữ liệu** | Bảng quan hệ 2 chiều phẳng (Cạnh biểu diễn qua bảng nối). | Đồ thị thuộc tính (Lưu con trỏ trực tiếp giữa các nút - Index-free Adjacency). |
+| **Cú pháp truy vấn** | Khá phức tạp: Cần điểm neo (Anchor), bước đệ quy, phép `UNION ALL` và mảng vết thủ công để chặn chu trình. | Cực kỳ trực quan: Khai báo mẫu đồ thị tự nhiên bằng ký hiệu ASCII art `(a)-[:REL]->(b)`. |
+| **Hiệu năng duyệt sâu ($k \ge 3$)** | Giảm mạnh do chi phí `JOIN` lặp lại nhiều lần trên các bảng quan hệ lớn. | Duy trì ổn định cao nhờ duyệt con trỏ bộ nhớ trực tiếp, không phụ thuộc quy mô toàn bảng. |
+| **Hỗ trợ Transaction & ACID** | **Cực mạnh, tiêu chuẩn vàng của ngành công nghiệp**, bảo đảm toàn vẹn dữ liệu hoàn hảo. | Hỗ trợ ACID mức đồ thị, nhưng quản lý ràng buộc nghiệp vụ bảng biểu phức tạp không thuận tiện bằng RDBMS. |
+| **Khuyến nghị kiến trúc** | Phù hợp quản lý dữ liệu nghiệp vụ cốt lõi, cây phân cấp, và đồ thị nông ($k \le 2$). | Phù hợp phân tích mạng xã hội, phát hiện gian lận, gợi ý kết bạn phức tạp đa chiều. |
+
+---
+
+# CHƯƠNG 6: THIẾT KẾ VẬT LÝ, BENCHMARK & THỬ TẢI ĐỒNG THỜI
+
+## 6.1 Kế hoạch Đánh chỉ mục & Đo lường dung lượng đĩa
+Theo kế hoạch tại [benchmark/indexes.sql](file:///c:/Users/shuut/Documents/CSDL_Nangcao/benchmark/indexes.sql) và công cụ đo [benchmark/storage_sizes.sql](file:///c:/Users/shuut/Documents/CSDL_Nangcao/benchmark/storage_sizes.sql):
+- **Adjacency List:** Chỉ mục `B-tree (post_id, parent_id)` giúp tăng tốc độ lọc điểm neo và phép nối trong CTE đệ quy. Dung lượng chỉ mục nhỏ nhất.
+- **Path Enumeration:** Chỉ mục chuyên dụng `GiST` trên cột kiểu `ltree` cho phép quét mẫu tiền tố đường dẫn siêu tốc.
+- **Nested Set:** Chỉ mục `Composite (post_id, lft, rgt)` giúp chuyển đổi câu quét cây con từ Seq Scan sang Index Only Scan.
+- **Closure Table:** Hai chỉ mục `(ancestor, depth, descendant)` và `(descendant, ancestor)`. Dung lượng đĩa lớn nhất do số lượng bản ghi bảng bao đóng tăng theo bình phương độ sâu cây.
+
+---
+
+## 6.2 Đánh giá hiệu năng 4 mô hình cây phân cấp (Benchmark)
+Nhóm đã xây dựng bộ công cụ tự động hóa toàn diện bằng Python:
+- Script sinh dữ liệu: [gen_tree_data.py](file:///c:/Users/shuut/Documents/CSDL_Nangcao/benchmark/scripts/gen_tree_data.py) sinh cây ngẫu nhiên với seed cố định (`SEED=42`), hỗ trợ các quy mô 1.000, 10.000 và 100.000 nút.
+- Script đo đạc: [run_benchmark.py](file:///c:/Users/shuut/Documents/CSDL_Nangcao/benchmark/scripts/run_benchmark.py) thu thập kế hoạch thực thi `EXPLAIN (ANALYZE, BUFFERS, FORMAT JSON)`.
+- Script vẽ biểu đồ: [plot_results.py](file:///c:/Users/shuut/Documents/CSDL_Nangcao/benchmark/scripts/plot_results.py) tự động vẽ biểu đồ cột so sánh thời gian thực thi trước và sau khi đánh index.
+
+**Bảng phân tích đánh đổi (Trade-off Matrix) giữa 4 mô hình cây:**
+```
+                     TỐC ĐỘ ĐỌC CÂY CON (Q2) vs CHI PHÍ GHI & CẬP NHẬT
+[Tốc độ đọc nhanh]  Closure Table > Nested Set > Path Enumeration (ltree) > Adjacency List
+[Tốc độ ghi nhanh]  Adjacency List > Path Enumeration > Closure Table > Nested Set
+[Dung lượng đĩa]    Adjacency List (nhẹ nhất) < Path Enumeration < Nested Set < Closure Table (nặng nhất)
+```
+*Kết luận rút ra:* Đối với ứng dụng mạng xã hội học tập nơi tỷ lệ thao tác là 90% Đọc và 10% Ghi:
+- **Path Enumeration (`ltree`):** Là lựa chọn cân bằng hoàn hảo nhất trên PostgreSQL nhờ cú pháp gọn gàng và chỉ mục GiST tối ưu.
+- **Closure Table:** Phù hợp nhất khi cần truy vấn quan hệ tổ tiên - hậu duệ đa tầng và tính khoảng cách độ sâu tức thì.
+
+---
+
+## 6.3 Thử tải đồng thời bằng `pgbench` (Kết quả thực nghiệm)
+Thực nghiệm đo lường thông lượng (TPS) và độ trễ (Latency) của thủ tục kết bạn nguyên tử `proc_add_friend` dưới tải đồng thời cao được ghi nhận chính xác trong [transactions/pgbench/results.md](file:///c:/Users/shuut/Documents/CSDL_Nangcao/transactions/pgbench/results.md):
+
+| Quy mô tải (`-c` clients) | Tổng số Transaction | Tỷ lệ thành công | Tỷ lệ lỗi / Deadlock | Độ trễ trung bình *(Latency)* | Thông lượng *(TPS)* |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| **5 clients** | 500 | 500 / 500 (100%) | **0.00%** | **1.448 ms** | **3.452,90 TPS** |
+| **10 clients** | 1.000 | 1.000 / 1.000 (100%) | **0.00%** | **2.912 ms** | **3.434,18 TPS** |
+| **20 clients** | 2.000 | 2.000 / 2.000 (100%) | **0.00%** | **5.814 ms** | **3.439,94 TPS** |
+
+*Nhận xét kết quả:*
+1. **Tính ổn định của hệ thống:** Thông lượng duy trì cực kỳ bền bỉ ở mức xấp xỉ **3.440 TPS** ngay cả khi số lượng client tăng gấp 4 lần (từ 5 lên 20 kết nối).
+2. **Độ trễ:** Tăng tuyến tính từ 1.44ms lên 5.81ms khi số lượng luồng cạnh tranh tăng lên, nhưng vẫn nằm sâu dưới ngưỡng chấp nhận được của hệ thống thời gian thực (< 10ms).
+3. **Không phát sinh bế tắc:** Nhờ quy ước chuẩn hóa thứ tự khóa `user_a < user_b` trong Stored Procedure, tất cả 2.000 giao dịch đồng thời đều hoàn thành mà không có bất kỳ giao dịch nào bị hủy do Deadlock.
+
+---
+
+## 6.4 Ma trận Kiểm thử Mức cô lập Giao dịch
+Kiểm chứng thực tế 4 hiện tượng bất thường trên 3 mức cô lập của PostgreSQL ([transactions/t3_concurrent/isolation_matrix.md](file:///c:/Users/shuut/Documents/CSDL_Nangcao/transactions/t3_concurrent/isolation_matrix.md)):
+
+| Mức cô lập | Dirty Read | Non-Repeatable Read | Phantom Read | Serialization Failure | Kết quả quan sát thực tế |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| **Read Committed** *(Mặc định)* | ❌ Không | ⚠️ **Có xảy ra** | ⚠️ **Có xảy ra** | ⚠️ Có xảy ra | Đọc lần 1 ra 2 dòng; Session B commit chèn dòng mới $\Rightarrow$ Đọc lần 2 ra 3 dòng ngay trong cùng 1 Transaction A. |
+| **Repeatable Read** | ❌ Không | ❌ **Không** | ❌ **Không** | ⚠️ Có thể xảy ra | PostgreSQL áp dụng kỹ thuật MVCC Snapshot Isolation, chụp ảnh dữ liệu tại thời điểm câu lệnh đầu tiên bắt đầu $\Rightarrow$ Chặn thành công cả Non-Repeatable Read và Phantom Read. |
+| **Serializable** | ❌ Không | ❌ Không | ❌ Không | ❌ **Không** | Thuật toán SSI (Serializable Snapshot Isolation) theo dõi các vết đọc/ghi (SIREAD locks), phát hiện chu trình phụ thuộc chéo và tự động hủy 1 phiên với mã lỗi `40001` (`could not serialize access`). |
+
 
 ---
 

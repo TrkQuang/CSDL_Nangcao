@@ -104,26 +104,34 @@ CSDL_NC/
 │   ├── README.md                        # Hướng dẫn thiết lập Neo4j bằng Docker và quy trình đối chiếu
 │   ├── import/                          # Nạp dữ liệu
 │   │   └── import_nodes_edges.cypher    # Cypher nạp các Node :User và Relationship :FRIEND, :FOLLOWS
-│   └── cypher/                          # Truy vấn Cypher tương đương với PostgreSQL
-│       ├── friends_of_friends.cypher    # FoF bằng biểu thức đường đi biến thiên
-│       ├── shortest_path.cypher         # Tìm đường ngắn nhất bằng hàm shortestPath()
-│       └── cycle_detection.cypher       # Phát hiện chu trình khép kín
+│   ├── cypher/                          # Truy vấn Cypher tương đương với PostgreSQL
+│   │   ├── friends_of_friends.cypher    # FoF bằng biểu thức đường đi biến thiên
+│   │   ├── shortest_path.cypher         # Tìm đường ngắn nhất bằng hàm shortestPath()
+│   │   ├── cycle_detection.cypher       # Phát hiện chu trình khép kín
+│   │   └── recommendation.cypher        # Gợi ý kết bạn theo số bạn chung
+│   └── screenshots/                     # Minh chứng đồ thị trực quan xuất từ Neo4j Browser
+│       ├── 01_neo4j_full_graph.png      # Toàn cảnh đồ thị 6 người dùng
+│       ├── 02_neo4j_friends_of_friends.png # Bạn của bạn trực quan
+│       ├── 03_neo4j_shortest_path.png   # Đường đi ngắn nhất trực quan
+│       └── 04_neo4j_cycle_detection.png # Chu trình đồ thị trực quan
 │
 ├── benchmark/                           # Thiết kế vật lý & Công cụ đo lường hiệu năng tự động
 │   ├── README.md                        # Chiến lược đánh chỉ mục và quy trình đo đạc 5 bước
-│   ├── data/                            # Thư mục lưu trữ dữ liệu thô (.gitkeep)
+│   ├── storage_sizes.sql                # Đo kích thước bảng và chỉ mục qua pg_relation_size()
 │   ├── scripts/                         # Bộ script sinh dữ liệu và đo đạc tự động
 │   │   ├── gen_tree_data.py             # Sinh cây phân cấp (1k, 10k, 100k nodes) với seed cố định
 │   │   ├── gen_graph_data.py            # Sinh đồ thị mạng xã hội lớn
-│   │   └── run_benchmark.py             # Tự động chạy EXPLAIN ANALYZE BUFFERS và xuất báo cáo
-│   └── results/                         # Kết quả thực nghiệm
+│   │   ├── run_benchmark.py             # Tự động chạy EXPLAIN ANALYZE BUFFERS và xuất CSV
+│   │   ├── plot_results.py              # Tự động vẽ biểu đồ cột so sánh thời gian đọc cây
+│   │   └── summarize_results.py         # Tự động tổng hợp bảng kết quả Markdown
+│   └── results/                         # Kết quả thực nghiệm và số đo
 │       └── benchmark_results.csv        # Bảng dữ liệu đo thời gian và buffer blocks
 │
-├── report/                              # Tài liệu báo cáo chính thức (20–30 trang)
-│   └── de_tai_17_report_outline.md      # Dàn ý báo cáo chi tiết theo cấu trúc chuẩn môn học
+├── report/                              # Tài liệu báo cáo chính thức (25–35 trang)
+│   └── de_tai_17_report_outline.md      # Báo cáo tổng kết hoàn chỉnh tích hợp toàn bộ các chương
 │
 └── slides/                              # Bài trình bày bảo vệ đồ án
-    └── slides_outline.md                # Dàn ý các slide thuyết trình (15–18 slides)
+    └── slides_outline.md                # Kịch bản 16 slides chi tiết phân bổ cho 5 thành viên
 ```
 
 ---
