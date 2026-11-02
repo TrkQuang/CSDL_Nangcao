@@ -34,7 +34,7 @@ def build_ch0(doc: Document):
     r_topic_label.font.name = "Times New Roman"
     r_topic_label.font.size = Pt(13)
     r_topic_label.bold = True
-    r_topic_label.font.color.rgb = RGBColor(30, 64, 175)
+    r_topic_label.font.color.rgb = RGBColor(0, 0, 0)
 
     r_topic_name = p_title.add_run("DỮ LIỆU PHÂN CẤP VÀ DỮ LIỆU ĐỒ THỊ TRONG CSDL QUAN HỆ:\nỨNG DỤNG MẠNG XÃ HỘI HỌC TẬP\n\n")
     r_topic_name.font.name = "Times New Roman"

@@ -17,16 +17,16 @@ from docx.oxml.ns import qn, nsdecls
 ROOT = Path(__file__).resolve().parents[2]
 
 # Bảng màu
-C_NAVY = RGBColor(30, 58, 138)
-C_DARK = RGBColor(15, 23, 42)
-C_MUTED = RGBColor(71, 85, 105)
-C_ACCENT = RGBColor(37, 99, 235)
-HEX_PRIMARY = "1E3A8A"
-HEX_ZEBRA = "F8FAFC"
-HEX_SCRIPT_BG = "F0FDF4"      # Xanh lục nhạt trang nhã cho lời thoại
-HEX_SCRIPT_BORDER = "16A34A"  # Xanh lục viền
-HEX_QA_BG = "FEF2F2"          # Đỏ nhạt cho câu hỏi phản biện
-HEX_QA_BORDER = "DC2626"
+C_NAVY = RGBColor(0, 0, 0)
+C_DARK = RGBColor(0, 0, 0)
+C_MUTED = RGBColor(70, 70, 70)
+C_ACCENT = RGBColor(0, 0, 0)
+HEX_PRIMARY = "262626"
+HEX_ZEBRA = "F9FAFB"
+HEX_SCRIPT_BG = "F4F4F5"      # Xám nhạt trung tính
+HEX_SCRIPT_BORDER = "71717A"  # Viền xám
+HEX_QA_BG = "E5E7EB"          # Xám đậm hơn cho câu hỏi phản biện
+HEX_QA_BORDER = "71717A"
 
 def setup_page(doc):
     for sec in doc.sections:
@@ -91,7 +91,7 @@ def add_slide_header(doc, slide_no: int, title: str, presenter: str, duration: s
     r2.font.name = "Times New Roman"
     r2.font.size = Pt(10.5)
     r2.font.italic = True
-    r2.font.color.rgb = RGBColor(224, 231, 255)
+    r2.font.color.rgb = RGBColor(229, 231, 235)
     
     p_sp = doc.add_paragraph()
     p_sp.paragraph_format.space_before = Pt(4)
@@ -170,12 +170,12 @@ def add_speaker_script(doc, script_text: str, qa_text: str = None):
     r_t1.font.name = "Times New Roman"
     r_t1.font.size = Pt(10.5)
     r_t1.bold = True
-    r_t1.font.color.rgb = RGBColor(22, 101, 52)
+    r_t1.font.color.rgb = RGBColor(0, 0, 0)
     
     r_b1 = p1.add_run(script_text.strip())
     r_b1.font.name = "Times New Roman"
     r_b1.font.size = Pt(10)
-    r_b1.font.color.rgb = RGBColor(15, 23, 42)
+    r_b1.font.color.rgb = RGBColor(0, 0, 0)
     
     if qa_text:
         doc.add_paragraph().paragraph_format.space_after = Pt(2)
@@ -192,12 +192,12 @@ def add_speaker_script(doc, script_text: str, qa_text: str = None):
         r_t2.font.name = "Times New Roman"
         r_t2.font.size = Pt(10)
         r_t2.bold = True
-        r_t2.font.color.rgb = RGBColor(185, 28, 28)
+        r_t2.font.color.rgb = RGBColor(0, 0, 0)
         
         r_b2 = p2.add_run(qa_text.strip())
         r_b2.font.name = "Times New Roman"
         r_b2.font.size = Pt(9.5)
-        r_b2.font.color.rgb = RGBColor(30, 41, 59)
+        r_b2.font.color.rgb = RGBColor(0, 0, 0)
         
     doc.add_paragraph().paragraph_format.space_after = Pt(6)
     doc.add_page_break()

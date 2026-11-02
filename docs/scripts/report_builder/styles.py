@@ -16,20 +16,20 @@ from docx.oxml.ns import qn, nsdecls
 
 ROOT = Path(__file__).resolve().parents[3]
 
-# Bảng màu nhận diện học thuật
-C_PRIMARY = RGBColor(30, 58, 138)     # Navy (#1E3A8A)
-C_SECONDARY = RGBColor(15, 23, 42)   # Dark Slate (#0F172A)
-C_MUTED = RGBColor(71, 85, 105)      # Slate Gray (#475569)
-C_CODE = RGBColor(180, 40, 40)       # Dark Red (#B42828)
-C_ACCENT = RGBColor(37, 99, 235)     # Electric Blue (#2563EB)
-C_GREEN = RGBColor(16, 185, 129)
+# Bảng màu chuẩn học thuật đơn sắc (Đen - Trắng - Xám, không màu mè AI)
+C_PRIMARY = RGBColor(0, 0, 0)        # Đen nguyên bản (Pure Black)
+C_SECONDARY = RGBColor(0, 0, 0)      # Đen nguyên bản
+C_MUTED = RGBColor(70, 70, 70)       # Xám ghi đậm trung tính cho Header/Footer
+C_CODE = RGBColor(0, 0, 0)           # Đen nguyên bản
+C_ACCENT = RGBColor(0, 0, 0)         # Đen nguyên bản
+C_GREEN = RGBColor(0, 0, 0)
 
-HEX_PRIMARY = "1E3A8A"
-HEX_ZEBRA = "F8FAFC"
-HEX_BORDER = "CBD5E1"
-HEX_CALLOUT_BG = "EFF6FF"
-HEX_CALLOUT_BORDER = "3B82F6"
-HEX_CODE_BG = "F1F5F9"
+HEX_PRIMARY = "262626"               # Xám đen đậm / Than chì cho tiêu đề bảng
+HEX_ZEBRA = "F9FAFB"                 # Xám rất nhạt xen kẽ dòng
+HEX_BORDER = "CCCCCC"                # Đường kẻ viền xám trung tính
+HEX_CALLOUT_BG = "F4F4F5"            # Nền hộp ghi chú xám nhạt
+HEX_CALLOUT_BORDER = "71717A"        # Viền hộp ghi chú xám trung tính
+HEX_CODE_BG = "F4F4F5"               # Nền khối mã xám nhạt
 
 def setup_page_layout(doc: Document):
     """Cấu hình trang A4 và lề tiêu chuẩn đồ án tốt nghiệp đóng gáy (Top/Bottom 2.5cm, Left 3.0cm, Right 2.0cm)."""
@@ -192,7 +192,7 @@ def add_styled_table(doc, headers: list[str], data: list[list[str]], col_widths:
             for r in p.runs:
                 r.font.name = "Times New Roman"
                 r.font.size = Pt(10)
-                r.font.color.rgb = RGBColor(30, 41, 59)
+                r.font.color.rgb = RGBColor(0, 0, 0)
 
     if col_widths and len(col_widths) == len(headers):
         for row in table.rows:
@@ -214,7 +214,7 @@ def add_code_block(doc, code_str: str, caption: str = None):
         r_cap.font.size = Pt(10)
         r_cap.font.italic = True
         r_cap.bold = True
-        r_cap.font.color.rgb = C_PRIMARY
+        r_cap.font.color.rgb = RGBColor(0, 0, 0)
 
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
@@ -230,7 +230,7 @@ def add_code_block(doc, code_str: str, caption: str = None):
     for r in p.runs:
         r.font.name = "Consolas"
         r.font.size = Pt(9.5)
-        r.font.color.rgb = RGBColor(30, 41, 59)
+        r.font.color.rgb = RGBColor(0, 0, 0)
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
@@ -257,7 +257,7 @@ def add_figure(doc, img_rel_path: str, caption: str, width_inches: float = 6.0):
     r_cap.font.size = Pt(10)
     r_cap.bold = True
     r_cap.font.italic = True
-    r_cap.font.color.rgb = C_PRIMARY
+    r_cap.font.color.rgb = RGBColor(0, 0, 0)
 
 def add_callout_box(doc, text: str, title: str = "ĐÁNH GIÁ & ĐÚC KẾT"):
     table = doc.add_table(rows=1, cols=1)
@@ -274,13 +274,13 @@ def add_callout_box(doc, text: str, title: str = "ĐÁNH GIÁ & ĐÚC KẾT"):
     r_t.font.name = "Times New Roman"
     r_t.font.size = Pt(10.5)
     r_t.bold = True
-    r_t.font.color.rgb = RGBColor(30, 64, 175)
+    r_t.font.color.rgb = RGBColor(0, 0, 0)
 
     r_b = p_t.add_run(text)
     r_b.font.name = "Times New Roman"
     r_b.font.size = Pt(10.5)
     r_b.font.italic = True
-    r_b.font.color.rgb = RGBColor(30, 41, 59)
+    r_b.font.color.rgb = RGBColor(0, 0, 0)
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
