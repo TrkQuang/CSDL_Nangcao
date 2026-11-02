@@ -57,7 +57,7 @@ def build_ch0(doc: Document):
         r2.font.name = "Times New Roman"
         r2.font.size = Pt(11.5)
 
-    add_meta("Giảng viên hướng dẫn: ", "Bộ môn Hệ thống Thông tin — Khoa CNTT")
+    add_meta("Giảng viên hướng dẫn: ", "Huỳnh Minh Trí — Khoa CNTT")
     add_meta("Lớp học phần: ", "Cơ sở dữ liệu nâng cao — Học kỳ 1, Năm học 2026–2027")
     add_meta("Nhóm thực hiện: ", "Nhóm Đề tài 17 (5 thành viên)")
     p_info.add_run("Danh sách thành viên & Phân công vai trò:\n").bold = True
@@ -81,7 +81,7 @@ def build_ch0(doc: Document):
 
     # --- LỜI CẢM ƠN & LỜI CAM ĐOAN ---
     add_heading_1(doc, "LỜI CẢM ƠN VÀ CAM ĐOAN HỌC THUẬT")
-    add_paragraph(doc, "Lời đầu tiên, tập thể nhóm sinh viên thực hiện Đề tài 17 xin trân trọng gửi lời cảm ơn sâu sắc nhất đến Quý Thầy, Cô bộ môn Hệ thống Thông tin — Khoa Công nghệ Thông tin, Trường Đại học Sài Gòn, những người đã tận tâm truyền đạt tri thức quý báu về thiết kế cơ sở dữ liệu nâng cao, tối ưu hóa truy vấn, kiến trúc lưu trữ vật lý và các mô hình dữ liệu hiện đại.")
+    add_paragraph(doc, "Lời đầu tiên, tập thể nhóm sinh viên thực hiện Đề tài 17 xin trân trọng gửi lời cảm ơn sâu sắc nhất đến thầy Huỳnh Minh Trí — Khoa Công nghệ Thông tin, Trường Đại học Sài Gòn, những người đã tận tâm truyền đạt tri thức quý báu về thiết kế cơ sở dữ liệu nâng cao, tối ưu hóa truy vấn, kiến trúc lưu trữ vật lý và các mô hình dữ liệu hiện đại.")
     add_paragraph(doc, "Tập thể nhóm 5 thành viên xin cam đoan bằng danh dự học thuật:", bold_prefix="Lời cam đoan: ")
     add_bullet(doc, "Toàn bộ mã nguồn SQL, Cypher, PL/pgSQL, ODL, OQL, Python và PowerShell trong kho lưu trữ https://github.com/TrkQuang/CSDL_Nangcao.git đều do các thành viên trong nhóm trực tiếp nghiên cứu, lập trình và thực thi kiểm chứng.")
     add_bullet(doc, "Mọi số liệu thực nghiệm (360 phép đo Benchmark trên 1.000, 10.000, 100.000 nút; kết quả thử tải pgbench đạt ~3,440 TPS; dấu vết bế tắc Deadlock SQLSTATE 40P01; kết quả đo đạc dung lượng đĩa và buffer cache) đều được trích xuất trung thực từ hệ quản trị PostgreSQL 18.6 và Neo4j 5.x Community chạy trên môi trường thực tế.")
@@ -92,18 +92,18 @@ def build_ch0(doc: Document):
     add_heading_1(doc, "MỤC LỤC TỔNG QUAN")
     toc_data = [
         ["Phần", "Tiêu đề nội dung", "Trang"],
-        ["—", "LỜI CẢM ƠN VÀ CAM ĐOAN HỌC THUẬT", "2"],
-        ["—", "DANH MỤC HÌNH ẢNH MINH HỌA (20 HÌNH)", "4"],
+        ["—", "LỜI CẢM ƠN VÀ CAM ĐOAN HỌC THUẬT", "1"],
+        ["—", "DANH MỤC HÌNH ẢNH MINH HỌA (20 HÌNH)", "3"],
         ["—", "DANH MỤC BẢNG BIỂU ĐỐI SÁNH & THUẬT NGỮ", "5"],
-        ["—", "LỜI MỞ ĐẦU (Bối cảnh, Tính cấp thiết & 3 Câu hỏi RQ1–RQ3)", "6"],
+        ["—", "LỜI MỞ ĐẦU (Bối cảnh, Tính cấp thiết & 3 Câu hỏi RQ1–RQ3)", "7"],
         ["CHƯƠNG 1", "ĐẶC TẢ NGHIỆP VỤ & THIẾT KẾ MỨC QUAN NIỆM (EER)", "10"],
-        ["CHƯƠNG 2", "LÝ THUYẾT PHỤ THUỘC HÀM & CHUẨN HÓA DỮ LIỆU", "26"],
-        ["CHƯƠNG 3", "DỮ LIỆU PHÂN CẤP (CÂY) TRÊN CƠ SỞ DỮ LIỆU QUAN HỆ", "46"],
-        ["CHƯƠNG 4", "SQL NÂNG CAO, ĐỆ QUY ĐỒ THỊ & ĐIỀU KHIỂN ĐỒNG THỜI", "68"],
-        ["CHƯƠNG 5", "CSDL HƯỚNG ĐỐI TƯỢNG VÀ CSDL ĐỒ THỊ CHUYÊN DỤNG", "86"],
-        ["CHƯƠNG 6", "THIẾT KẾ VẬT LÝ, BENCHMARK & THỬ TẢI ĐỒNG THỜI", "102"],
-        ["—", "KẾT LUẬN & HƯỚNG PHÁT TRIỂN", "116"],
-        ["PHỤ LỤC", "BÁO CÁO LÀM VIỆC NHÓM & BẢNG ĐÓNG GÓP (CLO7)", "118"],
+        ["CHƯƠNG 2", "LÝ THUYẾT PHỤ THUỘC HÀM & CHUẨN HÓA DỮ LIỆU", "31"],
+        ["CHƯƠNG 3", "DỮ LIỆU PHÂN CẤP (CÂY) TRÊN CƠ SỞ DỮ LIỆU QUAN HỆ", "45"],
+        ["CHƯƠNG 4", "SQL NÂNG CAO, ĐỆ QUY ĐỒ THỊ & ĐIỀU KHIỂN ĐỒNG THỜI", "59"],
+        ["CHƯƠNG 5", "CSDL HƯỚNG ĐỐI TƯỢNG VÀ CSDL ĐỒ THỊ CHUYÊN DỤNG", "72"],
+        ["CHƯƠNG 6", "THIẾT KẾ VẬT LÝ, BENCHMARK & THỬ TẢI ĐỒNG THỜI", "83"],
+        ["—", "KẾT LUẬN & HƯỚNG PHÁT TRIỂN", "97"],
+        ["PHỤ LỤC", "BÁO CÁO LÀM VIỆC NHÓM & BẢNG ĐÓNG GÓP (CLO7)", "99"],
     ]
     add_styled_table(doc, toc_data[0], toc_data[1:], [1.0, 5.0, 0.8])
 
