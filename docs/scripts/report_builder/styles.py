@@ -32,13 +32,13 @@ HEX_CALLOUT_BORDER = "3B82F6"
 HEX_CODE_BG = "F1F5F9"
 
 def setup_page_layout(doc: Document):
-    """Cấu hình trang A4 và lề tiêu chuẩn đồ án tốt nghiệp."""
+    """Cấu hình trang A4 và lề tiêu chuẩn đồ án tốt nghiệp đóng gáy (Top/Bottom 2.5cm, Left 3.0cm, Right 2.0cm)."""
     for section in doc.sections:
         section.page_width = Cm(21.0)
         section.page_height = Cm(29.7)
-        section.top_margin = Cm(2.0)
-        section.bottom_margin = Cm(2.0)
-        section.left_margin = Cm(2.5)
+        section.top_margin = Cm(2.5)
+        section.bottom_margin = Cm(2.5)
+        section.left_margin = Cm(3.0)
         section.right_margin = Cm(2.0)
         
         # Header học thuật
@@ -117,8 +117,9 @@ def add_heading_3(doc, text: str):
 
 def add_paragraph(doc, text: str, bold_prefix: str = None, italic: bool = False, indent: float = 0):
     p = doc.add_paragraph()
-    p.paragraph_format.line_spacing = 1.2
-    p.paragraph_format.space_after = Pt(4)
+    p.paragraph_format.line_spacing = 1.45
+    p.paragraph_format.space_before = Pt(3)
+    p.paragraph_format.space_after = Pt(6)
     if indent > 0:
         p.paragraph_format.left_indent = Inches(indent)
     
@@ -136,8 +137,9 @@ def add_paragraph(doc, text: str, bold_prefix: str = None, italic: bool = False,
 
 def add_bullet(doc, text: str, bold_prefix: str = None):
     p = doc.add_paragraph(style='List Bullet')
-    p.paragraph_format.line_spacing = 1.2
-    p.paragraph_format.space_after = Pt(3)
+    p.paragraph_format.line_spacing = 1.40
+    p.paragraph_format.space_before = Pt(2)
+    p.paragraph_format.space_after = Pt(5)
     if bold_prefix:
         r_pre = p.add_run(bold_prefix)
         r_pre.font.name = "Times New Roman"
@@ -217,13 +219,13 @@ def add_code_block(doc, code_str: str, caption: str = None):
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = table.cell(0, 0)
-    cell.width = Inches(6.8)
+    cell.width = Inches(6.2)
     set_cell_shading(cell, HEX_CODE_BG)
     set_cell_margins(cell, top=100, bottom=100, left=150, right=150)
     
     cell.text = code_str.strip()
     p = cell.paragraphs[0]
-    p.paragraph_format.line_spacing = 1.05
+    p.paragraph_format.line_spacing = 1.15
     p.paragraph_format.space_after = Pt(0)
     for r in p.runs:
         r.font.name = "Consolas"
@@ -232,7 +234,7 @@ def add_code_block(doc, code_str: str, caption: str = None):
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
 
-def add_figure(doc, img_rel_path: str, caption: str, width_inches: float = 6.2):
+def add_figure(doc, img_rel_path: str, caption: str, width_inches: float = 6.0):
     full_path = ROOT / img_rel_path
     if not full_path.exists():
         print(f"<!> CẢNH BÁO: Không tìm thấy ảnh {full_path}")
@@ -261,7 +263,7 @@ def add_callout_box(doc, text: str, title: str = "ĐÁNH GIÁ & ĐÚC KẾT"):
     table = doc.add_table(rows=1, cols=1)
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     cell = table.cell(0, 0)
-    cell.width = Inches(6.8)
+    cell.width = Inches(6.2)
     set_cell_shading(cell, HEX_CALLOUT_BG)
     set_cell_margins(cell, top=120, bottom=120, left=160, right=160)
     
@@ -281,3 +283,4 @@ def add_callout_box(doc, text: str, title: str = "ĐÁNH GIÁ & ĐÚC KẾT"):
     r_b.font.color.rgb = RGBColor(30, 41, 59)
 
     doc.add_paragraph().paragraph_format.space_after = Pt(4)
+

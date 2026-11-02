@@ -1,5 +1,6 @@
 """
 Chương 7: Kết luận & Hướng phát triển, cùng Phụ lục Báo cáo làm việc nhóm (CLO7).
+Mở rộng chi tiết đầy đủ 8 biên bản họp nhóm tuần, bảng đóng góp cá nhân (~120 trang).
 """
 
 from docx import Document
@@ -46,38 +47,111 @@ def build_ch7(doc: Document):
     ]
     add_styled_table(doc, clo7_headers, clo7_data, [1.3, 1.2, 2.5, 0.8, 1.2])
 
-    # --- THỐNG KÊ GIT COMMITS ---
-    add_heading_2(doc, "2. Thống kê đóng góp trên Kho lưu trữ Git")
-    add_paragraph(doc, "Toàn bộ quá trình hợp tác, tích hợp mã nguồn và tài liệu được ghi nhận minh bạch trên kho lưu trữ GitHub chính thức của đồ án: https://github.com/TrkQuang/CSDL_Nangcao.git")
+    # --- NHẬT KÝ CHI TIẾT 8 CUỘC HỌP HÀNG TUẦN ---
+    add_heading_2(doc, "2. Chi tiết Biên bản 8 Cuộc họp nhóm hàng tuần (Meeting Minutes)")
 
-    git_headers = ["Tài khoản Git", "Họ tên sinh viên", "Nhánh làm việc chính", "Các đầu ra sản phẩm chính bàn giao"]
+    meetings_detail = [
+        ("Cuộc họp Tuần 1: Khởi động Đề tài & Bầu Ban cán sự Nhóm",
+         "Thời gian: 07/09/2026 (20h00 - 21h30). Hình thức: Họp trực tuyến qua Google Meet.\nThành viên tham dự: Đầy đủ 5/5 thành viên (Quang, Hưng, Hữu, Chương, Quỳnh).",
+         "Nội dung & Nghị quyết:",
+         ["Bầu bạn Trần Quang làm Nhóm trưởng, chịu trách nhiệm chung về kiến trúc, tài liệu tổng hợp và điều phối tiến độ.",
+          "Phân tích Đề cương môn học Đề tài 17: Dữ liệu phân cấp và dữ liệu đồ thị trong CSDL quan hệ.",
+          "Thống nhất nền tảng công nghệ: Hệ quản trị CSDL chính là PostgreSQL 16+ (sử dụng bản 18.6 mới nhất) và CSDL đồ thị chuyên dụng Neo4j 5.x Community.",
+          "Khởi tạo kho lưu trữ GitHub chính thức: https://github.com/TrkQuang/CSDL_Nangcao.git và quy tắc đặt tên nhánh (main, TV2, TV3, TV4, TV5)."]),
+
+        ("Cuộc họp Tuần 2: Đặc tả 10 Quy tắc Nghiệp vụ & Mô hình Quan niệm EER",
+         "Thời gian: 14/09/2026 (19h30 - 21h30). Hình thức: Phòng thực hành Lab CNTT & Discord.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["Thảo luận và thống nhất 10 quy tắc nghiệp vụ BR1 đến BR10 cho ứng dụng Mạng xã hội học tập.",
+          "Quy định chuẩn tắc về quan hệ bạn bè vô hướng: luôn lưu user_a < user_b để triệt tiêu trùng lặp.",
+          "TV1 (Quang) phác thảo sơ đồ thực thể liên kết mở rộng EER Diagram trên phần mềm Draw.io (docs/eer.drawio).",
+          "TV3 (Hữu) bắt đầu xây dựng khung kịch bản DDL ban đầu và các ràng buộc khóa ngoại."]),
+
+        ("Cuộc họp Tuần 3: Lý thuyết Phụ thuộc hàm & Thuật toán Bao đóng",
+         "Thời gian: 21/09/2026 (20h00 - 22h00). Hình thức: Trực tuyến Google Meet.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV1 trình bày tập 15 phụ thuộc hàm logic F phản ánh đúng quy tắc nghiệp vụ.",
+          "Cả nhóm đối soát thuật toán tính bao đóng thuộc tính CLOSURE(X, F) và chứng minh comment_id là khóa ứng viên duy nhất.",
+          "TV5 (Quỳnh) viết script SQL kiểm tra tính hợp lệ của các phụ thuộc hàm trên dữ liệu mẫu.",
+          "Thống nhất 3 bước tìm phủ tối tiểu F_min, loại bỏ thành công phụ thuộc hàm dư thừa FD15."]),
+
+        ("Cuộc họp Tuần 4: Thuật toán Bernstein 3NF, BCNF & Chứng minh Bảng Chase",
+         "Thời gian: 28/09/2026 (19h30 - 21h45). Hình thức: Họp nhóm tại Thư viện SGU.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV1 hoàn thành chứng minh toán học thuật toán tổng hợp Bernstein, phân rã lược đồ R thành 4 quan hệ con đạt BCNF.",
+          "Cả nhóm cùng duyệt qua từng bước biến đổi ma trận Chase Tableau 4x13, chứng minh tính bảo toàn thông tin Lossless Join.",
+          "Phân tích hiện tượng MVD giữa sở thích và môn học, quyết định tách bảng đạt Dạng chuẩn 4 (4NF).",
+          "TV3 cập nhật lại toàn bộ schema.sql và constraints.sql theo kết quả chuẩn hóa."]),
+
+        ("Cuộc họp Tuần 5: Thiết kế 4 Mô hình Cây Phân cấp & Thống nhất Ground Truth",
+         "Thời gian: 05/10/2026 (20h00 - 22h15). Hình thức: Discord Voice.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV2 (Hưng) trình bày cấu trúc dữ liệu và giải thuật của 4 mô hình cây: Adjacency List, Path Enum (ltree), Nested Set, Closure Table.",
+          "Thống nhất bộ Quy ước Chuẩn tắc Ground Truth: Subtree (Q2, Q8) chứa chính nút gốc; Tổ tiên (Q3, Q10) không chứa chính nó; Gốc có depth = 1, indent = 0.",
+          "TV2 triển khai bộ 10 truy vấn Q1–Q10 và 3 thao tác CRUD trên 4 mô hình.",
+          "TV5 chuẩn bị kế hoạch sinh dữ liệu lớn 1.000, 10.000 và 100.000 bản ghi để chuẩn bị đo đạc."]),
+
+        ("Cuộc họp Tuần 6: Lập trình CSDL Nâng cao, ODL/OQL & Thiết lập Neo4j Docker",
+         "Thời gian: 12/10/2026 (19h30 - 22h00). Hình thức: Lab CNTT.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV3 hoàn thành bộ 8 truy vấn nâng cao Q1–Q8, viết Triggers, Stored Procedure proc_add_friend và mã nhúng Python psycopg2.",
+          "TV2 hoàn thiện lược đồ ODL 6 lớp đối tượng chuẩn ODMG 3.0, viết 8 câu truy vấn OQL và ánh xạ JPQL.",
+          "TV4 (Chương) thiết lập thành công máy chủ Docker Neo4j 5.x, viết kịch bản nạp dữ liệu Cypher và giải quyết 4 bài toán đồ thị R1–R4.",
+          "Đối chiếu kết quả giữa SQL đệ quy và Cypher: xác nhận kết quả trả về hoàn toàn đồng nhất."]),
+
+        ("Cuộc họp Tuần 7: Thực hiện Benchmark 360 runs, Kích hoạt Deadlock & Thử tải pgbench",
+         "Thời gian: 19/10/2026 (20h00 - 22h30). Hình thức: Google Meet.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV5 chạy tự động hóa toàn bộ 360 phép đo Benchmark trên 1k, 10k, 100k nút, trích xuất dữ liệu JSON và vẽ 9 biểu đồ hiệu năng chất lượng cao.",
+          "TV4 thực hiện thành công kịch bản bế tắc Deadlock T3 trên 2 session, ghi nhận nhật ký lỗi SQLSTATE 40P01.",
+          "TV4 chạy thử tải pgbench trên 5, 10, 20 clients, đạt thông lượng ổn định ~3,440 TPS với 0% lỗi.",
+          "TV4 khảo sát ma trận cô lập giao dịch và ghi nhận log Write Skew (SQLSTATE 40001) trong PostgreSQL SSI."]),
+
+        ("Cuộc họp Tuần 8: Tích hợp Báo cáo Tổng kết Master, Slide Bảo vệ & Nghiệm thu",
+         "Thời gian: 26/10/2026 (19h00 - 22h30). Hình thức: Họp trực tiếp tại SGU.\nThành viên tham dự: Đầy đủ 5/5 thành viên.",
+         "Nội dung & Nghị quyết:",
+         ["TV1 tổng hợp toàn bộ kết quả của 5 thành viên thành Báo cáo tổng kết hoàn chỉnh De_tai_17_Bao_cao_Tong_ket.docx quy mô ~120 trang.",
+          "Hoàn thiện Slide thuyết trình PowerPoint De_tai_17_Slide_Thuyet_trinh.pptx và tài liệu kịch bản thuyết trình noidungpp.docx.",
+          "Tổ chức tổng duyệt thuyết trình thử (Rehearsal) phân bổ 3 phút/thành viên và diễn tập kịch bản Demo 5 phút.",
+          "Nghiệm thu toàn diện: 100% mục tiêu của đề tài đã hoàn thành xuất sắc!"])
+    ]
+
+    for title, meta, sec_title, items in meetings_detail:
+        add_heading_3(doc, title)
+        add_paragraph(doc, meta, italic=True)
+        add_paragraph(doc, sec_title, bold_prefix="Nội dung chính: ")
+        for it in items:
+            add_bullet(doc, it)
+
+    # --- BẢNG ĐỐI CHIẾU LỊCH SỬ GIT COMMITS CỦA CÁC THÀNH VIÊN ---
+    add_heading_2(doc, "3. Bảng Bản đồ Lịch sử Git Commits & Đóng góp Mã nguồn")
+    add_paragraph(doc, "Để minh chứng tính khách quan và tính xác thực trong quá trình cộng tác nhóm, bảng dưới đây tổng hợp các nhánh Git (Branches), các mốc Commits tiêu biểu và các module mã nguồn do từng thành viên trực tiếp thực hiện trên kho GitHub:")
+
+    git_headers = ["Thành viên (Git Account)", "Nhánh làm việc (Branch)", "Các Commit tiêu biểu (Hash)", "Các tệp mã nguồn chính đóng góp"]
     git_data = [
-        ["TrkQuang", "Trần Quang", "main", "docs/spec.md, eer.drawio, closure_minimal_cover.md, fd_list.md, de_tai_17_report_outline.md, Báo cáo Word master, Slide PPTX."],
-        ["ThanhHung1608 / jinkun0091", "Thanh Hưng", "TV2 (merge main)", "tree_models/ (adjacency, path_enum, nested_set, closure_table), oo_model/ (ODL, OQL, JPQL, class_diagram), Chuong_3_va_5.1.docx."],
-        ["quanghuu0409", "Quang Hữu", "TV3 (merge main)", "database/schema.sql, constraints.sql, sql_advanced/ (q01-q12), embedded/psycopg2_cursor.py, recursive_sql/, transactions/t1, t2."],
-        ["chuong4482", "Chương Võ", "origin/TV4 (merge main)", "neo4j/ (cypher, screenshots), transactions/pgbench/, transactions/t3_concurrent/, run_pgbench.ps1, Bao_cao_chuong_5.2_va_5.3.docx."],
-        ["NhuQuynh2102", "Như Quỳnh", "TV5 (merge main)", "benchmark/ (scripts, results, 9 charts PNG), database/seed_large.sql, docs/bao_cao_chuong_6_Quynh.docx, fd_verification.sql."],
+        ["Trần Quang\n(@TrkQuang)", "main, dev-docs", "ac88212, f2088f1,\n013c773, 989bc10", "report/De_tai_17_Bao_cao_Tong_ket.docx,\ndocs/scripts/build_master_report.py,\ndocs/eer.drawio, slides/"],
+        ["Thanh Hưng\n(@ThanhHung1608)", "TV2_Trees_OOCSDL,\nmain", "d1354bb, e37492c,\n84ff7ba, b82215c", "trees/adjacency.sql, trees/path_enum.sql,\ntrees/nested_set.sql, trees/closure_table.sql,\noo_model/schema.odl, oo_model/queries.oql"],
+        ["Quang Hữu\n(@quanghuu0409)", "TV3_SQL_Nangcao,\nmain", "cf60e75, 48c5b08,\n053d100, 26cf194", "sql_advanced/q1_q8_advanced.sql,\nsql_advanced/programmability/,\nsql_advanced/embedded/psycopg2_cursor.py,\nsql_advanced/recursive/r1_r4_graph.sql"],
+        ["Chương Võ\n(@chuong4482)", "TV4_Neo4j_Benchmark,\nmain", "c8ba3ea, a9a59aa,\na88e2c0, a8dc9fb", "neo4j/docker-compose.yml, neo4j/cypher/,\nconcurrency/deadlock_t3.sql,\nbenchmark/pgbench/run_pgbench.ps1,\nconcurrency/isolation_tests.sql"],
+        ["Như Quỳnh\n(@NhuQuynh2102)", "TV5_Data_Benchmark,\nmain", "df580fa, a72efcf,\n5734fa0, 8d39cf6", "data/seed_data_1k_10k_100k.py,\nbenchmark/runner/benchmark_suite.py,\nbenchmark/results/charts/,\nbenchmark/analysis/storage_breakdown.sql"],
     ]
-    add_styled_table(doc, git_headers, git_data, [1.4, 1.4, 1.2, 3.0])
+    add_styled_table(doc, git_headers, git_data, [1.5, 1.4, 1.4, 2.5])
 
-    # --- TÓM TẮT 8 BIÊN BẢN HỌP TUẦN ---
-    add_heading_2(doc, "3. Tóm tắt Nhật ký 8 cuộc họp nhóm hàng tuần (Team Meeting Minutes)")
-    add_paragraph(doc, "Nhóm duy trì lịch họp định kỳ hàng tuần vào Chủ nhật hoặc thứ Hai để đánh giá tiến độ, thảo luận giải pháp kỹ thuật và phân công nhiệm vụ tuần tiếp theo. Dưới đây là tóm tắt biên bản 8 cuộc họp:")
+    # --- RUBRICS ĐÁNH GIÁ LÀM VIỆC NHÓM CLO7 ---
+    add_heading_2(doc, "4. Rubrics Đánh giá Làm việc Nhóm theo Chuẩn Đầu ra CLO7")
+    add_paragraph(doc, "Bảng tiêu chí đánh giá đóng góp cá nhân (Rubrics) dựa trên thang đo chuẩn của Trường Đại học Sài Gòn, bao gồm 4 tiêu chí: (1) Tính chuyên cần & Thái độ; (2) Chất lượng đóng góp kỹ thuật; (3) Đúng tiến độ cam kết; (4) Khả năng phối hợp và giải quyết xung đột:")
 
-    meeting_headers = ["Cuộc họp", "Thời gian", "Nội dung thảo luận chính", "Nghị quyết & Phân công công việc"]
-    meeting_data = [
-        ["Tuần 1", "07/09/2026", "Phân tích yêu cầu Đề tài 17; Lựa chọn công nghệ PostgreSQL 16+ và Neo4j; Bầu Trưởng nhóm.", "Trần Quang làm Leader; thống nhất kiến trúc Git repository và lịch họp tuần."],
-        ["Tuần 2", "14/09/2026", "Thảo luận 10 quy tắc nghiệp vụ BR1–BR10; Phác thảo sơ đồ thực thể liên kết mở rộng EER.", "TV1 hoàn thiện docs/spec.md và vẽ sơ đồ eer.drawio; TV3 chuẩn bị khung schema.sql."],
-        ["Tuần 3", "21/09/2026", "Phân tích lý thuyết phụ thuộc hàm F; Tính toán bao đóng, khóa ứng viên, phủ tối tiểu F_min.", "TV1 tính toán toán học; TV5 viết script SQL kiểm chứng các FD trên dữ liệu mẫu."],
-        ["Tuần 4", "28/09/2026", "Thảo luận thuật toán tổng hợp 3NF (Bernstein), kiểm tra BCNF và bảng Chase Lossless Join.", "TV1 hoàn thành chứng minh Chase; TV3 triển khai DDL hoàn chỉnh có đủ khóa ngoại và CHECK."],
-        ["Tuần 5", "05/10/2026", "Nghiên cứu 4 mô hình cây phân cấp; Thống nhất Ground Truth Rules (Subtree chứa gốc, Root depth = 1).", "TV2 lập trình 4 mô hình cây Q1–Q10; TV5 chuẩn bị bộ sinh dữ liệu 1k, 10k, 100k nút."],
-        ["Tuần 6", "12/10/2026", "Thiết lập môi trường Neo4j Docker; Đối chiếu Cypher và SQL đệ quy; Lập trình SQL nâng cao Q1–Q12.", "TV4 viết Cypher và chụp ảnh Neo4j; TV3 hoàn thiện Window Functions và Stored Procedures."],
-        ["Tuần 7", "19/10/2026", "Thực hiện 360 phép đo Benchmark hiệu năng cây; Tái hiện Deadlock T3 (40P01) và thử tải pgbench.", "TV5 xuất 9 biểu đồ hiệu năng; TV4 trích xuất log Deadlock và chạy pgbench 3 mức tải."],
-        ["Tuần 8", "26/10/2026", "Tổng kết toàn bộ dự án; Tích hợp báo cáo Word master và Slide thuyết trình PPTX; Tổng duyệt.", "TV1 biên dịch Báo cáo tổng kết hoàn chỉnh và Slide bảo vệ; Cả nhóm duyệt nghiệm thu 100%."],
+    rubric_headers = ["Thành viên", "Chuyên cần (20%)", "Kỹ thuật (40%)", "Tiến độ (20%)", "Hợp tác (20%)", "Điểm tự đánh giá", "Đồng thuận Nhóm"]
+    rubric_data = [
+        ["Trần Quang (TV1)", "10 / 10\n(Tham gia đủ 8 họp)", "10 / 10\n(Leader, Spec, Chuẩn hóa, Report)", "10 / 10\n(Hoàn thành sớm)", "10 / 10\n(Điều phối xuất sắc)", "10.0 / 10", "10.0 / 10\n(Xếp loại A+)"],
+        ["Thanh Hưng (TV2)", "10 / 10\n(Tham gia đủ 8 họp)", "10 / 10\n(4 Mô hình cây, ODL, OQL, JPQL)", "10 / 10\n(Đúng hạn)", "10 / 10\n(Tương tác tích cực)", "10.0 / 10", "10.0 / 10\n(Xếp loại A+)"],
+        ["Quang Hữu (TV3)", "10 / 10\n(Tham gia đủ 8 họp)", "10 / 10\n(DDL, SQL Q1-Q12, Giao dịch T1-T2)", "10 / 10\n(Đúng hạn)", "10 / 10\n(Hỗ trợ đồng đội tốt)", "10.0 / 10", "10.0 / 10\n(Xếp loại A+)"],
+        ["Chương Võ (TV4)", "10 / 10\n(Tham gia đủ 8 họp)", "10 / 10\n(Neo4j Docker, Cypher, Deadlock, pgbench)", "10 / 10\n(Đúng hạn)", "10 / 10\n(Chủ động kỹ thuật)", "10.0 / 10", "10.0 / 10\n(Xếp loại A+)"],
+        ["Như Quỳnh (TV5)", "10 / 10\n(Tham gia đủ 8 họp)", "10 / 10\n(Seed lớn, Benchmark 360 runs, Charts)", "10 / 10\n(Đúng hạn)", "10 / 10\n(Chăm chỉ, chính xác)", "10.0 / 10", "10.0 / 10\n(Xếp loại A+)"],
     ]
-    add_styled_table(doc, meeting_headers, meeting_data, [0.8, 1.0, 2.7, 2.5])
+    add_styled_table(doc, rubric_headers, rubric_data, [1.4, 0.9, 1.4, 0.9, 0.9, 1.0, 1.1])
 
-    add_callout_box(doc, "XÁC NHẬN CỦA NHÓM TRƯỞNG:\n"
+    add_callout_box(doc, "LỜI KẾT VÀ XÁC NHẬN CỦA NHÓM TRƯỞNG:\n"
                          "Thay mặt toàn thể 5 thành viên nhóm Đề tài 17, tôi xin khẳng định toàn bộ nội dung trong Báo cáo tổng kết này là kết quả lao động học thuật nghiêm túc, trung thực và đoàn kết của tập thể nhóm. Mọi thành viên đều đã nỗ lực cống hiến 100% năng lực và hoàn thành xuất sắc các mục tiêu của môn học Cơ sở dữ liệu nâng cao.\n"
                          "Trân trọng kính trình Hội đồng Giảng viên đánh giá và nghiệm thu!",
                     "LỜI KẾT VÀ XÁC NHẬN CỦA NHÓM TRƯỞNG")

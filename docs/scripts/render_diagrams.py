@@ -421,3 +421,4 @@ def draw_oo_class_diagram():
 if __name__ == "__main__":
     draw_eer_diagram()
     draw_oo_class_diagram()
+
