@@ -1,0 +1,83 @@
+ comment_id | post_id |      indented_content      | level 
+------------+---------+----------------------------+-------
+          1 |       1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 |       1 |   c2 - Phản hồi c1         |     1
+          3 |       1 |     c3 - Phản hồi c2       |     2
+          4 |       1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | lft | rgt 
+------------+----------------------------+-----+-----
+          1 | c1 - Bình luận gốc 1 bài 1 |   1 |   6
+          2 | c2 - Phản hồi c1           |   2 |   5
+          3 | c3 - Phản hồi c2           |   3 |   4
+(3 rows)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+(2 rows)
+
+ comment_id |     content      | depth 
+------------+------------------+-------
+          2 | c2 - Phản hồi c1 |     2
+(1 row)
+
+BEGIN
+DO
+ comment_id | post_id | lft | rgt |          content           
+------------+---------+-----+-----+----------------------------
+          5 |       2 |   1 |   2 | c5 - Bình luận gốc bài 2
+          1 |       1 |   1 |   8 | c1 - Bình luận gốc 1 bài 1
+          2 |       1 |   2 |   7 | c2 - Phản hồi c1
+          3 |       1 |   3 |   4 | c3 - Phản hồi c2
+          7 |       1 |   5 |   6 | Q5 nested set - child of 2
+          4 |       1 |   9 |  10 | c4 - Bình luận gốc 2 bài 1
+(6 rows)
+
+ROLLBACK
+BEGIN
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          4 |   3 |   4 | c4 - Bình luận gốc 2 bài 1
+(3 rows)
+
+ROLLBACK
+BEGIN
+DO
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          5 |   1 |   2 | c5 - Bình luận gốc bài 2
+          1 |   1 |   2 | c1 - Bình luận gốc 1 bài 1
+          4 |   3 |   8 | c4 - Bình luận gốc 2 bài 1
+          2 |   5 |   8 | c2 - Phản hồi c1
+          3 |   7 |   8 | c3 - Phản hồi c2
+(5 rows)
+
+ROLLBACK
+ comment_id | subtree_node_count 
+------------+--------------------
+          1 |                  3
+(1 row)
+
+ comment_id | lft | rgt |          content           
+------------+-----+-----+----------------------------
+          1 |   1 |   6 | c1 - Bình luận gốc 1 bài 1
+          2 |   2 |   5 | c2 - Phản hồi c1
+          3 |   3 |   4 | c3 - Phản hồi c2
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:129: NOTICE:  Đã chèn comment_id = 7 vào khoảng [5, 6].
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:177: NOTICE:  Đã xóa subtree(node 2) bề rộng 4.
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/nested_set/queries_q1_q10.sql:270: NOTICE:  Đã chuyển subtree(2) xuống làm con của 4 và rebuild lft/rgt.

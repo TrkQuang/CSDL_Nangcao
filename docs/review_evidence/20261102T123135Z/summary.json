@@ -1,0 +1,127 @@
+{
+  "results": [
+    {
+      "name": "Task 3 regression Q9-Q12",
+      "status": "passed"
+    },
+    {
+      "name": "Advanced SELECT Q1-Q8",
+      "status": "passed"
+    },
+    {
+      "name": "FD source checks",
+      "status": "passed"
+    },
+    {
+      "name": "MVD 4NF demonstration",
+      "status": "passed"
+    },
+    {
+      "name": "adjacency_list CRUD definitions",
+      "status": "passed"
+    },
+    {
+      "name": "adjacency_list Q1-Q10",
+      "status": "passed"
+    },
+    {
+      "name": "adjacency_list tree invariants",
+      "status": "passed"
+    },
+    {
+      "name": "path_enumeration CRUD definitions",
+      "status": "passed"
+    },
+    {
+      "name": "path_enumeration Q1-Q10",
+      "status": "passed"
+    },
+    {
+      "name": "path_enumeration tree invariants",
+      "status": "passed"
+    },
+    {
+      "name": "nested_set CRUD definitions",
+      "status": "passed"
+    },
+    {
+      "name": "nested_set Q1-Q10",
+      "status": "passed"
+    },
+    {
+      "name": "nested_set tree invariants",
+      "status": "passed"
+    },
+    {
+      "name": "closure_table CRUD definitions",
+      "status": "passed"
+    },
+    {
+      "name": "closure_table Q1-Q10",
+      "status": "passed"
+    },
+    {
+      "name": "closure_table tree invariants",
+      "status": "passed"
+    },
+    {
+      "name": "Graph friends_of_friends",
+      "status": "passed"
+    },
+    {
+      "name": "Graph shortest_path",
+      "status": "passed"
+    },
+    {
+      "name": "Graph cycle_detection",
+      "status": "passed"
+    },
+    {
+      "name": "Graph recommendation",
+      "status": "passed"
+    },
+    {
+      "name": "Graph expected shortest path and recommendations",
+      "status": "passed"
+    },
+    {
+      "name": "T1 transaction",
+      "status": "passed"
+    },
+    {
+      "name": "T2 expected errors and SAVEPOINT persistence",
+      "status": "passed"
+    },
+    {
+      "name": "T3 synchronized deadlock SQLSTATE 40P01",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 5 clients",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 5 counters",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 10 clients",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 10 counters",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 20 clients",
+      "status": "passed"
+    },
+    {
+      "name": "pgbench 20 counters",
+      "status": "passed"
+    }
+  ],
+  "cluster": "private SCRAM loopback; no existing database touched",
+  "neo4j": "passed; see ../neo4j_20261102T122846Z/summary.json",
+  "python_benchmark": "passed; 360 rows; benchmark/results/runs/20261102T071519891859Z"
+}

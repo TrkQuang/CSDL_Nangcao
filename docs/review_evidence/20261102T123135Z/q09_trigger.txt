@@ -1,0 +1,5 @@
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/q09_trigger.sql:45: NOTICE:  trigger "trg_check_comment_parent" for relation "comment" does not exist, skipping

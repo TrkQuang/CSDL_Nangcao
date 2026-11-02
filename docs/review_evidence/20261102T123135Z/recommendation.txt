@@ -1,0 +1,7 @@
+ recommended_user_id | recommended_user_name | mutual_friends_count 
+---------------------+-----------------------+----------------------
+                   4 | Dung                  |                    1
+                   5 | Em                    |                    1
+(2 rows)
+
+

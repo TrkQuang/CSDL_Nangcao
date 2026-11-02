@@ -1,0 +1,83 @@
+ comment_id |          content           |      indented_content      | level 
+------------+----------------------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | c1 - Bình luận gốc 1 bài 1 |     0
+          2 | c2 - Phản hồi c1           |   c2 - Phản hồi c1         |     1
+          3 | c3 - Phản hồi c2           |     c3 - Phản hồi c2       |     2
+          4 | c4 - Bình luận gốc 2 bài 1 | c4 - Bình luận gốc 2 bài 1 |     0
+(4 rows)
+
+ comment_id |          content           | path  
+------------+----------------------------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+          3 | c3 - Phản hồi c2           | 1.2.3
+(3 rows)
+
+ comment_id |          content           | path 
+------------+----------------------------+------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1
+          2 | c2 - Phản hồi c1           | 1.2
+(2 rows)
+
+ comment_id |     content      | path | depth 
+------------+------------------+------+-------
+          2 | c2 - Phản hồi c1 | 1.2  |     2
+(1 row)
+
+BEGIN
+DO
+ comment_id | post_id | path  |          content           
+------------+---------+-------+----------------------------
+          1 |       1 | 1     | c1 - Bình luận gốc 1 bài 1
+          2 |       1 | 1.2   | c2 - Phản hồi c1
+          3 |       1 | 1.2.3 | c3 - Phản hồi c2
+          7 |       1 | 1.2.7 | Q5 path enum - child of 2
+          4 |       1 | 4     | c4 - Bình luận gốc 2 bài 1
+          5 |       2 | 5     | c5 - Bình luận gốc bài 2
+(6 rows)
+
+ROLLBACK
+BEGIN
+DELETE 2
+DELETE 1
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          5 | 5    | c5 - Bình luận gốc bài 2
+(3 rows)
+
+ROLLBACK
+BEGIN
+DO
+ comment_id | path |          content           
+------------+------+----------------------------
+          1 | 1    | c1 - Bình luận gốc 1 bài 1
+          4 | 4    | c4 - Bình luận gốc 2 bài 1
+          2 | 4    | c2 - Phản hồi c1
+          3 | 4.3  | c3 - Phản hồi c2
+          5 | 5    | c5 - Bình luận gốc bài 2
+(5 rows)
+
+ROLLBACK
+ subtree_node_count 
+--------------------
+                  3
+(1 row)
+
+ comment_id |          content           | path  | depth 
+------------+----------------------------+-------+-------
+          1 | c1 - Bình luận gốc 1 bài 1 | 1     |     1
+          2 | c2 - Phản hồi c1           | 1.2   |     2
+          3 | c3 - Phản hồi c2           | 1.2.3 |     3
+(3 rows)
+
+ ancestor_id | descendant_id | is_ancestor 
+-------------+---------------+-------------
+           1 |             3 | t
+           4 |             3 | f
+(2 rows)
+
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:92: NOTICE:  Đã thêm comment_id = 7 với path = 1.2.7.
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/path_enumeration/queries_q1_q10.sql:181: NOTICE:  Đã chuyển subtree(1.2) xuống làm con của 4.

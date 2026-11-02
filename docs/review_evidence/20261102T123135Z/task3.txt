@@ -1,0 +1,14 @@
+BEGIN
+DO
+DO
+DO
+CALL
+DO
+DO
+DO
+DO
+ROLLBACK
+Task 3 regression checks passed
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:86: NOTICE:  Đã kết bạn thành công giữa user 1 và user 6
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/sql_advanced/validate_task3.sql:149: NOTICE:  Executing Dynamic Query: SELECT post_id, title, post_type, author_id FROM post WHERE 1=1 AND title ILIKE $1

@@ -1,0 +1,42 @@
+DROP TABLE
+DROP TABLE
+DROP TABLE
+CREATE TABLE
+INSERT 0 4
+                        title                         
+------------------------------------------------------
+ === DỮ LIỆU BẢNG BỊ TÍCH DESCARTES (VI PHẠM 4NF) ===
+(1 row)
+
+ user_id | interest | subject 
+---------+----------+---------
+       1 | Neo4j    | CSDL
+       1 | Neo4j    | Web
+       1 | Python   | CSDL
+       1 | Python   | Web
+(4 rows)
+
+CREATE TABLE
+CREATE TABLE
+INSERT 0 2
+INSERT 0 2
+INSERT 0 1
+                     title                      
+------------------------------------------------
+ === TÁI LẬP DỮ LIỆU TỰ NHIÊN TỪ 2 BẢNG 4NF ===
+(1 row)
+
+ user_id |     interest     | subject 
+---------+------------------+---------
+       1 | Machine Learning | CSDL
+       1 | Machine Learning | Web
+       1 | Neo4j            | CSDL
+       1 | Neo4j            | Web
+       1 | Python           | CSDL
+       1 | Python           | Web
+(6 rows)
+
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:32: NOTICE:  table "demo_user_profile_bad" does not exist, skipping
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:33: NOTICE:  table "user_interest" does not exist, skipping
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/mvd_4nf.sql:34: NOTICE:  table "user_subject" does not exist, skipping

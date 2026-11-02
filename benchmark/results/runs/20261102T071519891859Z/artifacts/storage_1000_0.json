@@ -1,0 +1,78 @@
+{
+  "dataset_size": 1000,
+  "has_index": false,
+  "relations": [
+    {
+      "relation_name": "comment",
+      "table_bytes": 81920,
+      "index_bytes": 40960,
+      "total_bytes": 155648,
+      "table_size": "80 kB",
+      "index_size": "40 kB",
+      "total_size": "152 kB"
+    },
+    {
+      "relation_name": "comment_closure",
+      "table_bytes": 286720,
+      "index_bytes": 204800,
+      "total_bytes": 516096,
+      "table_size": "280 kB",
+      "index_size": "200 kB",
+      "total_size": "504 kB"
+    },
+    {
+      "relation_name": "comment_ns",
+      "table_bytes": 49152,
+      "index_bytes": 57344,
+      "total_bytes": 131072,
+      "table_size": "48 kB",
+      "index_size": "56 kB",
+      "total_size": "128 kB"
+    },
+    {
+      "relation_name": "comment_path",
+      "table_bytes": 98304,
+      "index_bytes": 40960,
+      "total_bytes": 172032,
+      "table_size": "96 kB",
+      "index_size": "40 kB",
+      "total_size": "168 kB"
+    },
+    {
+      "relation_name": "friendship",
+      "table_bytes": 229376,
+      "index_bytes": 172032,
+      "total_bytes": 425984,
+      "table_size": "224 kB",
+      "index_size": "168 kB",
+      "total_size": "416 kB"
+    }
+  ],
+  "indexes": [
+    [
+      "comment",
+      "comment_pkey",
+      "CREATE UNIQUE INDEX comment_pkey ON public.comment USING btree (comment_id)"
+    ],
+    [
+      "comment_closure",
+      "comment_closure_pkey",
+      "CREATE UNIQUE INDEX comment_closure_pkey ON public.comment_closure USING btree (ancestor, descendant)"
+    ],
+    [
+      "comment_ns",
+      "comment_ns_pkey",
+      "CREATE UNIQUE INDEX comment_ns_pkey ON public.comment_ns USING btree (comment_id)"
+    ],
+    [
+      "comment_path",
+      "comment_path_pkey",
+      "CREATE UNIQUE INDEX comment_path_pkey ON public.comment_path USING btree (comment_id)"
+    ],
+    [
+      "friendship",
+      "friendship_pkey",
+      "CREATE UNIQUE INDEX friendship_pkey ON public.friendship USING btree (user_a, user_b)"
+    ]
+  ]
+}

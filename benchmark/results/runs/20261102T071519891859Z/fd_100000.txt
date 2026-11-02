@@ -1,0 +1,47 @@
+ test_name | user_id | distinct_emails 
+-----------+---------+-----------------
+(0 rows)
+
+ test_name | email | distinct_users 
+-----------+-------+----------------
+(0 rows)
+
+ test_name | post_id | distinct_groups | distinct_authors 
+-----------+---------+-----------------+------------------
+(0 rows)
+
+ test_name | group_id | distinct_names | distinct_owners 
+-----------+----------+----------------+-----------------
+(0 rows)
+
+ test_name | comment_id | distinct_posts | distinct_authors 
+-----------+------------+----------------+------------------
+(0 rows)
+
+ test_name | full_name | email_count 
+-----------+-----------+-------------
+(0 rows)
+
+ test_name | name | group_count 
+-----------+------+-------------
+(0 rows)
+
+ test_name | child_id | child_post_id | parent_id | parent_post_id 
+-----------+----------+---------------+-----------+----------------
+(0 rows)
+
+ test_name | user_a | user_b 
+-----------+--------+--------
+(0 rows)
+
+ test_name | user_id | stored_count | calculated_count 
+-----------+---------+--------------+------------------
+(0 rows)
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f1: comment_id -> all comment attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f2: post_id -> all post attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f3: group_id -> all group attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f4: user_id -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS f5: email -> all user attributes
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/normalization/fd_check.sql:182: NOTICE:  PASS BR2/BR6/BR9 and accidental FD counterexample
+DO

@@ -1,0 +1,6 @@
+BEGIN
+CREATE INDEX
+DO
+ROLLBACK
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/benchmark/validate_dataset.sql:83: NOTICE:  PASS: 5 nodes; paths, closure pairs, nested intervals, friend_count verified

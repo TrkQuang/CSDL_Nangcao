@@ -1,0 +1,22 @@
+BEGIN
+INSERT 0 1
+ROLLBACK
+ post_id | group_id | author_id | post_type | title | content | created_at 
+---------+----------+-----------+-----------+-------+---------+------------
+(0 rows)
+
+BEGIN
+INSERT 0 1
+SAVEPOINT
+ROLLBACK
+COMMIT
+ post_id | group_id | author_id | post_type |         title         |     content     |          created_at           
+---------+----------+-----------+-----------+-----------------------+-----------------+-------------------------------
+     100 |        1 |         1 | thaoluan  | Bài viết được giữ lại | Nội dung hợp lệ | 2026-11-02 19:31:50.648301+07
+(1 row)
+
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/transactions/t2_rollback_savepoint.sql:19: ERROR:  new row for relation "friendship" violates check constraint "friendship_check"
+DETAIL:  Failing row contains (5, 2, 2026-11-02 19:31:50.635175+07).
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/transactions/t2_rollback_savepoint.sql:45: ERROR:  new row for relation "friendship" violates check constraint "friendship_check"
+DETAIL:  Failing row contains (5, 2, 2026-11-02 19:31:50.648301+07).

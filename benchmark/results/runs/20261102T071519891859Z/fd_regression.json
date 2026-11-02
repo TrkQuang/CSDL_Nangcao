@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "tests": [
+    {
+      "test": "valid seed",
+      "status": "passed"
+    },
+    {
+      "test": "f1: reject changed comment.parent_id",
+      "status": "passed"
+    },
+    {
+      "test": "f1: reject changed comment.content",
+      "status": "passed"
+    },
+    {
+      "test": "f1: reject changed comment.created_at",
+      "status": "passed"
+    },
+    {
+      "test": "f2: reject changed post.group_id",
+      "status": "passed"
+    },
+    {
+      "test": "f3: reject changed study_group.topic",
+      "status": "passed"
+    },
+    {
+      "test": "f4: reject changed users.full_name",
+      "status": "passed"
+    },
+    {
+      "test": "f5: reject changed users.user_id",
+      "status": "passed"
+    },
+    {
+      "test": "BR9: reject incorrect friend_count",
+      "status": "passed"
+    },
+    {
+      "test": "valid seed after rollback",
+      "status": "passed"
+    }
+  ]
+}

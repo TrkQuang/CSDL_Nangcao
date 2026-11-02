@@ -1,0 +1,21 @@
+CREATE FUNCTION
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_comment_id 
+----------------
+              6
+(1 row)
+
+ al_move_subtree 
+-----------------
+ 
+(1 row)
+
+ deleted_node_count 
+--------------------
+                  3
+(1 row)
+
+ROLLBACK
+

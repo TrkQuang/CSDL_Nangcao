@@ -1,0 +1,113 @@
+{
+  "dataset_size": 1000,
+  "has_index": true,
+  "relations": [
+    {
+      "relation_name": "comment",
+      "table_bytes": 81920,
+      "index_bytes": 73728,
+      "total_bytes": 188416,
+      "table_size": "80 kB",
+      "index_size": "72 kB",
+      "total_size": "184 kB"
+    },
+    {
+      "relation_name": "comment_closure",
+      "table_bytes": 286720,
+      "index_bytes": 589824,
+      "total_bytes": 901120,
+      "table_size": "280 kB",
+      "index_size": "576 kB",
+      "total_size": "880 kB"
+    },
+    {
+      "relation_name": "comment_ns",
+      "table_bytes": 49152,
+      "index_bytes": 106496,
+      "total_bytes": 180224,
+      "table_size": "48 kB",
+      "index_size": "104 kB",
+      "total_size": "176 kB"
+    },
+    {
+      "relation_name": "comment_path",
+      "table_bytes": 98304,
+      "index_bytes": 212992,
+      "total_bytes": 344064,
+      "table_size": "96 kB",
+      "index_size": "208 kB",
+      "total_size": "336 kB"
+    },
+    {
+      "relation_name": "friendship",
+      "table_bytes": 229376,
+      "index_bytes": 303104,
+      "total_bytes": 557056,
+      "table_size": "224 kB",
+      "index_size": "296 kB",
+      "total_size": "544 kB"
+    }
+  ],
+  "indexes": [
+    [
+      "comment",
+      "comment_pkey",
+      "CREATE UNIQUE INDEX comment_pkey ON public.comment USING btree (comment_id)"
+    ],
+    [
+      "comment",
+      "idx_bench_comment_post_parent",
+      "CREATE INDEX idx_bench_comment_post_parent ON public.comment USING btree (post_id, parent_id)"
+    ],
+    [
+      "comment_closure",
+      "comment_closure_pkey",
+      "CREATE UNIQUE INDEX comment_closure_pkey ON public.comment_closure USING btree (ancestor, descendant)"
+    ],
+    [
+      "comment_closure",
+      "idx_bench_closure_ancestor_depth_descendant",
+      "CREATE INDEX idx_bench_closure_ancestor_depth_descendant ON public.comment_closure USING btree (ancestor, depth, descendant)"
+    ],
+    [
+      "comment_closure",
+      "idx_bench_closure_descendant_ancestor",
+      "CREATE INDEX idx_bench_closure_descendant_ancestor ON public.comment_closure USING btree (descendant, ancestor)"
+    ],
+    [
+      "comment_ns",
+      "comment_ns_pkey",
+      "CREATE UNIQUE INDEX comment_ns_pkey ON public.comment_ns USING btree (comment_id)"
+    ],
+    [
+      "comment_ns",
+      "idx_bench_comment_ns_post_lft_rgt",
+      "CREATE INDEX idx_bench_comment_ns_post_lft_rgt ON public.comment_ns USING btree (post_id, lft, rgt)"
+    ],
+    [
+      "comment_path",
+      "comment_path_pkey",
+      "CREATE UNIQUE INDEX comment_path_pkey ON public.comment_path USING btree (comment_id)"
+    ],
+    [
+      "comment_path",
+      "idx_bench_comment_path_gist",
+      "CREATE INDEX idx_bench_comment_path_gist ON public.comment_path USING gist (path)"
+    ],
+    [
+      "comment_path",
+      "idx_bench_comment_path_post",
+      "CREATE INDEX idx_bench_comment_path_post ON public.comment_path USING btree (post_id)"
+    ],
+    [
+      "friendship",
+      "friendship_pkey",
+      "CREATE UNIQUE INDEX friendship_pkey ON public.friendship USING btree (user_a, user_b)"
+    ],
+    [
+      "friendship",
+      "idx_bench_friendship_user_b",
+      "CREATE INDEX idx_bench_friendship_user_b ON public.friendship USING btree (user_b, user_a)"
+    ]
+  ]
+}

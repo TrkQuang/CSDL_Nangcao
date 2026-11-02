@@ -1,0 +1,137 @@
+{
+  "results": [
+    {
+      "columns": [
+        "cycle_ids",
+        "cycle_names",
+        "path_length"
+      ],
+      "data": [
+        {
+          "row": [
+            [
+              1,
+              2,
+              3,
+              1
+            ],
+            [
+              "An",
+              "Binh",
+              "Chi",
+              "An"
+            ],
+            3
+          ],
+          "meta": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": [
+            [
+              2,
+              3,
+              5,
+              4,
+              2
+            ],
+            [
+              "Binh",
+              "Chi",
+              "Em",
+              "Dung",
+              "Binh"
+            ],
+            4
+          ],
+          "meta": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": [
+            [
+              1,
+              2,
+              4,
+              5,
+              3,
+              1
+            ],
+            [
+              "An",
+              "Binh",
+              "Dung",
+              "Em",
+              "Chi",
+              "An"
+            ],
+            5
+          ],
+          "meta": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "notifications": [
+    {
+      "code": "Neo.ClientNotification.Statement.FeatureDeprecationWarning",
+      "severity": "WARNING",
+      "title": "This feature is deprecated and will be removed in future versions.",
+      "description": "The query used a deprecated function: `id`.",
+      "position": {
+        "offset": 75,
+        "line": 2,
+        "column": 38
+      }
+    },
+    {
+      "code": "Neo.ClientNotification.Statement.FeatureDeprecationWarning",
+      "severity": "WARNING",
+      "title": "This feature is deprecated and will be removed in future versions.",
+      "description": "The query used a deprecated function: `id`.",
+      "position": {
+        "offset": 84,
+        "line": 2,
+        "column": 47
+      }
+    }
+  ],
+  "errors": [],
+  "lastBookmarks": [
+    "FB:kcwQ9QqL8UlnQH6SjJYZ6oNZIh2Q"
+  ]
+}

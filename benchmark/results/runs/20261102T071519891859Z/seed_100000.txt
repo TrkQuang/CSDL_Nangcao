@@ -1,0 +1,62 @@
+BEGIN
+ valid_bench_size 
+------------------
+                1
+(1 row)
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "friendship"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "follow"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "study_group"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "group_member"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "post"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "post_reaction"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "comment"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "comment_path"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "comment_ns"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "comment_closure"
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/seed_bench.sql:20: NOTICE:  truncate cascades to table "folder"
+TRUNCATE TABLE
+INSERT 0 100000
+ setval 
+--------
+ 100000
+(1 row)
+
+INSERT 0 10
+ setval 
+--------
+     10
+(1 row)
+
+INSERT 0 100000
+INSERT 0 10
+ setval 
+--------
+     10
+(1 row)
+
+INSERT 0 500000
+UPDATE 100000
+INSERT 0 100000
+ setval 
+--------
+ 100000
+(1 row)
+
+CREATE INDEX
+INSERT 0 100000
+INSERT 0 100000
+INSERT 0 1067146
+DROP INDEX
+ANALYZE
+ANALYZE
+ANALYZE
+ANALYZE
+ANALYZE
+ANALYZE
+COMMIT
+ requested_size | comment_count | path_count | nested_set_count | closure_row_count | friendship_count 
+----------------+---------------+------------+------------------+-------------------+------------------
+         100000 |        100000 |     100000 |           100000 |           1067146 |           500000
+(1 row)
+

@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "tests": {
+    "friends_of_friends": "passed",
+    "shortest_path": "passed",
+    "cycle_detection": "passed",
+    "recommendation": "passed"
+  },
+  "counts": [
+    6,
+    6,
+    4
+  ],
+  "version": {
+    "results": [
+      {
+        "columns": [
+          "name",
+          "versions",
+          "edition"
+        ],
+        "data": [
+          {
+            "row": [
+              "Neo4j Kernel",
+              [
+                "5.18.1"
+              ],
+              "community"
+            ],
+            "meta": [
+              null,
+              null,
+              null
+            ]
+          }
+        ]
+      }
+    ],
+    "errors": [],
+    "lastBookmarks": [
+      "FB:kcwQ9QqL8UlnQH6SjJYZ6oNZIh2Q"
+    ]
+  },
+  "image": "neo4j:5.18-community",
+  "isolation": "new disposable container; loopback HTTP only"
+}

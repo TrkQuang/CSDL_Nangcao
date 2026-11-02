@@ -1,0 +1,10 @@
+A
+2
+
+B
+ERROR:  40P01: deadlock detected
+DETAIL:  Process 6740 waits for ShareLock on transaction 967; blocked by process 11640.
+Process 11640 waits for ShareLock on transaction 968; blocked by process 6740.
+HINT:  See server log for query details.
+CONTEXT:  while locking tuple (0,7) in relation "users"
+LOCATION:  DeadLockReport, deadlock.c:1135

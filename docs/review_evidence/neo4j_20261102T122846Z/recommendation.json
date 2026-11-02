@@ -1,0 +1,50 @@
+{
+  "results": [
+    {
+      "columns": [
+        "recommended_user_id",
+        "recommended_user_name",
+        "mutual_friends_count",
+        "mutual_friends"
+      ],
+      "data": [
+        {
+          "row": [
+            4,
+            "Dung",
+            1,
+            [
+              "Binh"
+            ]
+          ],
+          "meta": [
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": [
+            5,
+            "Em",
+            1,
+            [
+              "Chi"
+            ]
+          ],
+          "meta": [
+            null,
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "lastBookmarks": [
+    "FB:kcwQ9QqL8UlnQH6SjJYZ6oNZIh2Q"
+  ]
+}

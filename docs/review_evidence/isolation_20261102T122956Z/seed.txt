@@ -1,0 +1,58 @@
+CREATE EXTENSION
+CREATE TABLE
+CREATE TABLE
+CREATE VIEW
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:13: NOTICE:  constraint "chk_group_role" of relation "group_member" does not exist, skipping
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:64: NOTICE:  trigger "trg_check_post_author_membership" for relation "post" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:121: NOTICE:  trigger "trg_protect_group_owner" for relation "group_member" does not exist, skipping
+DROP TRIGGER
+CREATE TRIGGER
+TRUNCATE TABLE
+INSERT 0 6
+ setval 
+--------
+      6
+(1 row)
+
+INSERT 0 6
+UPDATE 6
+INSERT 0 4
+INSERT 0 2
+ setval 
+--------
+      2
+(1 row)
+
+INSERT 0 6
+INSERT 0 3
+ setval 
+--------
+      3
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+ setval 
+--------
+      5
+(1 row)
+
+INSERT 0 5
+INSERT 0 5
+INSERT 0 8

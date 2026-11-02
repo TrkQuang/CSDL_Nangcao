@@ -1,0 +1,46 @@
+CREATE FUNCTION
+CREATE FUNCTION
+BEGIN
+ new_id 
+--------
+      6
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          6 |     2
+        2 |          6 |     1
+        6 |          6 |     0
+(3 rows)
+
+ROLLBACK
+BEGIN
+ inserted_rows 
+---------------
+             2
+(1 row)
+
+ ancestor | descendant | depth 
+----------+------------+-------
+        1 |          1 |     0
+        2 |          2 |     0
+        2 |          3 |     1
+        3 |          3 |     0
+        4 |          2 |     1
+        4 |          3 |     2
+        4 |          4 |     0
+        5 |          5 |     0
+(8 rows)
+
+ROLLBACK
+BEGIN
+DO
+ROLLBACK
+BEGIN
+DO
+ROLLBACK
+DROP FUNCTION
+DROP FUNCTION
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:155: NOTICE:  PASS: di chuyển vào hậu duệ đã bị chặn
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/tree_models/closure_table/crud.sql:175: NOTICE:  PASS: di chuyển xuyên bài viết đã bị chặn

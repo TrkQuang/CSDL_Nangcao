@@ -1,0 +1,7 @@
+ user_id | full_name 
+---------+-----------
+       4 | Dung
+       5 | Em
+(2 rows)
+
+

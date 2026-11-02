@@ -1,0 +1,12 @@
+BEGIN
+INSERT 0 1
+UPDATE 1
+UPDATE 1
+COMMIT
+ user_id | full_name | friend_count | actual_edge_count 
+---------+-----------+--------------+-------------------
+       1 | An        |            3 |                 3
+       6 | Phong     |            1 |                 1
+(2 rows)
+
+

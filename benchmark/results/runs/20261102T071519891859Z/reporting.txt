@@ -1,0 +1,10 @@
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\q2_subtree_1000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\q2_subtree_10000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\q2_subtree_100000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\insert_leaf_1000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\insert_leaf_10000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\insert_leaf_100000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\update_moveleaf_1000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\update_moveleaf_10000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\charts\update_moveleaf_100000.png
+Wrote C:\Users\Quynh\Documents\csdlnc\CSDL_Nangcao\benchmark\results\runs\20261102T071519891859Z\benchmark_summary.md

@@ -1,0 +1,45 @@
+{
+  "results": [
+    {
+      "columns": [
+        "friend_of_friend_id",
+        "friend_of_friend_name",
+        "connected_via"
+      ],
+      "data": [
+        {
+          "row": [
+            4,
+            "Dung",
+            [
+              "Binh"
+            ]
+          ],
+          "meta": [
+            null,
+            null,
+            null
+          ]
+        },
+        {
+          "row": [
+            5,
+            "Em",
+            [
+              "Chi"
+            ]
+          ],
+          "meta": [
+            null,
+            null,
+            null
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "lastBookmarks": [
+    "FB:kcwQ9QqL8UlnQH6SjJYZ6oNZIh2Q"
+  ]
+}

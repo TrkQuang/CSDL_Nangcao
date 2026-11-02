@@ -1,0 +1,12 @@
+ALTER TABLE
+ALTER TABLE
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+CREATE FUNCTION
+DROP TRIGGER
+CREATE TRIGGER
+
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:13: NOTICE:  constraint "chk_group_role" of relation "group_member" does not exist, skipping
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:64: NOTICE:  trigger "trg_check_post_author_membership" for relation "post" does not exist, skipping
+psql:C:/Users/Quynh/Documents/csdlnc/CSDL_Nangcao/database/constraints.sql:121: NOTICE:  trigger "trg_protect_group_owner" for relation "group_member" does not exist, skipping

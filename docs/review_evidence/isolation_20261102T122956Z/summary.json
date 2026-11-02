@@ -1,0 +1,24 @@
+{
+  "READ COMMITTED": {
+    "first": 2,
+    "second": 3,
+    "status": "passed"
+  },
+  "REPEATABLE READ": {
+    "first": 2,
+    "second": 2,
+    "status": "passed"
+  },
+  "SERIALIZABLE": {
+    "status": "passed",
+    "sqlstate": "40001",
+    "error": "ERROR:  could not serialize access due to read/write dependencies among transactions\nDETAIL:  Reason code: Canceled on identification as a pivot, during commit attempt.\nHINT:  The transaction might succeed if retried.\n"
+  },
+  "embedded Python": {
+    "status": "passed",
+    "friend_ids": [
+      2,
+      3
+    ]
+  }
+}
